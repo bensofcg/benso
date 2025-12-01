@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Benso - Contáctanos y agenda tu asesoría">
+    <title>Contacto | Benso</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">BEN<span>SO</span></a>
+            
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="servicios.html">Servicios</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="galeria.html">Galería</a></li>
+                    <li><a href="contacto.html" class="active">Contacto</a></li>
+                </ul>
+            </nav>
+            
+            <a href="https://wa.me/5491100000000?text=Hola%2C%20me%20gustaría%20agendar%20una%20asesoría" class="cta-header" target="_blank" rel="noopener">
+                📱 Agenda tu Asesoría
+            </a>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="hero" style="min-height: 40vh; padding: 4rem 0;">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Contacto</h1>
+                <p class="slogan">Estamos aquí para ayudarte</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section>
+        <div class="container">
+            <div class="contact-section">
+                <!-- Contact Form -->
+                <div class="contact-form">
+                    <h3 style="color: var(--primary); margin-bottom: 1.5rem; font-size: 1.5rem;">Envíanos un Mensaje</h3>
+                    
+                    <!--
+                    ===================================================================
+                    IMPORTANTE: Este formulario HTML es solo estructural.
+                    Para que funcione correctamente y envíe los mensajes, es necesario
+                    configurar un backend de terceros como:
+                    - Formspree (https://formspree.io)
+                    - Netlify Forms
+                    - EmailJS
+                    - O cualquier otro servicio similar.
+                    
+                    Ejemplo con Formspree:
+                    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                    ===================================================================
+                    -->
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <label for="nombre">Nombre Completo *</label>
+                            <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Correo Electrónico *</label>
+                            <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="mensaje">Mensaje *</label>
+                            <textarea id="mensaje" name="mensaje" required placeholder="¿En qué podemos ayudarte?"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-submit">Enviar Mensaje</button>
+                    </form>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="contact-info">
+                    <h3>Información de Contacto</h3>
+                    
+                    <div class="bento-card" style="margin-bottom: 1.5rem;">
+                        <h4 style="color: var(--primary); margin-bottom: 0.5rem;">📧 Email</h4>
+                        <p>info@benso.com</p>
+                    </div>
+                    
+                    <div class="bento-card" style="margin-bottom: 1.5rem;">
+                        <h4 style="color: var(--primary); margin-bottom: 0.5rem;">📱 WhatsApp</h4>
+                        <p>+54 9 11 0000-0000</p>
+                    </div>
+                    
+                    <div class="bento-card" style="margin-bottom: 1.5rem;">
+                        <h4 style="color: var(--primary); margin-bottom: 0.5rem;">🕐 Horarios de Atención</h4>
+                        <p>Lunes a Viernes: 9:00 - 18:00<br>Sábados: 9:00 - 13:00</p>
+                    </div>
+                    
+                    <!-- WhatsApp CTA -->
+                    <a href="https://wa.me/5491100000000?text=Hola%2C%20me%20gustaría%20agendar%20una%20cita%20para%20consultoría." class="whatsapp-cta" target="_blank" rel="noopener">
+                        📱 Agendar Cita por WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="alt-bg">
+        <div class="container">
+            <div class="section-title">
+                <h2>Preguntas Frecuentes</h2>
+                <p>Respuestas a las dudas más comunes</p>
+            </div>
+            
+            <div class="bento-grid">
+                <div class="bento-card">
+                    <h3>¿Cómo funciona la primera consulta?</h3>
+                    <p>La primera consulta es gratuita. Agendamos una videollamada de 30 minutos para conocer tu negocio y entender cómo podemos ayudarte.</p>
+                </div>
+                
+                <div class="bento-card">
+                    <h3>¿Trabajan con negocios de cualquier tamaño?</h3>
+                    <p>Nos especializamos en PyMEs y emprendimientos. Si tienes un negocio pequeño o mediano, somos la opción ideal para ti.</p>
+                </div>
+                
+                <div class="bento-card">
+                    <h3>¿Cuánto tiempo toma ver resultados?</h3>
+                    <p>Depende del servicio, pero generalmente comenzarás a ver mejoras en los primeros 30-60 días de trabajo conjunto.</p>
+                </div>
+                
+                <div class="bento-card">
+                    <h3>¿Ofrecen planes de pago?</h3>
+                    <p>Sí, ofrecemos opciones de financiamiento y planes de pago flexibles para que puedas acceder a nuestros servicios.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section>
+        <div class="container text-center">
+            <h2 style="color: var(--primary); margin-bottom: 1rem;">¿Prefieres una respuesta inmediata?</h2>
+            <p style="margin-bottom: 2rem; opacity: 0.8;">Escríbenos por WhatsApp y te respondemos al instante.</p>
+            <a href="https://wa.me/5491100000000?text=Hola%2C%20tengo%20una%20consulta%20sobre%20sus%20servicios." class="hero-cta" style="background: #25D366; color: var(--white);" target="_blank" rel="noopener">
+                💬 Chatear Ahora
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>BENSO</h4>
+                    <p>Consultoría y Soluciones Digitales para la Rentabilidad Sostenible.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="servicios.html">Servicios</a></li>
+                        <li><a href="nosotros.html">Nosotros</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li>📧 info@benso.com</li>
+                        <li>📱 WhatsApp: +54 9 11 0000-0000</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Benso. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
