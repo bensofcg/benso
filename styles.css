@@ -233,11 +233,6 @@ nav ul li a.active {
     opacity: 0.8;
 }
 
-.bento-card .icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
-
 /* ===================================
    Section Styles
 =================================== */
@@ -755,6 +750,38 @@ footer {
 
 .service-card.hidden {
     display: none;
+}
+
+/* ===================================
+   SVG Icon Styles
+=================================== */
+.icon-svg {
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.icon-svg svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+}
+
+.bento-card .icon-svg {
+    color: var(--primary);
+}
+
+.mvv-card .icon-svg,
+.gallery-item .icon-svg {
+    color: var(--white);
+}
+
+/* Social media icons in footer */
+.social-icon {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
 }
 
 /* ===================================
