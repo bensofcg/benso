@@ -24,78 +24,34 @@
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="servicios.html">Servicios</a></li>
                     <li><a href="nosotros.html">Nosotros</a></li>
-                    <li><a href="galeria.html">Galería</a></li>
+                    <li><a href="galeria.html">Eventos</a></li>
                     <li><a href="contacto.html" class="active">Contacto</a></li>
                 </ul>
             </nav>
-            
-            <a href="https://wa.me/5491100000000?text=Hola%2C%20me%20gustaría%20agendar%20una%20asesoría" class="cta-header" target="_blank" rel="noopener">
-                📱 Agenda tu Asesoría
-            </a>
         </div>
     </header>
 
-    <!-- Page Header -->
-    <section class="hero" style="min-height: 40vh; padding: 4rem 0;">
+    <!-- Agendar Cita Section -->
+    <section style="padding-top: 7rem;">
         <div class="container">
-            <div class="hero-content">
-                <h1>Contacto</h1>
-                <p class="slogan">Estamos aquí para ayudarte</p>
+            <div class="section-title">
+                <h2>Agenda tu Cita</h2>
+                <p>Contáctanos por WhatsApp para agendar una consultoría</p>
             </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section>
-        <div class="container">
-            <div class="contact-section">
-                <!-- Contact Form -->
-                <div class="contact-form">
-                    <h3 style="color: var(--primary); margin-bottom: 1.5rem; font-size: 1.5rem;">Envíanos un Mensaje</h3>
-                    
-                    <!-- IMPORTANTE: Requiere backend (ej: Formspree) para funcionar -->
-                    <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Para enviar mensajes, configure un servicio backend como Formspree.')">
-                        <div class="form-group">
-                            <label for="nombre">Nombre Completo *</label>
-                            <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Correo Electrónico *</label>
-                            <input type="email" id="email" name="email" required placeholder="tu@email.com">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="mensaje">Mensaje *</label>
-                            <textarea id="mensaje" name="mensaje" required placeholder="¿En qué podemos ayudarte?"></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn-submit">Enviar Mensaje</button>
-                    </form>
-                </div>
-                
-                <!-- Contact Info -->
-                <div class="contact-info">
-                    <h3>Información de Contacto</h3>
-                    
-                    <div class="bento-card" style="margin-bottom: 1.5rem;">
-                        <h4 style="color: var(--primary); margin-bottom: 0.5rem;">📧 Email</h4>
-                        <p>info@benso.com</p>
-                    </div>
-                    
-                    <div class="bento-card" style="margin-bottom: 1.5rem;">
-                        <h4 style="color: var(--primary); margin-bottom: 0.5rem;">📱 WhatsApp</h4>
-                        <p>+54 9 11 0000-0000</p>
-                    </div>
-                    
-                    <div class="bento-card" style="margin-bottom: 1.5rem;">
-                        <h4 style="color: var(--primary); margin-bottom: 0.5rem;">🕐 Horarios de Atención</h4>
-                        <p>Lunes a Viernes: 9:00 - 18:00<br>Sábados: 9:00 - 13:00</p>
-                    </div>
-                    
-                    <!-- WhatsApp CTA -->
-                    <a href="https://wa.me/5491100000000?text=Hola%2C%20me%20gustaría%20agendar%20una%20cita%20para%20consultoría." class="whatsapp-cta" target="_blank" rel="noopener">
-                        📱 Agendar Cita por WhatsApp
+            
+            <div class="text-center">
+                <div class="bento-card" style="max-width: 600px; margin: 0 auto;">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem;">📱 WhatsApp</h3>
+                    <p style="margin-bottom: 1.5rem;">
+                        La forma más rápida de agendar tu cita. Haz clic en el botón y envíanos un mensaje con:
+                    </p>
+                    <ul style="text-align: left; margin-bottom: 2rem; padding-left: 2rem;">
+                        <li>Tu nombre y empresa</li>
+                        <li>Servicio de interés</li>
+                        <li>Disponibilidad horaria</li>
+                    </ul>
+                    <a href="https://wa.me/5491100000000?text=Hola%2C%20me%20gustaría%20agendar%20una%20cita%20para%20consultoría.%0A%0ANombre:%0AEmpresa:%0AServicio%20de%20interés:%0ADisponibilidad:" class="hero-cta" style="background: #25D366; color: var(--white);" target="_blank" rel="noopener">
+                        💬 Agendar Cita por WhatsApp
                     </a>
                 </div>
             </div>
@@ -107,28 +63,62 @@
         <div class="container">
             <div class="section-title">
                 <h2>Preguntas Frecuentes</h2>
-                <p>Respuestas a las dudas más comunes</p>
+                <p>Encuentra respuestas a las dudas más comunes</p>
             </div>
             
-            <div class="bento-grid">
-                <div class="bento-card">
-                    <h3>¿Cómo funciona la primera consulta?</h3>
-                    <p>La primera consulta es gratuita. Agendamos una videollamada de 30 minutos para conocer tu negocio y entender cómo podemos ayudarte.</p>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">¿Cómo funciona la primera consulta?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            La primera consulta es gratuita. Agendamos una videollamada de 30 minutos para conocer tu negocio, entender tus desafíos y explicarte cómo podemos ayudarte. No hay compromiso y recibirás recomendaciones iniciales sin costo.
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="bento-card">
-                    <h3>¿Trabajan con negocios de cualquier tamaño?</h3>
-                    <p>Nos especializamos en PyMEs y emprendimientos. Si tienes un negocio pequeño o mediano, somos la opción ideal para ti.</p>
+                <div class="faq-item">
+                    <button class="faq-question">¿Trabajan con negocios de cualquier tamaño?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Nos especializamos en PyMEs y emprendimientos. Si tienes un negocio pequeño o mediano, somos la opción ideal. Nuestros servicios están diseñados específicamente para las necesidades y presupuestos de este tipo de empresas.
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="bento-card">
-                    <h3>¿Cuánto tiempo toma ver resultados?</h3>
-                    <p>Depende del servicio, pero generalmente comenzarás a ver mejoras en los primeros 30-60 días de trabajo conjunto.</p>
+                <div class="faq-item">
+                    <button class="faq-question">¿Cuánto tiempo toma ver resultados?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Depende del servicio contratado. Generalmente, comenzarás a ver mejoras en los primeros 30-60 días de trabajo conjunto. En capacitaciones, el impacto puede ser inmediato al aplicar los conocimientos adquiridos.
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="bento-card">
-                    <h3>¿Ofrecen planes de pago?</h3>
-                    <p>Sí, ofrecemos opciones de financiamiento y planes de pago flexibles para que puedas acceder a nuestros servicios.</p>
+                <div class="faq-item">
+                    <button class="faq-question">¿Ofrecen planes de pago?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Sí, ofrecemos opciones de financiamiento y planes de pago flexibles para que puedas acceder a nuestros servicios. Consultanos por las opciones disponibles según el servicio que te interese.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">¿Qué incluye el diagnóstico empresarial?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Incluye análisis FODA completo, revisión de procesos operativos, análisis financiero, identificación de áreas de mejora y un plan de acción personalizado con recomendaciones específicas para tu negocio.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">¿Trabajan de forma presencial o remota?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Ofrecemos ambas modalidades. Podemos trabajar de forma remota mediante videollamadas y herramientas digitales, o presencial según tu ubicación y preferencia. La mayoría de nuestros servicios pueden realizarse completamente online.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -137,10 +127,10 @@
     <!-- CTA Section -->
     <section>
         <div class="container text-center">
-            <h2 style="color: var(--primary); margin-bottom: 1rem;">¿Prefieres una respuesta inmediata?</h2>
-            <p style="margin-bottom: 2rem; opacity: 0.8;">Escríbenos por WhatsApp y te respondemos al instante.</p>
-            <a href="https://wa.me/5491100000000?text=Hola%2C%20tengo%20una%20consulta%20sobre%20sus%20servicios." class="hero-cta" style="background: #25D366; color: var(--white);" target="_blank" rel="noopener">
-                💬 Chatear Ahora
+            <h2 style="color: var(--primary); margin-bottom: 1rem;">¿Listo para transformar tu negocio?</h2>
+            <p style="margin-bottom: 2rem; opacity: 0.8;">Agenda una cita y descubre cómo podemos ayudarte a alcanzar tus metas.</p>
+            <a href="https://wa.me/5491100000000?text=Hola%2C%20me%20gustaría%20agendar%20una%20cita%20para%20consultoría" class="hero-cta" style="background: #25D366; color: var(--white);" target="_blank" rel="noopener">
+                💬 Agendar Cita por WhatsApp
             </a>
         </div>
     </section>
@@ -152,6 +142,12 @@
                 <div class="footer-section">
                     <h4>BENSO</h4>
                     <p>Consultoría y Soluciones Digitales para la Rentabilidad Sostenible.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">📘</a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">📷</a>
+                        <a href="https://wa.me/5491100000000" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+                        <a href="mailto:info@benso.com" aria-label="Email">📧</a>
+                    </div>
                 </div>
                 
                 <div class="footer-section">
@@ -160,6 +156,7 @@
                         <li><a href="index.html">Inicio</a></li>
                         <li><a href="servicios.html">Servicios</a></li>
                         <li><a href="nosotros.html">Nosotros</a></li>
+                        <li><a href="galeria.html">Eventos</a></li>
                         <li><a href="contacto.html">Contacto</a></li>
                     </ul>
                 </div>
@@ -174,7 +171,7 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 Benso. Todos los derechos reservados.</p>
+                <p>&copy; 2026 Benso. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
