@@ -24,117 +24,86 @@
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="servicios.html" class="active">Servicios</a></li>
                     <li><a href="nosotros.html">Nosotros</a></li>
-                    <li><a href="galeria.html">Galería</a></li>
+                    <li><a href="galeria.html">Eventos</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
                 </ul>
             </nav>
-            
-            <a href="https://wa.me/5491100000000?text=Hola%2C%20me%20gustaría%20agendar%20una%20asesoría" class="cta-header" target="_blank" rel="noopener">
-                📱 Agenda tu Asesoría
-            </a>
         </div>
     </header>
 
-    <!-- Page Header -->
-    <section class="hero" style="min-height: 40vh; padding: 4rem 0;">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Servicios y Productos</h1>
-                <p class="slogan">Soluciones integrales para el crecimiento de tu negocio</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Capacitación Section -->
-    <section>
+    <!-- Services Section with Filters -->
+    <section style="padding-top: 7rem;">
         <div class="container">
             <div class="section-title">
-                <h2>Capacitación</h2>
-                <p>Programas formativos para potenciar tu equipo</p>
+                <h2>Nuestros Servicios</h2>
+                <p>Filtra por categoría para encontrar lo que necesitas</p>
+            </div>
+            
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="capacitacion">Capacitación</button>
+                <button class="filter-btn" data-filter="asesoramiento">Asesoramiento</button>
+                <button class="filter-btn" data-filter="herramientas">Herramientas Digitales</button>
             </div>
             
             <div class="bento-grid">
-                <div class="bento-card service-card">
+                <div class="bento-card service-card" data-category="capacitacion">
                     <span class="category-tag">Capacitación</span>
                     <h3>Gestión Financiera para PyMEs</h3>
                     <p>Aprende a gestionar las finanzas de tu negocio de manera efectiva. Incluye control de flujo de caja, análisis de costos y planificación presupuestaria.</p>
                     <a href="https://wa.me/5491100000000?text=Hola%2C%20me%20interesa%20el%20curso%20de%20Gestión%20Financiera%20para%20PyMEs.%20Quisiera%20solicitar%20más%20información%20y%20consultar%20el%20precio." class="btn-consult" target="_blank" rel="noopener">Solicitar Precio</a>
                 </div>
                 
-                <div class="bento-card service-card">
+                <div class="bento-card service-card" data-category="capacitacion">
                     <span class="category-tag">Capacitación</span>
                     <h3>Marketing Digital Básico</h3>
                     <p>Domina las redes sociales y estrategias digitales para aumentar la visibilidad de tu negocio y captar más clientes.</p>
                     <a href="https://wa.me/5491100000000?text=Hola%2C%20me%20interesa%20el%20curso%20de%20Marketing%20Digital%20Básico.%20Quisiera%20solicitar%20más%20información%20y%20consultar%20el%20precio." class="btn-consult" target="_blank" rel="noopener">Solicitar Precio</a>
                 </div>
                 
-                <div class="bento-card service-card">
+                <div class="bento-card service-card" data-category="capacitacion">
                     <span class="category-tag">Capacitación</span>
                     <h3>Excel Avanzado para Negocios</h3>
                     <p>Optimiza tu productividad con técnicas avanzadas de Excel aplicadas a la gestión empresarial.</p>
                     <a href="https://wa.me/5491100000000?text=Hola%2C%20me%20interesa%20el%20curso%20de%20Excel%20Avanzado%20para%20Negocios.%20Quisiera%20solicitar%20más%20información%20y%20consultar%20el%20precio." class="btn-consult" target="_blank" rel="noopener">Solicitar Precio</a>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Asesoramiento Section -->
-    <section class="alt-bg">
-        <div class="container">
-            <div class="section-title">
-                <h2>Asesoramiento Personalizado</h2>
-                <p>Consultoría especializada adaptada a tus necesidades</p>
-            </div>
-            
-            <div class="bento-grid">
-                <div class="bento-card service-card large">
+                
+                <div class="bento-card service-card large" data-category="asesoramiento">
                     <span class="category-tag">Asesoramiento</span>
                     <h3>Diagnóstico Empresarial Integral</h3>
                     <p>Analizamos a profundidad tu negocio para identificar áreas de mejora, oportunidades de crecimiento y estrategias para optimizar la rentabilidad. Incluye análisis FODA, revisión de procesos y plan de acción personalizado.</p>
                     <a href="https://wa.me/5491100000000?text=Hola%2C%20me%20interesa%20el%20servicio%20de%20Diagnóstico%20Empresarial%20Integral.%20Quisiera%20solicitar%20más%20información%20y%20consultar%20el%20precio." class="btn-consult" target="_blank" rel="noopener">Consultar Precio</a>
                 </div>
                 
-                <div class="bento-card service-card">
+                <div class="bento-card service-card" data-category="asesoramiento">
                     <span class="category-tag">Asesoramiento</span>
                     <h3>Planificación Estratégica</h3>
                     <p>Definimos juntos los objetivos de tu negocio y diseñamos la ruta para alcanzarlos con indicadores claros y metas medibles.</p>
                     <a href="https://wa.me/5491100000000?text=Hola%2C%20me%20interesa%20el%20servicio%20de%20Planificación%20Estratégica.%20Quisiera%20solicitar%20más%20información%20y%20consultar%20el%20precio." class="btn-consult" target="_blank" rel="noopener">Consultar Precio</a>
                 </div>
                 
-                <div class="bento-card service-card">
+                <div class="bento-card service-card" data-category="asesoramiento">
                     <span class="category-tag">Asesoramiento</span>
                     <h3>Optimización de Costos</h3>
                     <p>Identificamos oportunidades para reducir gastos sin afectar la calidad, mejorando los márgenes de tu negocio.</p>
                     <a href="https://wa.me/5491100000000?text=Hola%2C%20me%20interesa%20el%20servicio%20de%20Optimización%20de%20Costos.%20Quisiera%20solicitar%20más%20información%20y%20consultar%20el%20precio." class="btn-consult" target="_blank" rel="noopener">Consultar Precio</a>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Herramientas Digitales Section -->
-    <section>
-        <div class="container">
-            <div class="section-title">
-                <h2>Herramientas Digitales Personalizadas</h2>
-                <p>Soluciones tecnológicas a medida para tu negocio</p>
-            </div>
-            
-            <div class="bento-grid">
-                <div class="bento-card service-card">
+                
+                <div class="bento-card service-card" data-category="herramientas">
                     <span class="category-tag">Herramientas Digitales</span>
                     <h3>Dashboard de Control</h3>
                     <p>Panel de control personalizado para visualizar los indicadores clave de tu negocio en tiempo real.</p>
                     <a href="https://wa.me/5491100000000?text=Hola%2C%20me%20interesa%20el%20servicio%20de%20Dashboard%20de%20Control.%20Quisiera%20solicitar%20más%20información%20y%20consultar%20el%20precio." class="btn-consult" target="_blank" rel="noopener">Consultar Precio</a>
                 </div>
                 
-                <div class="bento-card service-card">
+                <div class="bento-card service-card" data-category="herramientas">
                     <span class="category-tag">Herramientas Digitales</span>
                     <h3>Sistema de Gestión de Inventarios</h3>
                     <p>Herramienta digital para llevar el control de tu inventario, alertas de stock y reportes automáticos.</p>
                     <a href="https://wa.me/5491100000000?text=Hola%2C%20me%20interesa%20el%20servicio%20de%20Sistema%20de%20Gestión%20de%20Inventarios.%20Quisiera%20solicitar%20más%20información%20y%20consultar%20el%20precio." class="btn-consult" target="_blank" rel="noopener">Consultar Precio</a>
                 </div>
                 
-                <div class="bento-card service-card large">
+                <div class="bento-card service-card large" data-category="herramientas">
                     <span class="category-tag">Herramientas Digitales</span>
                     <h3>Automatización de Procesos</h3>
                     <p>Desarrollamos soluciones personalizadas para automatizar tareas repetitivas, integrar sistemas y optimizar el flujo de trabajo de tu empresa. Incluye análisis de procesos, desarrollo a medida e implementación.</p>
@@ -145,12 +114,12 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="alt-bg">
+    <section>
         <div class="container text-center">
-            <h2 style="color: var(--primary); margin-bottom: 1rem;">¿No encuentras lo que buscas?</h2>
-            <p style="margin-bottom: 2rem; opacity: 0.8;">Contáctanos y diseñamos una solución a medida para tu negocio.</p>
-            <a href="https://wa.me/5491100000000?text=Hola%2C%20necesito%20una%20solución%20personalizada%20para%20mi%20negocio.%20¿Podemos%20agendar%20una%20reunión?" class="hero-cta" style="background: var(--primary); color: var(--white);" target="_blank" rel="noopener">
-                💬 Habla con un Asesor
+            <h2 style="color: var(--primary); margin-bottom: 1rem;">¿Listo para transformar tu negocio?</h2>
+            <p style="margin-bottom: 2rem; opacity: 0.8;">Agenda una cita y descubre cómo podemos ayudarte a alcanzar tus metas.</p>
+            <a href="https://wa.me/5491100000000?text=Hola%2C%20me%20gustaría%20agendar%20una%20cita%20para%20consultoría" class="hero-cta" style="background: #25D366; color: var(--white);" target="_blank" rel="noopener">
+                💬 Agendar Cita por WhatsApp
             </a>
         </div>
     </section>
@@ -162,6 +131,12 @@
                 <div class="footer-section">
                     <h4>BENSO</h4>
                     <p>Consultoría y Soluciones Digitales para la Rentabilidad Sostenible.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">📘</a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">📷</a>
+                        <a href="https://wa.me/5491100000000" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+                        <a href="mailto:info@benso.com" aria-label="Email">📧</a>
+                    </div>
                 </div>
                 
                 <div class="footer-section">
@@ -170,6 +145,7 @@
                         <li><a href="index.html">Inicio</a></li>
                         <li><a href="servicios.html">Servicios</a></li>
                         <li><a href="nosotros.html">Nosotros</a></li>
+                        <li><a href="galeria.html">Eventos</a></li>
                         <li><a href="contacto.html">Contacto</a></li>
                     </ul>
                 </div>
@@ -184,7 +160,7 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 Benso. Todos los derechos reservados.</p>
+                <p>&copy; 2026 Benso. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
