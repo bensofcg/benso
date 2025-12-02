@@ -695,6 +695,7 @@ footer {
     font-size: 1.5rem;
     font-weight: 700;
     transition: var(--transition);
+    line-height: 1;
 }
 
 .faq-question.active::after {

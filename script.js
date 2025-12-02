@@ -114,52 +114,70 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // FAQ Accordion functionality
     const faqQuestions = document.querySelectorAll('.faq-question');
-    faqQuestions.forEach(question => {
-        question.addEventListener('click', function() {
-            const answer = this.nextElementSibling;
-            const isActive = this.classList.contains('active');
-            
-            // Close all other FAQs
-            faqQuestions.forEach(q => {
-                q.classList.remove('active');
-                q.nextElementSibling.style.maxHeight = null;
-            });
-            
-            // Toggle current FAQ
-            if (!isActive) {
-                this.classList.add('active');
-                answer.style.maxHeight = answer.scrollHeight + 'px';
+    if (faqQuestions.length > 0) {
+        faqQuestions.forEach(question => {
+            // Set initial ARIA attributes
+            question.setAttribute('aria-expanded', 'false');
+            const answer = question.nextElementSibling;
+            if (answer) {
+                answer.setAttribute('aria-hidden', 'true');
             }
+            
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const isActive = this.classList.contains('active');
+                
+                // Close all other FAQs
+                faqQuestions.forEach(q => {
+                    q.classList.remove('active');
+                    q.setAttribute('aria-expanded', 'false');
+                    const a = q.nextElementSibling;
+                    if (a) {
+                        a.style.maxHeight = '0';
+                        a.setAttribute('aria-hidden', 'true');
+                    }
+                });
+                
+                // Toggle current FAQ
+                if (!isActive) {
+                    this.classList.add('active');
+                    this.setAttribute('aria-expanded', 'true');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    answer.setAttribute('aria-hidden', 'false');
+                }
+            });
         });
-    });
+    }
 
     // Service filtering functionality
     const filterBtns = document.querySelectorAll('.filter-btn');
     const serviceCards = document.querySelectorAll('.service-card[data-category]');
     
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const filterValue = this.getAttribute('data-filter');
-            
-            // Update active button
-            filterBtns.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Filter cards
-            serviceCards.forEach(card => {
-                if (filterValue === 'all') {
-                    card.classList.remove('hidden');
-                } else {
-                    const cardCategory = card.getAttribute('data-category');
-                    if (cardCategory === filterValue) {
+    if (filterBtns.length > 0 && serviceCards.length > 0) {
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const filterValue = this.getAttribute('data-filter');
+                
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filter cards
+                serviceCards.forEach(card => {
+                    if (filterValue === 'all') {
                         card.classList.remove('hidden');
                     } else {
-                        card.classList.add('hidden');
+                        const cardCategory = card.getAttribute('data-category');
+                        if (cardCategory === filterValue) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
                     }
-                }
+                });
             });
         });
-    });
+    }
 
     // Animate cards on scroll (simple animation) - Progressive enhancement
     // Cards are visible by default via CSS; this adds subtle animation when scrolling
