@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     q.setAttribute('aria-expanded', 'false');
                     const a = q.nextElementSibling;
                     if (a) {
-                        a.style.maxHeight = '0';
+                        a.style.maxHeight = '0px';
                         a.setAttribute('aria-hidden', 'true');
                     }
                 });
