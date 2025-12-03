@@ -147,9 +147,9 @@ nav ul li a.active {
 .hero {
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
     color: var(--white);
-    padding: 6rem 0;
+    padding: 4rem 0;
     text-align: center;
-    min-height: 80vh;
+    min-height: 50vh;
     display: flex;
     align-items: center;
 }
@@ -340,6 +340,38 @@ section.alt-bg {
 
 .service-card .btn-consult:hover {
     background: var(--secondary);
+}
+
+.service-card .price-tag {
+    background: #25D366;
+    color: var(--white);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: inline-block;
+    margin-top: 1rem;
+}
+
+.event-status-tag,
+.event-date-tag {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-right: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.event-status-tag {
+    background: #25D366;
+    color: var(--white);
+}
+
+.event-date-tag {
+    background: var(--accent);
+    color: var(--white);
 }
 
 /* ===================================
@@ -544,14 +576,14 @@ footer {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: var(--secondary);
+    background: transparent;
     color: var(--white);
     font-size: 1.2rem;
     transition: var(--transition);
 }
 
 .social-links a:hover {
-    background: var(--accent);
+    color: var(--accent);
     transform: scale(1.1);
 }
 
@@ -586,9 +618,15 @@ footer {
     }
 
     nav {
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 100%;
-        order: 3;
+        height: 100vh;
+        background: var(--primary);
         display: none;
+        z-index: 999;
+        padding-top: 5rem;
     }
 
     nav.active {
@@ -597,17 +635,21 @@ footer {
 
     nav ul {
         flex-direction: column;
-        padding: 1rem 0;
+        padding: 2rem;
         gap: 0.5rem;
     }
 
     nav ul li a {
         display: block;
         text-align: center;
+        padding: 1rem;
+        font-size: 1.2rem;
     }
 
     .menu-toggle {
         display: flex;
+        z-index: 1000;
+        position: relative;
     }
 
     .cta-header {
@@ -630,6 +672,16 @@ footer {
 
     .bento-grid {
         grid-template-columns: 1fr;
+    }
+    
+    /* Improved mobile filter buttons */
+    .filter-container {
+        gap: 0.5rem;
+    }
+    
+    .filter-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
     }
 }
 
