@@ -106,6 +106,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Appointment form submission handler (contacto.html)
+    const appointmentForm = document.getElementById('appointment-form');
+    if (appointmentForm) {
+        appointmentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const empresa = document.getElementById('empresa').value;
+            const fecha = document.getElementById('fecha').value;
+            
+            if (empresa && fecha) {
+                const message = `Mi empresa es ${empresa} y quiero agendar cita el ${fecha}`;
+                const whatsappUrl = `https://wa.me/5491100000000?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+            }
+        });
+    }
+
     // Email validation helper
     function isValidEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
