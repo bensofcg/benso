@@ -111,27 +111,32 @@ document.addEventListener('DOMContentLoaded', function() {
     if (appointmentForm) {
         appointmentForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            const nombreInput = document.getElementById('nombre');
             const empresaInput = document.getElementById('empresa');
             const fechaInput = document.getElementById('fecha');
-            const empresa = empresaInput.value.trim();
-            const fecha = fechaInput.value.trim();
+            const nombre = nombreInput ? nombreInput.value.trim() : '';
+            const empresa = empresaInput ? empresaInput.value.trim() : '';
+            const fecha = fechaInput ? fechaInput.value.trim() : '';
             
-            if (!empresa || !fecha) {
+            if (!nombre || !empresa || !fecha) {
                 alert('Por favor, complete todos los campos del formulario.');
-                if (!empresa) empresaInput.style.borderColor = '#e74c3c';
-                if (!fecha) fechaInput.style.borderColor = '#e74c3c';
+                if (!nombre && nombreInput) nombreInput.style.borderColor = '#e74c3c';
+                if (!empresa && empresaInput) empresaInput.style.borderColor = '#e74c3c';
+                if (!fecha && fechaInput) fechaInput.style.borderColor = '#e74c3c';
                 return;
             }
             
             // Reset border colors on success
-            empresaInput.style.borderColor = '#e6e6e6';
-            fechaInput.style.borderColor = '#e6e6e6';
+            if (nombreInput) nombreInput.style.borderColor = '#e6e6e6';
+            if (empresaInput) empresaInput.style.borderColor = '#e6e6e6';
+            if (fechaInput) fechaInput.style.borderColor = '#e6e6e6';
             
             // Sanitize inputs to prevent injection
+            const sanitizedNombre = nombre.replace(/[<>]/g, '');
             const sanitizedEmpresa = empresa.replace(/[<>]/g, '');
             const sanitizedFecha = fecha.replace(/[<>]/g, '');
             
-            const message = `Mi empresa es ${sanitizedEmpresa} y quiero agendar cita el ${sanitizedFecha}`;
+            const message = `Hola, mi nombre es ${sanitizedNombre}, mi empresa es ${sanitizedEmpresa} y quiero agendar una cita el ${sanitizedFecha}`;
             const whatsappUrl = `https://wa.me/5491100000000?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         });

@@ -147,9 +147,9 @@ nav ul li a.active {
 .hero {
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
     color: var(--white);
-    padding: 4rem 0;
+    padding: 2rem 0;
     text-align: center;
-    min-height: 50vh;
+    min-height: 30vh;
     display: flex;
     align-items: center;
 }
@@ -343,14 +343,16 @@ section.alt-bg {
 }
 
 .service-card .price-tag {
-    background: #25D366;
-    color: var(--white);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    display: inline-block;
+    background: transparent;
+    color: var(--primary);
+    padding: 0.5rem 0;
+    border-radius: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    display: block;
     margin-top: 1rem;
+    border-top: 1px solid var(--light-gray);
+    padding-top: 1rem;
 }
 
 .event-status-tag,
@@ -677,11 +679,27 @@ footer {
     /* Improved mobile filter buttons */
     .filter-container {
         gap: 0.5rem;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 0.5rem 0;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+    
+    .filter-container::-webkit-scrollbar {
+        height: 4px;
+    }
+    
+    .filter-container::-webkit-scrollbar-thumb {
+        background: var(--accent);
+        border-radius: 2px;
     }
     
     .filter-btn {
         padding: 0.6rem 1rem;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+        white-space: nowrap;
+        flex-shrink: 0;
     }
 }
 
