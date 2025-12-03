@@ -111,14 +111,29 @@ document.addEventListener('DOMContentLoaded', function() {
     if (appointmentForm) {
         appointmentForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const empresa = document.getElementById('empresa').value;
-            const fecha = document.getElementById('fecha').value;
+            const empresaInput = document.getElementById('empresa');
+            const fechaInput = document.getElementById('fecha');
+            const empresa = empresaInput.value.trim();
+            const fecha = fechaInput.value.trim();
             
-            if (empresa && fecha) {
-                const message = `Mi empresa es ${empresa} y quiero agendar cita el ${fecha}`;
-                const whatsappUrl = `https://wa.me/5491100000000?text=${encodeURIComponent(message)}`;
-                window.open(whatsappUrl, '_blank');
+            if (!empresa || !fecha) {
+                alert('Por favor, complete todos los campos del formulario.');
+                if (!empresa) empresaInput.style.borderColor = '#e74c3c';
+                if (!fecha) fechaInput.style.borderColor = '#e74c3c';
+                return;
             }
+            
+            // Reset border colors on success
+            empresaInput.style.borderColor = '#e6e6e6';
+            fechaInput.style.borderColor = '#e6e6e6';
+            
+            // Sanitize inputs to prevent injection
+            const sanitizedEmpresa = empresa.replace(/[<>]/g, '');
+            const sanitizedFecha = fecha.replace(/[<>]/g, '');
+            
+            const message = `Mi empresa es ${sanitizedEmpresa} y quiero agendar cita el ${sanitizedFecha}`;
+            const whatsappUrl = `https://wa.me/5491100000000?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
         });
     }
 
