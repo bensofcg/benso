@@ -19,7 +19,7 @@
     --white: #ffffff;
     --light-gray: #e6e6e6;
     --dark: #001737;
-    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-main: 'TT Commons Pro', sans-serif;
     --shadow: 0 4px 20px rgba(0, 44, 106, 0.15);
     --radius: 16px;
     --transition: all 0.3s ease;
@@ -147,9 +147,9 @@ nav ul li a.active {
 .hero {
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
     color: var(--white);
-    padding: 1.5rem 0;
+    padding: 4rem 0;
     text-align: center;
-    min-height: 25vh;
+    min-height: 50vh;
     display: flex;
     align-items: center;
 }
@@ -207,6 +207,9 @@ nav ul li a.active {
     box-shadow: var(--shadow);
     transition: var(--transition);
     border: 1px solid var(--light-gray);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .bento-card:hover {
@@ -225,12 +228,13 @@ nav ul li a.active {
 .bento-card h3 {
     color: var(--primary);
     font-size: 1.5rem;
-    margin-bottom: 1rem;
+    margin: 0;
 }
 
 .bento-card p {
     color: var(--dark);
     opacity: 0.8;
+    margin: 0;
 }
 
 /* ===================================
@@ -241,7 +245,7 @@ section {
 }
 
 section.alt-bg {
-    background: var(--light-gray);
+    background: var(--white);
 }
 
 .section-title {
@@ -324,7 +328,8 @@ section.alt-bg {
     border-radius: 20px;
     font-size: 0.85rem;
     display: inline-block;
-    margin-bottom: 1rem;
+    margin-right: 0.5rem;
+    margin-top: 0.5rem;
 }
 
 .service-card .btn-consult {
@@ -340,19 +345,6 @@ section.alt-bg {
 
 .service-card .btn-consult:hover {
     background: var(--secondary);
-}
-
-.service-card .price-tag {
-    background: transparent;
-    color: var(--primary);
-    padding: 0.5rem 0;
-    border-radius: 0;
-    font-size: 1rem;
-    font-weight: 600;
-    display: block;
-    margin-top: 1rem;
-    border-top: 1px solid var(--light-gray);
-    padding-top: 1rem;
 }
 
 .event-status-tag,
