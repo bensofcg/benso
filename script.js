@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const sanitizedFecha = fecha.replace(/[<>]/g, '');
             
             const message = `Hola, mi nombre es ${sanitizedNombre}, mi empresa es ${sanitizedEmpresa} y quiero agendar una cita el ${sanitizedFecha}`;
-            const whatsappUrl = `https://wa.me/5491100000000?text=${encodeURIComponent(message)}`;
+            const whatsappUrl = `https://wa.me/5355609099?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         });
     }
