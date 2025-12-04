@@ -164,6 +164,7 @@ nav ul li a.active {
     margin-bottom: 1rem;
     text-transform: uppercase;
     letter-spacing: 4px;
+    animation: fadeInUp 0.8s ease forwards;
 }
 
 .hero .slogan {
@@ -171,11 +172,14 @@ nav ul li a.active {
     opacity: 0.95;
     line-height: 1.6;
     margin-bottom: 1.5rem;
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 0.3s;
+    opacity: 0;
 }
 
 .hero-cta {
-    background: var(--white);
-    color: var(--primary);
+    background: var(--accent);
+    color: var(--white);
     padding: 1rem 2.5rem;
     border-radius: 50px;
     font-weight: 700;
@@ -188,7 +192,7 @@ nav ul li a.active {
 }
 
 .hero-cta:hover {
-    background: var(--light-gray);
+    background: var(--primary);
     transform: translateY(-3px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
@@ -327,18 +331,20 @@ section.alt-bg {
 }
 
 .service-card .category-tag {
-    background: var(--accent);
-    color: var(--white);
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
     font-size: 0.8rem;
     display: inline-block;
     margin-right: 0.5rem;
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.75rem;
 }
 
 .service-card .btn-consult {
-    background: var(--primary);
+    background: var(--accent);
     color: var(--white);
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
@@ -352,7 +358,7 @@ section.alt-bg {
 }
 
 .service-card .btn-consult:hover {
-    background: var(--secondary);
+    background: var(--primary);
 }
 
 .event-status-tag,
@@ -363,17 +369,20 @@ section.alt-bg {
     font-size: 0.8rem;
     font-weight: 600;
     margin-right: 0.5rem;
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.75rem;
 }
 
 .event-status-tag {
-    background: #25D366;
-    color: var(--white);
+    background: transparent;
+    border: 1px solid #25D366;
+    color: #25D366;
 }
 
 .event-date-tag {
-    background: var(--accent);
-    color: var(--white);
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
 }
 
 /* ===================================
@@ -706,7 +715,7 @@ footer {
 @media (max-width: 480px) {
     .hero {
         padding: 1rem 0;
-        min-height: auto;
+        min-height: 60vh;
     }
 
     .hero h1 {
@@ -845,7 +854,7 @@ footer {
 }
 
 .bento-card .icon-svg {
-    color: var(--primary);
+    color: var(--accent);
 }
 
 .mvv-card .icon-svg,
@@ -892,8 +901,8 @@ footer {
 
 @keyframes fadeInUp {
     from {
-        opacity: 0.8;
-        transform: translateY(10px);
+        opacity: 0;
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
