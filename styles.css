@@ -147,9 +147,9 @@ nav ul li a.active {
 .hero {
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
     color: var(--white);
-    padding: 4rem 0;
+    padding: 6rem 0;
     text-align: center;
-    min-height: 50vh;
+    min-height: 80vh;
     display: flex;
     align-items: center;
 }
@@ -180,7 +180,10 @@ nav ul li a.active {
     border-radius: 50px;
     font-weight: 700;
     font-size: 1.1rem;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     transition: var(--transition);
 }
 
@@ -209,6 +212,7 @@ nav ul li a.active {
     border: 1px solid var(--light-gray);
     display: flex;
     flex-direction: column;
+    height: 100%;
     gap: 1rem;
 }
 
@@ -235,6 +239,7 @@ nav ul li a.active {
     color: var(--dark);
     opacity: 0.8;
     margin: 0;
+    flex-grow: 1;
 }
 
 /* ===================================
@@ -324,9 +329,9 @@ section.alt-bg {
 .service-card .category-tag {
     background: var(--accent);
     color: var(--white);
-    padding: 0.3rem 1rem;
+    padding: 0.25rem 0.75rem;
     border-radius: 20px;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     display: inline-block;
     margin-right: 0.5rem;
     margin-top: 0.5rem;
@@ -337,8 +342,11 @@ section.alt-bg {
     color: var(--white);
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
-    display: inline-block;
-    margin-top: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: auto;
     font-weight: 600;
     transition: var(--transition);
 }
@@ -350,9 +358,9 @@ section.alt-bg {
 .event-status-tag,
 .event-date-tag {
     display: inline-block;
-    padding: 0.4rem 1rem;
+    padding: 0.25rem 0.75rem;
     border-radius: 20px;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
     margin-right: 0.5rem;
     margin-top: 0.5rem;
