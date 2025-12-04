@@ -169,7 +169,6 @@ nav ul li a.active {
 
 .hero .slogan {
     font-size: 1.2rem;
-    opacity: 0.95;
     line-height: 1.6;
     margin-bottom: 1.5rem;
     animation: fadeInUp 0.8s ease forwards;
