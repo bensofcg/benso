@@ -164,13 +164,16 @@ nav ul li a.active {
     margin-bottom: 1rem;
     text-transform: uppercase;
     letter-spacing: 4px;
+    animation: fadeInUp 0.8s ease forwards;
+    opacity: 0;
 }
 
 .hero .slogan {
     font-size: 1.2rem;
-    opacity: 0.95;
     line-height: 1.6;
     margin-bottom: 1.5rem;
+    animation: fadeInUpSlogan 0.8s ease 0.2s forwards;
+    opacity: 0;
 }
 
 .hero-cta {
@@ -184,7 +187,14 @@ nav ul li a.active {
     align-items: center;
     justify-content: center;
     text-align: center;
+    gap: 0.5rem;
     transition: var(--transition);
+}
+
+.hero-cta svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
 }
 
 .hero-cta:hover {
@@ -327,8 +337,9 @@ section.alt-bg {
 }
 
 .service-card .category-tag {
-    background: var(--accent);
-    color: var(--white);
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
     font-size: 0.8rem;
@@ -367,13 +378,15 @@ section.alt-bg {
 }
 
 .event-status-tag {
-    background: #25D366;
-    color: var(--white);
+    background: transparent;
+    color: #25D366;
+    border: 1px solid #25D366;
 }
 
 .event-date-tag {
-    background: var(--accent);
-    color: var(--white);
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
 }
 
 /* ===================================
@@ -660,6 +673,10 @@ footer {
         padding: 0.5rem 1rem;
     }
 
+    .hero {
+        min-height: 60vh;
+    }
+
     .hero h1 {
         font-size: 2rem;
     }
@@ -706,7 +723,7 @@ footer {
 @media (max-width: 480px) {
     .hero {
         padding: 1rem 0;
-        min-height: auto;
+        min-height: 60vh;
     }
 
     .hero h1 {
@@ -892,11 +909,22 @@ footer {
 
 @keyframes fadeInUp {
     from {
-        opacity: 0.8;
-        transform: translateY(10px);
+        opacity: 0;
+        transform: translateY(30px);
     }
     to {
         opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUpSlogan {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 0.95;
         transform: translateY(0);
     }
 }
