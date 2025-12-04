@@ -390,6 +390,51 @@ section.alt-bg {
 }
 
 /* ===================================
+   Testimonials
+=================================== */
+.testimonial-card {
+    position: relative;
+    padding: 2.5rem 2rem;
+}
+
+.testimonial-quote {
+    margin-bottom: 1rem;
+}
+
+.quote-icon {
+    width: 48px;
+    height: 48px;
+    color: var(--accent);
+    opacity: 0.3;
+}
+
+.testimonial-card p {
+    font-style: italic;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: var(--dark);
+}
+
+.testimonial-author {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    border-top: 2px solid var(--light-gray);
+    padding-top: 1rem;
+}
+
+.testimonial-author strong {
+    color: var(--primary);
+    font-size: 1.1rem;
+}
+
+.testimonial-author span {
+    color: var(--dark);
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
+
+/* ===================================
    Contact Form
 =================================== */
 .contact-section {

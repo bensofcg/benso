@@ -5,7 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Benso - Eventos y Capacitaciones">
     <title>Eventos | Benso</title>
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Eventos | Benso">
+    <meta property="og:description" content="Eventos, capacitaciones y actividades empresariales de Benso.">
+    <meta property="og:url" content="https://bensofcg.github.io/benso/galeria.html">
+    <meta property="og:image" content="https://bensofcg.github.io/benso/assets/og-image.jpg">
+    <meta property="og:type" content="website">
+    
     <link rel="stylesheet" href="styles.css">
+    <!-- AOS CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 </head>
 <body>
     <!-- Header -->
@@ -32,7 +42,7 @@
     </header>
 
     <!-- Current Events Section -->
-    <section style="padding-top: 7rem;">
+    <section style="padding-top: 7rem;" data-aos="fade-up">
         <div class="container">
             <div class="section-title">
                 <h2>Eventos Actuales</h2>
@@ -40,7 +50,7 @@
             </div>
             
             <div class="bento-grid">
-                <div class="bento-card">
+                <div class="bento-card" data-aos="fade-up">
                     <h3>Taller de Gestión Financiera</h3>
                     <div>
                         <span class="event-status-tag">En Curso</span>
@@ -49,7 +59,7 @@
                     <p>Capacitación intensiva sobre control de flujo de caja, análisis de costos y planificación presupuestaria para PyMEs.</p>
                 </div>
                 
-                <div class="bento-card">
+                <div class="bento-card" data-aos="fade-up">
                     <h3>Programa de Mentoría Empresarial</h3>
                     <div>
                         <span class="event-status-tag">En Curso</span>
@@ -70,7 +80,7 @@
             </div>
             
             <div class="bento-grid">
-                <div class="bento-card">
+                <div class="bento-card" data-aos="fade-up">
                     <h3>Masterclass de E-commerce</h3>
                     <div>
                         <span class="event-status-tag" style="background: var(--accent);">Próximamente</span>
@@ -80,7 +90,7 @@
                     <a href="https://wa.me/5355609099?text=Hola%2C%20quiero%20inscribirme%20al%20evento%20Masterclass%20de%20E-commerce" class="btn-consult" target="_blank" rel="noopener">Inscribirme</a>
                 </div>
                 
-                <div class="bento-card">
+                <div class="bento-card" data-aos="fade-up">
                     <h3>Bootcamp Emprendedor</h3>
                     <div>
                         <span class="event-status-tag" style="background: var(--accent);">Próximamente</span>
@@ -90,7 +100,7 @@
                     <a href="https://wa.me/5355609099?text=Hola%2C%20quiero%20inscribirme%20al%20evento%20Bootcamp%20Emprendedor" class="btn-consult" target="_blank" rel="noopener">Inscribirme</a>
                 </div>
                 
-                <div class="bento-card">
+                <div class="bento-card" data-aos="fade-up">
                     <h3>Taller de Transformación Digital</h3>
                     <div>
                         <span class="event-status-tag" style="background: var(--accent);">Próximamente</span>
@@ -254,6 +264,8 @@
         </div>
     </footer>
 
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

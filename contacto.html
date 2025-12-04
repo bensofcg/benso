@@ -5,7 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Benso - Contáctanos y agenda tu asesoría">
     <title>Contacto | Benso</title>
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Contacto | Benso">
+    <meta property="og:description" content="Contáctanos y agenda tu asesoría. Estamos aquí para ayudarte a transformar tu negocio.">
+    <meta property="og:url" content="https://bensofcg.github.io/benso/contacto.html">
+    <meta property="og:image" content="https://bensofcg.github.io/benso/assets/og-image.jpg">
+    <meta property="og:type" content="website">
+    
     <link rel="stylesheet" href="styles.css">
+    <!-- AOS CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 </head>
 <body>
     <!-- Header -->
@@ -32,7 +42,7 @@
     </header>
 
     <!-- Agendar Cita Section -->
-    <section style="padding-top: 7rem;">
+    <section style="padding-top: 7rem;" data-aos="fade-up">
         <div class="container">
             <div class="section-title">
                 <h2>Agenda tu Cita</h2>
@@ -40,7 +50,7 @@
             </div>
             
             <div class="text-center">
-                <div class="bento-card" style="max-width: 600px; margin: 0 auto;">
+                <div class="bento-card" data-aos="fade-up" style="max-width: 600px; margin: 0 auto;">
                     <h3 style="color: var(--primary); margin-bottom: 1.5rem;">Formulario de Contacto</h3>
                     <form id="appointment-form" style="text-align: left;">
                         <div class="form-group">
@@ -183,6 +193,8 @@
         </div>
     </footer>
 
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

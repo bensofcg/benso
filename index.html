@@ -5,7 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Benso - Consultoría y Soluciones Digitales para la Rentabilidad Sostenible">
     <title>Benso | Consultoría y Soluciones Digitales</title>
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Benso | Consultoría y Soluciones Digitales">
+    <meta property="og:description" content="Consultoría y Soluciones Digitales para la Rentabilidad Sostenible. Transformamos tu negocio con servicios personalizados.">
+    <meta property="og:url" content="https://bensofcg.github.io/benso/">
+    <meta property="og:image" content="https://bensofcg.github.io/benso/assets/og-image.jpg">
+    <meta property="og:type" content="website">
+    
     <link rel="stylesheet" href="styles.css">
+    <!-- AOS CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 </head>
 <body>
     <!-- Header -->
@@ -48,7 +58,7 @@
     </section>
 
     <!-- Services Preview Section -->
-    <section>
+    <section data-aos="fade-up">
         <div class="container">
             <div class="section-title">
                 <h2>Nuestros Servicios</h2>
@@ -56,7 +66,7 @@
             </div>
             
             <div class="bento-grid">
-                <div class="bento-card service-card">
+                <div class="bento-card service-card" data-aos="fade-up">
                     <div class="icon-svg">
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v16h12V4H6zm2 2h8v2H8V6zm0 4h8v2H8v-2zm0 4h5v2H8v-2z"/>
@@ -71,7 +81,7 @@
                     <a href="https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Formación%20Empresarial" class="btn-consult" target="_blank" rel="noopener">Solicitar servicio</a>
                 </div>
                 
-                <div class="bento-card service-card">
+                <div class="bento-card service-card" data-aos="fade-up">
                     <div class="icon-svg">
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
@@ -86,7 +96,7 @@
                     <a href="https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Consultoría%20Personalizada" class="btn-consult" target="_blank" rel="noopener">Solicitar servicio</a>
                 </div>
                 
-                <div class="bento-card service-card">
+                <div class="bento-card service-card" data-aos="fade-up">
                     <div class="icon-svg">
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 10h2v2H6v-2zm0 4h8v2H6v-2zm10 0h2v2h-2v-2zm-6-4h8v2h-8v-2z"/>
@@ -107,8 +117,59 @@
         </div>
     </section>
 
+    <!-- Testimonials Section -->
+    <section class="alt-bg" data-aos="fade-up">
+        <div class="container">
+            <div class="section-title">
+                <h2>Lo que dicen nuestros clientes</h2>
+                <p>Testimonios reales de empresas que han confiado en nosotros</p>
+            </div>
+            
+            <div class="bento-grid">
+                <div class="bento-card testimonial-card" data-aos="fade-up">
+                    <div class="testimonial-quote">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="quote-icon">
+                            <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <p>"Benso transformó nuestra gestión financiera completamente. En solo tres meses logramos optimizar nuestros costos operativos en un 30% y mejorar nuestro flujo de caja significativamente."</p>
+                    <div class="testimonial-author">
+                        <strong>María González</strong>
+                        <span>CEO, Logística Global</span>
+                    </div>
+                </div>
+                
+                <div class="bento-card testimonial-card" data-aos="fade-up">
+                    <div class="testimonial-quote">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="quote-icon">
+                            <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <p>"La capacitación que recibió nuestro equipo fue excepcional. Los conceptos complejos se explicaron de manera clara y práctica. Ahora tenemos herramientas concretas para crecer."</p>
+                    <div class="testimonial-author">
+                        <strong>Carlos Ramírez</strong>
+                        <span>Director, Tech Innovations</span>
+                    </div>
+                </div>
+                
+                <div class="bento-card testimonial-card" data-aos="fade-up">
+                    <div class="testimonial-quote">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="quote-icon">
+                            <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <p>"El diagnóstico empresarial que nos brindaron fue revelador. Identificaron oportunidades que no habíamos considerado y nos dieron un plan de acción claro para implementar."</p>
+                    <div class="testimonial-author">
+                        <strong>Ana Patricia Silva</strong>
+                        <span>Fundadora, Consultoría Empresarial Plus</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Current Events Section -->
-    <section class="alt-bg">
+    <section class="alt-bg" data-aos="fade-up">
         <div class="container">
             <div class="section-title">
                 <h2>Próximos Eventos</h2>
@@ -116,7 +177,7 @@
             </div>
             
             <div class="bento-grid">
-                <div class="bento-card">
+                <div class="bento-card" data-aos="fade-up">
                     <h3>Masterclass de E-commerce</h3>
                     <div>
                         <span class="event-status-tag" style="background: var(--accent);">Próximamente</span>
@@ -126,7 +187,7 @@
                     <a href="https://wa.me/5355609099?text=Hola%2C%20quiero%20inscribirme%20al%20evento%20Masterclass%20de%20E-commerce" class="btn-consult" target="_blank" rel="noopener">Inscribirme</a>
                 </div>
                 
-                <div class="bento-card">
+                <div class="bento-card" data-aos="fade-up">
                     <h3>Bootcamp Emprendedor</h3>
                     <div>
                         <span class="event-status-tag" style="background: var(--accent);">Próximamente</span>
@@ -143,7 +204,7 @@
     </section>
 
     <!-- FAQ Section -->
-    <section>
+    <section data-aos="fade-up">
         <div class="container">
             <div class="section-title">
                 <h2>Preguntas Frecuentes</h2>
@@ -209,7 +270,7 @@
     </section>
 
     <!-- CTA Section -->
-    <section>
+    <section data-aos="fade-up">
         <div class="container text-center">
             <h2 style="color: var(--primary); margin-bottom: 1rem;">¿Listo para transformar tu negocio?</h2>
             <p style="margin-bottom: 2rem; opacity: 0.8;">Agenda una cita y descubre cómo podemos ayudarte a alcanzar tus metas.</p>
@@ -275,6 +336,8 @@
         </div>
     </footer>
 
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
