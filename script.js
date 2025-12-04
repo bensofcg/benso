@@ -19,10 +19,10 @@ document.addEventListener('DOMContentLoaded', function() {
         let currentIndex = 0;
         
         function rotateText() {
-            currentIndex = (currentIndex + 1) % words.length;
             rotatingText.style.opacity = '0';
             
             setTimeout(() => {
+                currentIndex = (currentIndex + 1) % words.length;
                 rotatingText.textContent = words[currentIndex];
                 rotatingText.style.opacity = '1';
             }, 500);
