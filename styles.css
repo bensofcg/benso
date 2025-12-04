@@ -164,16 +164,25 @@ nav ul li a.active {
     margin-bottom: 1rem;
     text-transform: uppercase;
     letter-spacing: 4px;
-    animation: fadeInUp 0.8s ease forwards;
 }
 
 .hero .slogan {
     font-size: 1.2rem;
     line-height: 1.6;
     margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeInUp 0.8s ease forwards;
-    animation-delay: 0.3s;
+    opacity: 0.95;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .hero h1 {
+        animation: fadeInUp 0.8s ease forwards;
+    }
+    
+    .hero .slogan {
+        opacity: 0;
+        animation: fadeInUp 0.8s ease forwards;
+        animation-delay: 0.3s;
+    }
 }
 
 .hero-cta {
