@@ -171,9 +171,9 @@ nav ul li a.active {
     font-size: 1.2rem;
     line-height: 1.6;
     margin-bottom: 1.5rem;
+    opacity: 0;
     animation: fadeInUp 0.8s ease forwards;
     animation-delay: 0.3s;
-    opacity: 0;
 }
 
 .hero-cta {
@@ -337,9 +337,7 @@ section.alt-bg {
     border-radius: 20px;
     font-size: 0.8rem;
     display: inline-block;
-    margin-right: 0.5rem;
-    margin-top: 0.25rem;
-    margin-bottom: 0.75rem;
+    margin: 0.25rem 0.5rem 0.75rem 0;
 }
 
 .service-card .btn-consult {
@@ -367,9 +365,7 @@ section.alt-bg {
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 600;
-    margin-right: 0.5rem;
-    margin-top: 0.25rem;
-    margin-bottom: 0.75rem;
+    margin: 0.25rem 0.5rem 0.75rem 0;
 }
 
 .event-status-tag {
