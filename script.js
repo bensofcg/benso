@@ -12,6 +12,26 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Rotating text animation in hero section
+    const rotatingText = document.querySelector('.rotating-text');
+    if (rotatingText) {
+        const words = ['Rentabilidad', 'Crecimiento', 'Futuro'];
+        let currentIndex = 0;
+        
+        function rotateText() {
+            currentIndex = (currentIndex + 1) % words.length;
+            rotatingText.style.opacity = '0';
+            
+            setTimeout(() => {
+                rotatingText.textContent = words[currentIndex];
+                rotatingText.style.opacity = '1';
+            }, 500);
+        }
+        
+        // Rotate text every 3 seconds
+        setInterval(rotateText, 3000);
+    }
+
     // Mobile Menu Toggle
     const menuToggle = document.querySelector('.menu-toggle');
     const nav = document.querySelector('nav');

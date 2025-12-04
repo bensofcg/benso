@@ -36,6 +36,16 @@ body {
     background-color: var(--white);
 }
 
+/* Prevent AOS flickering on load */
+[data-aos] {
+    opacity: 0;
+    transition-property: opacity, transform;
+}
+
+[data-aos].aos-animate {
+    opacity: 1;
+}
+
 a {
     text-decoration: none;
     color: inherit;
@@ -146,6 +156,7 @@ nav ul li a.active {
 =================================== */
 .hero {
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+    position: relative;
     color: var(--white);
     padding: 6rem 0;
     text-align: center;
@@ -154,9 +165,23 @@ nav ul li a.active {
     align-items: center;
 }
 
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+}
+
 .hero-content {
     max-width: 800px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
 }
 
 .hero h1 {
@@ -174,6 +199,16 @@ nav ul li a.active {
     margin-bottom: 1.5rem;
     animation: fadeInUpSlogan 0.8s ease 0.2s forwards;
     opacity: 0;
+    min-height: 1.9em;
+}
+
+.rotating-text {
+    color: var(--accent);
+    font-weight: 700;
+    display: inline-block;
+    min-width: 150px;
+    text-align: left;
+    transition: opacity 0.5s ease-in-out;
 }
 
 .hero-cta {
@@ -338,14 +373,28 @@ section.alt-bg {
 
 .service-card .category-tag {
     background: transparent;
-    color: var(--accent);
-    border: 1px solid var(--accent);
+    color: var(--primary);
+    border: 1px solid var(--primary);
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
     font-size: 0.8rem;
     display: inline-block;
     margin-right: 0.5rem;
     margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.category-tag {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    display: inline-block;
+    margin-right: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
 }
 
 .service-card .btn-consult {
@@ -366,6 +415,25 @@ section.alt-bg {
     background: var(--secondary);
 }
 
+.btn-consult {
+    background: var(--primary);
+    color: var(--white);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: auto;
+    font-weight: 600;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.btn-consult:hover {
+    background: var(--secondary);
+}
+
 .event-status-tag,
 .event-date-tag {
     display: inline-block;
@@ -375,18 +443,19 @@ section.alt-bg {
     font-weight: 600;
     margin-right: 0.5rem;
     margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
 }
 
 .event-status-tag {
     background: transparent;
-    color: #25D366;
-    border: 1px solid #25D366;
+    color: var(--primary);
+    border: 1px solid var(--primary);
 }
 
 .event-date-tag {
     background: transparent;
-    color: var(--accent);
-    border: 1px solid var(--accent);
+    color: var(--primary);
+    border: 1px solid var(--primary);
 }
 
 /* ===================================
