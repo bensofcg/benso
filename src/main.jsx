@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App.jsx';
 
-const basename = (import.meta.env.BASE_URL ?? '/')
+const basename = (import.meta.env.BASE_URL ?? '/benso')
   .replace(/\/$/, '');
 
 createRoot(document.getElementById('root')).render(
