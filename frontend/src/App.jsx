@@ -23,7 +23,7 @@ function App() {
             <NavLink
               key={item.to}
               to={item.to}
-              className={({ isActive }) => (isActive ? 'active' : undefined)}
+              className={({ isActive }) => (isActive ? 'active' : '')}
             >
               {item.label}
               <span>→</span>
