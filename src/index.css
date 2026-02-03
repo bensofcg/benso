@@ -36,15 +36,7 @@ body {
     background-color: var(--white);
 }
 
-/* Prevent AOS flickering on load */
-[data-aos] {
-    opacity: 0;
-    transition-property: opacity, transform;
-}
-
-[data-aos].aos-animate {
-    opacity: 1;
-}
+/* Note: AOS library is not used in this project */
 
 a {
     text-decoration: none;
@@ -190,7 +182,6 @@ nav ul li a.active {
     text-transform: uppercase;
     letter-spacing: 4px;
     animation: fadeInUp 0.8s ease forwards;
-    opacity: 0;
 }
 
 .hero .slogan {
@@ -198,7 +189,6 @@ nav ul li a.active {
     line-height: 1.6;
     margin-bottom: 1.5rem;
     animation: fadeInUpSlogan 0.8s ease 0.2s forwards;
-    opacity: 0;
     min-height: 1.9em;
 }
 
@@ -1023,7 +1013,7 @@ footer {
 
 @keyframes fadeInUp {
     from {
-        opacity: 0;
+        opacity: 0.7;
         transform: translateY(30px);
     }
     to {
@@ -1034,7 +1024,7 @@ footer {
 
 @keyframes fadeInUpSlogan {
     from {
-        opacity: 0;
+        opacity: 0.7;
         transform: translateY(30px);
     }
     to {
