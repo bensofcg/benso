@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { BentoCard, FAQAccordion, Icon } from '../components';
 
@@ -92,6 +92,13 @@ const words = ['Rentabilidad', 'Crecimiento', 'Futuro'];
 
 export function HomePage() {
   const [rotatingWord, setRotatingWord] = useState('Rentabilidad');
+  const revealRefs = useRef<(HTMLElement | null)[]>([]);
+
+  const addRevealRef = (el: HTMLElement | null) => {
+    if (el && !revealRefs.current.includes(el)) {
+      revealRefs.current.push(el);
+    }
+  };
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -101,6 +108,26 @@ export function HomePage() {
       });
     }, 3000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    revealRefs.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -123,10 +150,15 @@ export function HomePage() {
             </Link>
           </div>
         </div>
+        <div className="scroll-down-indicator" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+            <path d="M12 2a3 3 0 0 0-3 3v4a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3zm0 18l-4-4h3v-4h2v4h3l-4 4z" fill="currentColor"/>
+          </svg>
+        </div>
       </section>
 
       {/* Services Preview Section */}
-      <section>
+      <section ref={addRevealRef} className="reveal-section">
         <div className="container">
           <div className="section-title">
             <h2>Nuestros Servicios</h2>
@@ -157,6 +189,9 @@ export function HomePage() {
             <div className="mobile-scroll-cta">
               <Link to="/servicios" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)', whiteSpace: 'nowrap' }}>
                 Ver Todos los Servicios
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
+                  <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                </svg>
               </Link>
             </div>
           </div>
@@ -169,7 +204,7 @@ export function HomePage() {
       </section>
 
       {/* Current Events Section */}
-      <section className="alt-bg">
+      <section className="alt-bg reveal-section" ref={addRevealRef}>
         <div className="container">
           <div className="section-title">
             <h2>Próximos Eventos</h2>
@@ -195,8 +230,16 @@ export function HomePage() {
                 </a>
               </BentoCard>
             ))}
+            <div className="mobile-scroll-cta">
+              <Link to="/eventos" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)', whiteSpace: 'nowrap' }}>
+                Ver Más Eventos
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
+                  <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                </svg>
+              </Link>
+            </div>
           </div>
-          <div className="text-center" style={{ marginTop: '2rem' }}>
+          <div className="text-center desktop-cta" style={{ marginTop: '2rem' }}>
             <Link to="/eventos" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)' }}>
               Ver Más Eventos
             </Link>
@@ -205,7 +248,7 @@ export function HomePage() {
       </section>
 
       {/* Testimonials Section */}
-      <section>
+      <section ref={addRevealRef} className="reveal-section">
         <div className="container">
           <div className="section-title">
             <h2>Lo que dicen nuestros clientes</h2>
@@ -232,7 +275,7 @@ export function HomePage() {
       </section>
 
       {/* FAQ Section */}
-      <section>
+      <section ref={addRevealRef} className="reveal-section">
         <div className="container">
           <div className="section-title">
             <h2>Preguntas Frecuentes</h2>
@@ -244,7 +287,7 @@ export function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section>
+      <section ref={addRevealRef} className="reveal-section">
         <div className="container text-center">
           <h2 style={{ color: 'var(--primary)', marginBottom: '1rem' }}>¿Listo para transformar tu negocio?</h2>
           <p style={{ marginBottom: '2rem', opacity: 0.8 }}>Agenda una cita y descubre cómo podemos ayudarte a alcanzar tus metas.</p>
