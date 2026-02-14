@@ -49,7 +49,7 @@ export function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <img src="/assets/brand/isologo-benso.svg" alt="BENSO" className="footer-isologo" />
+          <img src={`${import.meta.env.BASE_URL}assets/brand/isologo-benso.svg`} alt="BENSO" className="footer-isologo" />
           <p>&copy; 2026 Benso.</p>
         </div>
       </div>
