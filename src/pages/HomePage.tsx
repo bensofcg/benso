@@ -174,11 +174,6 @@ export function HomePage() {
               <polyline points="9 18 15 12 9 6" />
             </svg>
           </div>
-          <div className="text-center desktop-cta" style={{ marginTop: '2rem' }}>
-            <Link to="/servicios" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)' }}>
-              Ver Todos los Servicios
-            </Link>
-          </div>
         </div>
       </ScrollReveal>
 
@@ -223,11 +218,6 @@ export function HomePage() {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="9 18 15 12 9 6" />
             </svg>
-          </div>
-          <div className="text-center desktop-cta" style={{ marginTop: '2rem' }}>
-            <Link to="/eventos" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)' }}>
-              Ver Más Eventos
-            </Link>
           </div>
         </div>
       </ScrollReveal>

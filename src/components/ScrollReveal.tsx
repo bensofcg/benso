@@ -11,7 +11,7 @@ export function ScrollReveal({
   children,
   className = '',
   style,
-  threshold = 0.15,
+  threshold = 0.05,
 }: ScrollRevealProps) {
   const ref = useRef<HTMLElement>(null);
 
@@ -28,7 +28,7 @@ export function ScrollReveal({
           }
         });
       },
-      { threshold }
+      { threshold, rootMargin: '0px 0px -10% 0px' }
     );
 
     observer.observe(el);
