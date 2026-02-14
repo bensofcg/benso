@@ -33,7 +33,8 @@ export function Carousel({ children, className = '' }: CarouselProps) {
     const el = scrollRef.current;
     if (!el) return;
     const card = el.querySelector('.bento-card') as HTMLElement | null;
-    const scrollAmount = card ? card.offsetWidth + 16 : 300;
+    const gap = parseFloat(getComputedStyle(el).gap) || 16;
+    const scrollAmount = card ? card.offsetWidth + gap : 300;
     el.scrollBy({
       left: direction === 'left' ? -scrollAmount : scrollAmount,
       behavior: 'smooth',
