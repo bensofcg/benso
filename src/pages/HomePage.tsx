@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BentoCard, FAQAccordion, Icon } from '../components';
+import { BentoCard, FAQAccordion, Icon, ScrollReveal } from '../components';
 
 const faqItems = [
   {
@@ -92,13 +92,6 @@ const words = ['Rentabilidad', 'Crecimiento', 'Futuro'];
 
 export function HomePage() {
   const [rotatingWord, setRotatingWord] = useState('Rentabilidad');
-  const revealRefs = useRef<(HTMLElement | null)[]>([]);
-
-  const addRevealRef = (el: HTMLElement | null) => {
-    if (el && !revealRefs.current.includes(el)) {
-      revealRefs.current.push(el);
-    }
-  };
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -108,26 +101,6 @@ export function HomePage() {
       });
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    revealRefs.current.forEach((el) => {
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
   }, []);
 
   return (
@@ -151,14 +124,14 @@ export function HomePage() {
           </div>
         </div>
         <div className="scroll-down-indicator" aria-hidden="true">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
-            <path d="M12 2a3 3 0 0 0-3 3v4a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3zm0 18l-4-4h3v-4h2v4h3l-4 4z" fill="currentColor"/>
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="6 9 12 15 18 9" />
           </svg>
         </div>
       </section>
 
       {/* Services Preview Section */}
-      <section ref={addRevealRef} className="reveal-section">
+      <ScrollReveal>
         <div className="container">
           <div className="section-title">
             <h2>Nuestros Servicios</h2>
@@ -195,16 +168,22 @@ export function HomePage() {
               </Link>
             </div>
           </div>
+          <div className="scroll-hint" aria-hidden="true">
+            <span>Desliza</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </div>
           <div className="text-center desktop-cta" style={{ marginTop: '2rem' }}>
             <Link to="/servicios" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)' }}>
               Ver Todos los Servicios
             </Link>
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* Current Events Section */}
-      <section className="alt-bg reveal-section" ref={addRevealRef}>
+      <ScrollReveal className="alt-bg">
         <div className="container">
           <div className="section-title">
             <h2>Próximos Eventos</h2>
@@ -239,16 +218,22 @@ export function HomePage() {
               </Link>
             </div>
           </div>
+          <div className="scroll-hint" aria-hidden="true">
+            <span>Desliza</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </div>
           <div className="text-center desktop-cta" style={{ marginTop: '2rem' }}>
             <Link to="/eventos" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)' }}>
               Ver Más Eventos
             </Link>
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* Testimonials Section */}
-      <section ref={addRevealRef} className="reveal-section">
+      <ScrollReveal>
         <div className="container">
           <div className="section-title">
             <h2>Lo que dicen nuestros clientes</h2>
@@ -272,10 +257,10 @@ export function HomePage() {
             ))}
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* FAQ Section */}
-      <section ref={addRevealRef} className="reveal-section">
+      <ScrollReveal>
         <div className="container">
           <div className="section-title">
             <h2>Preguntas Frecuentes</h2>
@@ -284,10 +269,10 @@ export function HomePage() {
           
           <FAQAccordion items={faqItems} />
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* CTA Section */}
-      <section ref={addRevealRef} className="reveal-section">
+      <ScrollReveal>
         <div className="container text-center">
           <h2 style={{ color: 'var(--primary)', marginBottom: '1rem' }}>¿Listo para transformar tu negocio?</h2>
           <p style={{ marginBottom: '2rem', opacity: 0.8 }}>Agenda una cita y descubre cómo podemos ayudarte a alcanzar tus metas.</p>
@@ -304,7 +289,7 @@ export function HomePage() {
             Agendar cita
           </a>
         </div>
-      </section>
+      </ScrollReveal>
     </>
   );
 }

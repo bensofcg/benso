@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BentoCard, Icon } from '../components';
+import { BentoCard, Icon, ScrollReveal } from '../components';
 
 type CategoryFilter = 'all' | 'capacitacion' | 'asesoramiento' | 'herramientas';
 
@@ -104,7 +104,7 @@ export function ServicesPage() {
   return (
     <>
       {/* Services Section with Filters */}
-      <section style={{ paddingTop: '7rem' }}>
+      <ScrollReveal style={{ paddingTop: '7rem' }}>
         <div className="container">
           <div className="section-title">
             <h2>Nuestros Servicios</h2>
@@ -150,10 +150,10 @@ export function ServicesPage() {
             ))}
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* CTA Section */}
-      <section>
+      <ScrollReveal>
         <div className="container text-center">
           <h2 style={{ color: 'var(--primary)', marginBottom: '1rem' }}>¿Listo para transformar tu negocio?</h2>
           <p style={{ marginBottom: '2rem', opacity: 0.8 }}>Agenda una cita y descubre cómo podemos ayudarte a alcanzar tus metas.</p>
@@ -170,7 +170,7 @@ export function ServicesPage() {
             Agendar cita
           </a>
         </div>
-      </section>
+      </ScrollReveal>
     </>
   );
 }

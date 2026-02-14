@@ -1,4 +1,4 @@
-import { BentoCard, Icon } from '../components';
+import { BentoCard, Icon, ScrollReveal } from '../components';
 
 const values = [
   { title: 'Integridad', description: 'Actuamos con honestidad y transparencia en cada proyecto.', icon: 'star' },
@@ -23,7 +23,7 @@ export function AboutPage() {
   return (
     <>
       {/* Mission Section */}
-      <section style={{ paddingTop: '7rem' }}>
+      <ScrollReveal style={{ paddingTop: '7rem' }}>
         <div className="container">
           <div className="section-title">
             <h2>Sobre Nosotros</h2>
@@ -58,10 +58,10 @@ export function AboutPage() {
             </BentoCard>
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* Vision Section */}
-      <section className="alt-bg">
+      <ScrollReveal className="alt-bg">
         <div className="container">
           <div className="section-title">
             <h2>Nuestra Visión</h2>
@@ -104,10 +104,10 @@ export function AboutPage() {
             </BentoCard>
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* Values Section */}
-      <section>
+      <ScrollReveal>
         <div className="container">
           <div className="section-title">
             <h2>Nuestros Valores</h2>
@@ -126,10 +126,10 @@ export function AboutPage() {
             ))}
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* Diferenciación Section */}
-      <section className="alt-bg">
+      <ScrollReveal className="alt-bg">
         <div className="container">
           <div className="section-title">
             <h2>Por Qué Elegirnos</h2>
@@ -170,10 +170,10 @@ export function AboutPage() {
             </BentoCard>
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* CTA Section */}
-      <section>
+      <ScrollReveal>
         <div className="container text-center">
           <h2 style={{ color: 'var(--primary)', marginBottom: '1rem' }}>¿Listo para transformar tu negocio?</h2>
           <p style={{ marginBottom: '2rem', opacity: 0.8 }}>Agenda una cita y descubre cómo podemos ayudarte a alcanzar tus metas.</p>
@@ -190,7 +190,7 @@ export function AboutPage() {
             Agendar cita
           </a>
         </div>
-      </section>
+      </ScrollReveal>
     </>
   );
 }

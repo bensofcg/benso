@@ -1,4 +1,4 @@
-import { BentoCard, Icon } from '../components';
+import { BentoCard, Icon, ScrollReveal } from '../components';
 
 const currentEvents = [
   {
@@ -52,7 +52,7 @@ export function EventsPage() {
   return (
     <>
       {/* Current Events Section */}
-      <section style={{ paddingTop: '7rem' }}>
+      <ScrollReveal style={{ paddingTop: '7rem' }}>
         <div className="container">
           <div className="section-title">
             <h2>Eventos Actuales</h2>
@@ -72,10 +72,10 @@ export function EventsPage() {
             ))}
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* Upcoming Events */}
-      <section className="alt-bg">
+      <ScrollReveal className="alt-bg">
         <div className="container">
           <div className="section-title">
             <h2>Próximos Eventos</h2>
@@ -103,10 +103,10 @@ export function EventsPage() {
             ))}
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* Mini Gallery */}
-      <section>
+      <ScrollReveal>
         <div className="container">
           <div className="section-title">
             <h2>Mini Galería</h2>
@@ -130,10 +130,10 @@ export function EventsPage() {
             ))}
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* CTA Section */}
-      <section>
+      <ScrollReveal>
         <div className="container text-center">
           <h2 style={{ color: 'var(--primary)', marginBottom: '1rem' }}>¿Listo para transformar tu negocio?</h2>
           <p style={{ marginBottom: '2rem', opacity: 0.8 }}>Agenda una cita y descubre cómo podemos ayudarte a alcanzar tus metas.</p>
@@ -150,7 +150,7 @@ export function EventsPage() {
             Agendar cita
           </a>
         </div>
-      </section>
+      </ScrollReveal>
     </>
   );
 }

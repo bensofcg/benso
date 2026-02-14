@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { BentoCard, FAQAccordion } from '../components';
+import { BentoCard, FAQAccordion, ScrollReveal } from '../components';
 
 const faqItems = [
   {
@@ -76,7 +76,7 @@ export function ContactPage() {
   return (
     <>
       {/* Agendar Cita Section */}
-      <section style={{ paddingTop: '7rem' }}>
+      <ScrollReveal style={{ paddingTop: '7rem' }}>
         <div className="container">
           <div className="section-title">
             <h2>Agenda tu Cita</h2>
@@ -133,10 +133,10 @@ export function ContactPage() {
             </BentoCard>
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* FAQ Section */}
-      <section className="alt-bg">
+      <ScrollReveal className="alt-bg">
         <div className="container">
           <div className="section-title">
             <h2>Preguntas Frecuentes</h2>
@@ -145,7 +145,7 @@ export function ContactPage() {
           
           <FAQAccordion items={faqItems} />
         </div>
-      </section>
+      </ScrollReveal>
     </>
   );
 }
