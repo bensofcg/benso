@@ -130,12 +130,12 @@ export function ProductsPage() {
           </div>
           
           <div className="bento-grid" key={animKey}>
-            {filteredProducts.map((product) => (
+            {filteredProducts.map((product, idx) => (
               <BentoCard 
                 key={`${activeFilter}-${product.title}`} 
                 className="service-card"
                 dataCategory={product.category}
-                style={{ animationDelay: `${filteredProducts.indexOf(product) * 0.1}s` }}
+                style={{ animationDelay: `${idx * 0.1}s` }}
               >
                 <Icon name={product.icon} aria-label={`Icono de ${product.title}`} />
                 <h3>{product.title}</h3>

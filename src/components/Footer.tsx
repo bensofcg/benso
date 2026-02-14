@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import isologoLogo from '../assets/logos/Isologo-Benso-Negativo-TP.svg';
 
+const currentYear = new Date().getFullYear();
+
 export function Footer() {
   return (
     <footer>
@@ -53,7 +55,7 @@ export function Footer() {
         <div className="footer-bottom">
           <div className="footer-bottom-content">
             <img src={isologoLogo} alt="BENSO" className="footer-logo" />
-            <p>&copy; {new Date().getFullYear()}</p>
+            <p>&copy; {currentYear}</p>
           </div>
         </div>
       </div>

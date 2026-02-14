@@ -87,6 +87,8 @@ const testimonials = [
   }
 ];
 
+const brands = ['Empresa A', 'Empresa B', 'Empresa C', 'Empresa D', 'Empresa E', 'Empresa F'];
+
 export function HomePage() {
   return (
     <>
@@ -195,18 +197,9 @@ export function HomePage() {
           </div>
           <div className="marquee-wrapper">
             <div className="marquee-track">
-              <div className="marquee-item">Empresa A</div>
-              <div className="marquee-item">Empresa B</div>
-              <div className="marquee-item">Empresa C</div>
-              <div className="marquee-item">Empresa D</div>
-              <div className="marquee-item">Empresa E</div>
-              <div className="marquee-item">Empresa F</div>
-              <div className="marquee-item">Empresa A</div>
-              <div className="marquee-item">Empresa B</div>
-              <div className="marquee-item">Empresa C</div>
-              <div className="marquee-item">Empresa D</div>
-              <div className="marquee-item">Empresa E</div>
-              <div className="marquee-item">Empresa F</div>
+              {[...brands, ...brands].map((brand, index) => (
+                <div key={index} className="marquee-item">{brand}</div>
+              ))}
             </div>
           </div>
         </div>
