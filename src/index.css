@@ -23,6 +23,8 @@
     --shadow: 0 4px 20px rgba(0, 44, 106, 0.15);
     --radius: 16px;
     --transition: all 0.3s ease;
+    --mobile-card-width: 85vw;
+    --scroll-hint-gradient: linear-gradient(to left, var(--white) 0%, transparent 100%);
 }
 
 html {
@@ -226,6 +228,37 @@ nav ul li a.active {
     background: var(--light-gray);
     transform: translateY(-3px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Hero Scroll Down Indicator (Desktop only) */
+.scroll-down-indicator {
+    display: none;
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--white);
+    opacity: 0.7;
+    animation: bounceDown 2s ease infinite;
+    z-index: 1;
+}
+
+@media (min-width: 769px) {
+    .scroll-down-indicator {
+        display: block;
+    }
+}
+
+@keyframes bounceDown {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-12px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-6px);
+    }
 }
 
 /* ===================================
@@ -855,10 +888,11 @@ footer {
         scroll-snap-type: x mandatory;
         gap: 1rem;
         padding-bottom: 1rem;
+        position: relative;
     }
 
     .bento-grid.mobile-scroll-row > .bento-card {
-        min-width: 280px;
+        min-width: var(--mobile-card-width);
         flex-shrink: 0;
         scroll-snap-align: start;
     }
@@ -874,6 +908,20 @@ footer {
 
     .mobile-scroll-row + .desktop-cta {
         display: none;
+    }
+
+    /* Scroll hint gradient on right edge */
+    .bento-grid.mobile-scroll-row::after {
+        content: '';
+        position: sticky;
+        right: 0;
+        top: 0;
+        min-width: 24px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background: var(--scroll-hint-gradient);
+        pointer-events: none;
+        z-index: 1;
     }
 }
 
@@ -1084,4 +1132,18 @@ footer {
         opacity: 0.95;
         transform: translateY(0);
     }
+}
+
+/* ===================================
+   Scroll Reveal Animations
+=================================== */
+.reveal-section {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
