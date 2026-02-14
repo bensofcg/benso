@@ -37,6 +37,35 @@ body {
     color: var(--dark);
     background-color: var(--white);
     overflow-x: hidden;
+    position: relative;
+}
+
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+    will-change: transform;
+}
+
+body::before {
+    width: 500px;
+    height: 500px;
+    top: 10%;
+    left: -10%;
+    background: radial-gradient(circle, rgba(0, 86, 208, 0.06) 0%, transparent 70%);
+    filter: blur(80px);
+}
+
+body::after {
+    width: 400px;
+    height: 400px;
+    bottom: 15%;
+    right: -5%;
+    background: radial-gradient(circle, rgba(0, 65, 157, 0.05) 0%, transparent 70%);
+    filter: blur(80px);
 }
 
 /* Note: AOS library is not used in this project */
@@ -213,18 +242,39 @@ nav ul li a.active {
 }
 
 .hero-cta {
-    background: var(--white);
+    background: linear-gradient(135deg, var(--white) 0%, var(--light-gray) 100%);
     color: var(--primary);
-    padding: 1rem 2.5rem;
+    padding: 1.1rem 2.8rem;
     border-radius: 50px;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     gap: 0.5rem;
     transition: var(--transition);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    animation: ctaPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes ctaPulse {
+    0%, 100% {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        box-shadow: 0 4px 25px rgba(0, 86, 208, 0.4);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-cta {
+        animation: none;
+    }
+    .scroll-down-indicator {
+        animation: none;
+    }
 }
 
 .hero-cta svg {
@@ -239,23 +289,17 @@ nav ul li a.active {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Hero Scroll Down Indicator (Desktop only) */
+/* Hero Scroll Down Indicator */
 .scroll-down-indicator {
-    display: none;
+    display: block;
     position: absolute;
     bottom: 2rem;
     left: 50%;
     transform: translateX(-50%);
-    color: var(--white);
+    color: var(--accent);
     opacity: 0.7;
     animation: bounceDown 2s ease infinite;
     z-index: 1;
-}
-
-@media (min-width: 769px) {
-    .scroll-down-indicator {
-        display: block;
-    }
 }
 
 @keyframes bounceDown {
@@ -818,6 +862,10 @@ footer {
     transform: scale(1.1);
 }
 
+.social-links a:hover .social-icon {
+    fill: var(--accent);
+}
+
 .footer-bottom {
     text-align: center;
     padding-top: 1.5rem;
@@ -1233,7 +1281,7 @@ footer {
 .social-icon {
     width: 24px;
     height: 24px;
-    fill: currentColor;
+    fill: var(--white);
 }
 
 /* ===================================
