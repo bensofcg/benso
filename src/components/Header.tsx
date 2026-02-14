@@ -26,7 +26,7 @@ export function Header() {
     <header style={{ boxShadow: scrolled ? '0 4px 30px rgba(0, 44, 106, 0.3)' : undefined }}>
       <div className="header-container">
         <Link to="/" className="logo" onClick={closeMenu}>
-          BEN<span>SO</span>
+          <img src="/assets/brand/isotipo-benso.svg" alt="BENSO" className="logo-img" />
         </Link>
 
         <div 

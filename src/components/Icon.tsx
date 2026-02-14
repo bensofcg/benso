@@ -65,6 +65,12 @@ const icons: Record<string, React.ReactNode> = {
   graduation: (
     <path fill="currentColor" d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
   ),
+  'arrow-right': (
+    <path fill="currentColor" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+  ),
+  'chevron-down': (
+    <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/>
+  ),
 };
 
 export function Icon({ name, className = '', style }: IconProps) {

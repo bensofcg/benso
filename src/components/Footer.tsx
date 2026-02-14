@@ -49,7 +49,8 @@ export function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <p>&copy; 2026 Benso. Todos los derechos reservados.</p>
+          <img src="/assets/brand/isologo-benso.svg" alt="BENSO" className="footer-isologo" />
+          <p>&copy; 2026 Benso.</p>
         </div>
       </div>
     </footer>

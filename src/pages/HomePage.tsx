@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { BentoCard, FAQAccordion, Icon } from '../components';
 
@@ -92,6 +92,7 @@ const words = ['Rentabilidad', 'Crecimiento', 'Futuro'];
 
 export function HomePage() {
   const [rotatingWord, setRotatingWord] = useState('Rentabilidad');
+  const revealRefs = useRef<(HTMLDivElement | null)[]>([]);
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -102,6 +103,32 @@ export function HomePage() {
     }, 3000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('scroll-revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    revealRefs.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const addRevealRef = (el: HTMLDivElement | null) => {
+    if (el && !revealRefs.current.includes(el)) {
+      revealRefs.current.push(el);
+    }
+  };
 
   return (
     <>
@@ -123,6 +150,9 @@ export function HomePage() {
             </Link>
           </div>
         </div>
+        <div className="hero-scroll-indicator">
+          <Icon name="chevron-down" />
+        </div>
       </section>
 
       {/* Services Preview Section */}
@@ -133,36 +163,43 @@ export function HomePage() {
             <p>Soluciones integrales para potenciar tu negocio</p>
           </div>
           
-          <div className="bento-grid mobile-scroll-row">
-            {services.map((service, index) => (
-              <BentoCard key={index} className="service-card">
-                <Icon name={service.icon} />
-                <h3>{service.title}</h3>
-                <div>
-                  {service.tags.map((tag, i) => (
-                    <span key={i} className="category-tag">{tag}</span>
-                  ))}
-                </div>
-                <p>{service.description}</p>
-                <a 
-                  href={service.whatsappLink} 
-                  className="btn-consult" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
-                  Solicitar servicio
-                </a>
-              </BentoCard>
-            ))}
-            <div className="mobile-scroll-cta">
-              <Link to="/servicios" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)', whiteSpace: 'nowrap' }}>
-                Ver Todos los Servicios
-              </Link>
+          <div className="mobile-scroll-wrapper">
+            <div className="bento-grid mobile-scroll-row">
+              {services.map((service, index) => (
+                <BentoCard key={index} className="service-card scroll-reveal">
+                  <div ref={addRevealRef} className="scroll-reveal-inner">
+                    <Icon name={service.icon} />
+                    <h3>{service.title}</h3>
+                    <div>
+                      {service.tags.map((tag, i) => (
+                        <span key={i} className="category-tag">{tag}</span>
+                      ))}
+                    </div>
+                    <p>{service.description}</p>
+                    <a 
+                      href={service.whatsappLink} 
+                      className="btn-consult" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      Solicitar servicio
+                    </a>
+                  </div>
+                </BentoCard>
+              ))}
+              <div className="mobile-scroll-cta">
+                <Link to="/servicios" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)', whiteSpace: 'nowrap' }}>
+                  Ver Todos los Servicios
+                  <Icon name="arrow-right" className="btn-icon" />
+                </Link>
+              </div>
             </div>
+            <div className="scroll-hint-gradient" aria-hidden="true"></div>
           </div>
           <div className="text-center desktop-cta" style={{ marginTop: '2rem' }}>
             <Link to="/servicios" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)' }}>
               Ver Todos los Servicios
+              <Icon name="arrow-right" className="btn-icon" />
             </Link>
           </div>
         </div>
@@ -176,29 +213,41 @@ export function HomePage() {
             <p>Próximas capacitaciones y actividades</p>
           </div>
           
-          <div className="bento-grid mobile-scroll-row">
-            {events.map((event, index) => (
-              <BentoCard key={index}>
-                <h3>{event.title}</h3>
-                <div>
-                  <span className="event-status-tag">{event.status}</span>
-                  <span className="event-date-tag">{event.date}</span>
-                </div>
-                <p>{event.description}</p>
-                <a 
-                  href={event.whatsappLink} 
-                  className="btn-consult" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
-                  Inscribirme
-                </a>
-              </BentoCard>
-            ))}
+          <div className="mobile-scroll-wrapper">
+            <div className="bento-grid mobile-scroll-row">
+              {events.map((event, index) => (
+                <BentoCard key={index}>
+                  <div ref={addRevealRef} className="scroll-reveal-inner">
+                    <h3>{event.title}</h3>
+                    <div>
+                      <span className="event-status-tag">{event.status}</span>
+                      <span className="event-date-tag">{event.date}</span>
+                    </div>
+                    <p>{event.description}</p>
+                    <a 
+                      href={event.whatsappLink} 
+                      className="btn-consult" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      Inscribirme
+                    </a>
+                  </div>
+                </BentoCard>
+              ))}
+              <div className="mobile-scroll-cta">
+                <Link to="/eventos" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)', whiteSpace: 'nowrap' }}>
+                  Ver Más Eventos
+                  <Icon name="arrow-right" className="btn-icon" />
+                </Link>
+              </div>
+            </div>
+            <div className="scroll-hint-gradient" aria-hidden="true"></div>
           </div>
-          <div className="text-center" style={{ marginTop: '2rem' }}>
+          <div className="text-center desktop-cta" style={{ marginTop: '2rem' }}>
             <Link to="/eventos" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)' }}>
               Ver Más Eventos
+              <Icon name="arrow-right" className="btn-icon" />
             </Link>
           </div>
         </div>
@@ -215,15 +264,17 @@ export function HomePage() {
           <div className="bento-grid">
             {testimonials.map((testimonial, index) => (
               <BentoCard key={index} className="testimonial-card">
-                <div className="testimonial-quote">
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="quote-icon">
-                    <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" fill="currentColor"/>
-                  </svg>
-                </div>
-                <p>"{testimonial.quote}"</p>
-                <div className="testimonial-author">
-                  <strong>{testimonial.author}</strong>
-                  <span>{testimonial.position}</span>
+                <div ref={addRevealRef} className="scroll-reveal-inner">
+                  <div className="testimonial-quote">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="quote-icon">
+                      <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                  <p>"{testimonial.quote}"</p>
+                  <div className="testimonial-author">
+                    <strong>{testimonial.author}</strong>
+                    <span>{testimonial.position}</span>
+                  </div>
                 </div>
               </BentoCard>
             ))}
