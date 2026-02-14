@@ -88,6 +88,14 @@ header {
     font-weight: 700;
     color: var(--white);
     letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    height: 40px;
+    width: auto;
+    filter: brightness(0) invert(1);
 }
 
 .logo span {
@@ -818,6 +826,19 @@ footer {
     opacity: 0.7;
 }
 
+.footer-bottom-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.footer-logo {
+    height: 28px;
+    width: auto;
+    filter: brightness(0) invert(1);
+}
+
 /* ===================================
    Horizontal Card Layout (About page)
 =================================== */
@@ -910,15 +931,15 @@ footer {
     }
 
     .hero {
-        min-height: 55vh;
+        min-height: 70vh;
     }
 
     .hero h1 {
-        font-size: 2.2rem;
+        font-size: 2.8rem;
     }
 
     .hero .slogan {
-        font-size: 1.1rem;
+        font-size: 1.25rem;
     }
 
     section {
@@ -1021,16 +1042,16 @@ footer {
 @media (max-width: 480px) {
     .hero {
         padding: 2rem 0;
-        min-height: 50vh;
+        min-height: 65vh;
     }
 
     .hero h1 {
-        font-size: 2rem;
+        font-size: 2.4rem;
         margin-bottom: 0.5rem;
     }
     
     .hero .slogan {
-        font-size: 1rem;
+        font-size: 1.15rem;
         margin-bottom: 1rem;
     }
 
@@ -1213,6 +1234,66 @@ footer {
     width: 24px;
     height: 24px;
     fill: currentColor;
+}
+
+/* ===================================
+   Text CTA Links
+=================================== */
+.section-text-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.text-cta-link {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 1.05rem;
+    text-decoration: none;
+    transition: var(--transition);
+    padding: 0.5rem 0;
+    border-bottom: 2px solid transparent;
+}
+
+.text-cta-link:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+
+/* ===================================
+   Brands Marquee
+=================================== */
+.marquee-wrapper {
+    overflow: hidden;
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.marquee-track {
+    display: flex;
+    gap: 3rem;
+    animation: marqueeScroll 20s linear infinite;
+    width: max-content;
+}
+
+.marquee-item {
+    flex-shrink: 0;
+    padding: 1rem 2rem;
+    background: var(--light-gray);
+    border-radius: var(--radius);
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+@keyframes marqueeScroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 /* ===================================

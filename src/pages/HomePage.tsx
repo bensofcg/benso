@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BentoCard, Carousel, FAQAccordion, Icon, ScrollReveal } from '../components';
+import { BentoCard, FAQAccordion, Icon, ScrollReveal } from '../components';
 
 const faqItems = [
   {
@@ -88,21 +87,7 @@ const testimonials = [
   }
 ];
 
-const words = ['Rentabilidad', 'Crecimiento', 'Futuro'];
-
 export function HomePage() {
-  const [rotatingWord, setRotatingWord] = useState('Rentabilidad');
-  
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRotatingWord(prev => {
-        const currentIndex = words.indexOf(prev);
-        return words[(currentIndex + 1) % words.length];
-      });
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <>
       {/* Hero Section */}
@@ -111,9 +96,7 @@ export function HomePage() {
           <div className="hero-content">
             <h1>BENSO</h1>
             <p className="slogan">
-              Consultoría y Soluciones Digitales para la{' '}
-              <span className="rotating-text">{rotatingWord}</span>{' '}
-              Sostenible
+              Consultoría y Soluciones Digitales para la Rentabilidad Sostenible
             </p>
             <Link to="/contacto" className="hero-cta">
               Agendar cita
@@ -138,7 +121,7 @@ export function HomePage() {
             <p>Soluciones integrales para potenciar tu negocio</p>
           </div>
           
-          <Carousel>
+          <div className="bento-grid">
             {services.map((service, index) => (
               <BentoCard key={index} className="service-card">
                 <Icon name={service.icon} />
@@ -159,21 +142,10 @@ export function HomePage() {
                 </a>
               </BentoCard>
             ))}
-            <div className="mobile-scroll-cta">
-              <Link to="/servicios" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)', whiteSpace: 'nowrap' }}>
-                Ver Todos los Servicios
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
-                  <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-                </svg>
-              </Link>
-            </div>
-          </Carousel>
-          <div className="desktop-section-cta">
-            <Link to="/servicios" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)' }}>
-              Ver Todos los Servicios
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
-                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-              </svg>
+          </div>
+          <div className="section-text-cta">
+            <Link to="/servicios" className="text-cta-link">
+              Ver Todos los Servicios →
             </Link>
           </div>
         </div>
@@ -187,7 +159,7 @@ export function HomePage() {
             <p>Próximas capacitaciones y actividades</p>
           </div>
           
-          <Carousel>
+          <div className="bento-grid">
             {events.map((event, index) => (
               <BentoCard key={index}>
                 <h3>{event.title}</h3>
@@ -206,22 +178,36 @@ export function HomePage() {
                 </a>
               </BentoCard>
             ))}
-            <div className="mobile-scroll-cta">
-              <Link to="/eventos" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)', whiteSpace: 'nowrap' }}>
-                Ver Más Eventos
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
-                  <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-                </svg>
-              </Link>
-            </div>
-          </Carousel>
-          <div className="desktop-section-cta">
-            <Link to="/eventos" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)' }}>
-              Ver Más Eventos
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
-                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-              </svg>
+          </div>
+          <div className="section-text-cta">
+            <Link to="/eventos" className="text-cta-link">
+              Ver Más Eventos →
             </Link>
+          </div>
+        </div>
+      </ScrollReveal>
+
+      {/* Brands Marquee Section */}
+      <ScrollReveal>
+        <div className="container">
+          <div className="section-title">
+            <h2>Empresas que confían en nosotros</h2>
+          </div>
+          <div className="marquee-wrapper">
+            <div className="marquee-track">
+              <div className="marquee-item">Empresa A</div>
+              <div className="marquee-item">Empresa B</div>
+              <div className="marquee-item">Empresa C</div>
+              <div className="marquee-item">Empresa D</div>
+              <div className="marquee-item">Empresa E</div>
+              <div className="marquee-item">Empresa F</div>
+              <div className="marquee-item">Empresa A</div>
+              <div className="marquee-item">Empresa B</div>
+              <div className="marquee-item">Empresa C</div>
+              <div className="marquee-item">Empresa D</div>
+              <div className="marquee-item">Empresa E</div>
+              <div className="marquee-item">Empresa F</div>
+            </div>
           </div>
         </div>
       </ScrollReveal>

@@ -1,4 +1,4 @@
-import { BentoCard, Icon, ScrollReveal } from '../components';
+import { BentoCard, ScrollReveal } from '../components';
 
 const currentEvents = [
   {
@@ -37,15 +37,6 @@ const upcomingEvents = [
     description: 'Aprende a implementar tecnología en tu negocio para optimizar procesos y reducir costos.',
     whatsappLink: 'https://wa.me/5355609099?text=Hola%2C%20quiero%20inscribirme%20al%20evento%20Taller%20de%20Transformación%20Digital'
   }
-];
-
-const galleryItems = [
-  { title: 'Taller de Gestión Financiera', date: 'Octubre 2024', description: 'Capacitación intensiva para emprendedores.', icon: 'document' },
-  { title: 'Seminario de Marketing Digital', date: 'Septiembre 2024', description: 'Estrategias para redes sociales.', icon: 'info' },
-  { title: 'Networking Empresarial', date: 'Agosto 2024', description: 'Encuentro de emprendedores locales.', icon: 'people' },
-  { title: 'Workshop Excel Avanzado', date: 'Julio 2024', description: 'Automatización y análisis de datos.', icon: 'chart' },
-  { title: 'Lanzamiento Programa PyMEs', date: 'Junio 2024', description: 'Presentación de nuevos servicios.', icon: 'bolt' },
-  { title: 'Graduación Primer Grupo', date: 'Mayo 2024', description: 'Certificación de participantes.', icon: 'graduation' }
 ];
 
 export function EventsPage() {
@@ -100,33 +91,6 @@ export function EventsPage() {
                   Inscribirme
                 </a>
               </BentoCard>
-            ))}
-          </div>
-        </div>
-      </ScrollReveal>
-
-      {/* Mini Gallery */}
-      <ScrollReveal>
-        <div className="container">
-          <div className="section-title">
-            <h2>Mini Galería</h2>
-            <p>Revive los mejores momentos</p>
-          </div>
-          
-          <div className="gallery-grid">
-            {galleryItems.map((item, index) => (
-              <div key={index} className="gallery-item">
-                <div className="placeholder-img">
-                  <Icon 
-                    name={item.icon} 
-                    style={{ width: '64px', height: '64px', color: 'var(--white)' }} 
-                  />
-                </div>
-                <div className="gallery-content">
-                  <h4>{item.title}</h4>
-                  <p>{item.date} - {item.description}</p>
-                </div>
-              </div>
             ))}
           </div>
         </div>
