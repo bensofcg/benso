@@ -96,10 +96,16 @@ const filters: { label: string; value: CategoryFilter }[] = [
 
 export function ServicesPage() {
   const [activeFilter, setActiveFilter] = useState<CategoryFilter>('all');
+  const [animKey, setAnimKey] = useState(0);
 
   const filteredServices = services.filter(
     service => activeFilter === 'all' || service.category === activeFilter
   );
+
+  const handleFilterChange = (value: CategoryFilter) => {
+    setActiveFilter(value);
+    setAnimKey(prev => prev + 1);
+  };
 
   return (
     <>
@@ -116,19 +122,20 @@ export function ServicesPage() {
               <button
                 key={filter.value}
                 className={`filter-btn ${activeFilter === filter.value ? 'active' : ''}`}
-                onClick={() => setActiveFilter(filter.value)}
+                onClick={() => handleFilterChange(filter.value)}
               >
                 {filter.label}
               </button>
             ))}
           </div>
           
-          <div className="bento-grid">
+          <div className="bento-grid" key={animKey}>
             {filteredServices.map((service, index) => (
               <BentoCard 
-                key={index} 
+                key={`${activeFilter}-${index}`} 
                 className="service-card"
                 dataCategory={service.category}
+                style={{ animationDelay: `${index * 0.05}s` }}
               >
                 <Icon name={service.icon} aria-label={`Icono de ${service.title}`} />
                 <h3>{service.title}</h3>
