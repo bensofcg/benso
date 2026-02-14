@@ -1244,7 +1244,7 @@ footer {
    Service Card Filter Transition
 =================================== */
 .bento-grid .bento-card {
-    animation: fadeIn 0.35s ease forwards;
+    animation: fadeIn 0.4s ease forwards;
 }
 
 /* ===================================
