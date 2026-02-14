@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { BentoCard, FAQAccordion, Icon } from '../components';
 
@@ -92,7 +92,7 @@ const words = ['Rentabilidad', 'Crecimiento', 'Futuro'];
 
 export function HomePage() {
   const [rotatingWord, setRotatingWord] = useState('Rentabilidad');
-  const revealRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const observerRef = useRef<IntersectionObserver | null>(null);
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -105,30 +105,24 @@ export function HomePage() {
   }, []);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('scroll-revealed');
-            observer.unobserve(entry.target);
+            observerRef.current?.unobserve(entry.target);
           }
         });
       },
       { threshold: 0.15 }
     );
 
-    revealRefs.current.forEach((el) => {
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
+    return () => observerRef.current?.disconnect();
   }, []);
 
-  const addRevealRef = (el: HTMLDivElement | null) => {
-    if (el && !revealRefs.current.includes(el)) {
-      revealRefs.current.push(el);
-    }
-  };
+  const revealRef = useCallback((el: HTMLDivElement | null) => {
+    if (el) observerRef.current?.observe(el);
+  }, []);
 
   return (
     <>
@@ -166,8 +160,8 @@ export function HomePage() {
           <div className="mobile-scroll-wrapper">
             <div className="bento-grid mobile-scroll-row">
               {services.map((service, index) => (
-                <BentoCard key={index} className="service-card scroll-reveal">
-                  <div ref={addRevealRef} className="scroll-reveal-inner">
+                <BentoCard key={index} className="service-card">
+                  <div ref={revealRef} className="scroll-reveal-inner">
                     <Icon name={service.icon} />
                     <h3>{service.title}</h3>
                     <div>
@@ -217,7 +211,7 @@ export function HomePage() {
             <div className="bento-grid mobile-scroll-row">
               {events.map((event, index) => (
                 <BentoCard key={index}>
-                  <div ref={addRevealRef} className="scroll-reveal-inner">
+                  <div ref={revealRef} className="scroll-reveal-inner">
                     <h3>{event.title}</h3>
                     <div>
                       <span className="event-status-tag">{event.status}</span>
@@ -264,7 +258,7 @@ export function HomePage() {
           <div className="bento-grid">
             {testimonials.map((testimonial, index) => (
               <BentoCard key={index} className="testimonial-card">
-                <div ref={addRevealRef} className="scroll-reveal-inner">
+                <div ref={revealRef} className="scroll-reveal-inner">
                   <div className="testimonial-quote">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="quote-icon">
                       <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" fill="currentColor"/>
