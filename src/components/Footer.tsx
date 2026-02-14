@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import isologoSrc from '../assets/isologo-benso.svg';
 
 export function Footer() {
   return (
@@ -49,7 +50,10 @@ export function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <p>&copy; 2026 Benso. Todos los derechos reservados.</p>
+          <div className="footer-bottom-content">
+            <img src={isologoSrc} alt="Benso" className="footer-logo" />
+            <p>&copy; 2026 Benso</p>
+          </div>
         </div>
       </div>
     </footer>

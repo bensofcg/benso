@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import type { ReactNode } from 'react';
 
 interface BentoCardProps {
@@ -9,14 +10,14 @@ interface BentoCardProps {
   dataCategory?: string;
 }
 
-export function BentoCard({ 
+export const BentoCard = forwardRef<HTMLDivElement, BentoCardProps>(function BentoCard({ 
   children, 
   className = '', 
   large, 
   tall,
   style,
   dataCategory
-}: BentoCardProps) {
+}, ref) {
   const classes = [
     'bento-card',
     large ? 'large' : '',
@@ -29,8 +30,9 @@ export function BentoCard({
       className={classes} 
       style={style}
       data-category={dataCategory}
+      ref={ref}
     >
       {children}
     </div>
   );
-}
+});

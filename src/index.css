@@ -85,6 +85,14 @@ header {
     font-weight: 700;
     color: var(--white);
     letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    height: 40px;
+    width: auto;
+    filter: brightness(0) invert(1);
 }
 
 .logo span {
@@ -226,6 +234,28 @@ nav ul li a.active {
     background: var(--light-gray);
     transform: translateY(-3px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Hero Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounceDown 2s ease-in-out infinite;
+    color: var(--white);
+    opacity: 0.7;
+    z-index: 1;
+}
+
+.scroll-indicator svg {
+    width: 32px;
+    height: 32px;
+}
+
+@keyframes bounceDown {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(12px); }
 }
 
 /* ===================================
@@ -714,6 +744,19 @@ footer {
     opacity: 0.7;
 }
 
+.footer-bottom-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.footer-logo {
+    height: 28px;
+    width: auto;
+    filter: brightness(0) invert(1);
+}
+
 /* ===================================
    Horizontal Card Layout (About page)
 =================================== */
@@ -738,6 +781,11 @@ footer {
 
 /* Hide mobile-only scroll CTA on desktop */
 .mobile-scroll-cta {
+    display: none;
+}
+
+/* Mobile Scroll Hint - hidden on desktop */
+.mobile-scroll-hint {
     display: none;
 }
 
@@ -858,7 +906,7 @@ footer {
     }
 
     .bento-grid.mobile-scroll-row > .bento-card {
-        min-width: 280px;
+        min-width: 85vw;
         flex-shrink: 0;
         scroll-snap-align: start;
     }
@@ -872,8 +920,17 @@ footer {
         justify-content: center;
     }
 
-    .mobile-scroll-row + .desktop-cta {
+    .mobile-scroll-row ~ .desktop-cta {
         display: none;
+    }
+
+    .mobile-scroll-hint {
+        display: block;
+        text-align: center;
+        font-size: 0.85rem;
+        color: var(--dark);
+        opacity: 0.5;
+        margin-top: 0.5rem;
     }
 }
 
@@ -1055,6 +1112,18 @@ footer {
 
 .mt-2 {
     margin-top: 2rem;
+}
+
+/* Scroll Animations */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-on-scroll.animate-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Animation class added via JavaScript */

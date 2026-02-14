@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import isotipoSrc from '../assets/isotipo-benso.svg';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,7 +27,7 @@ export function Header() {
     <header style={{ boxShadow: scrolled ? '0 4px 30px rgba(0, 44, 106, 0.3)' : undefined }}>
       <div className="header-container">
         <Link to="/" className="logo" onClick={closeMenu}>
-          BEN<span>SO</span>
+          <img src={isotipoSrc} alt="Benso" className="logo-img" />
         </Link>
 
         <div 

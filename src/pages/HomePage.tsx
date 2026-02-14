@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { BentoCard, FAQAccordion, Icon } from '../components';
 
@@ -103,6 +103,34 @@ export function HomePage() {
     return () => clearInterval(interval);
   }, []);
 
+  // Intersection Observer for scroll animations
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  const animateRef = useCallback((node: HTMLDivElement | null) => {
+    if (node) {
+      if (!observerRef.current) {
+        observerRef.current = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('animate-visible');
+                observerRef.current?.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+      }
+      observerRef.current.observe(node);
+    }
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      observerRef.current?.disconnect();
+    };
+  }, []);
+
   return (
     <>
       {/* Hero Section */}
@@ -122,6 +150,11 @@ export function HomePage() {
               </svg>
             </Link>
           </div>
+          <div className="scroll-indicator">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+              <path d="M12 16l-6-6h12z"/>
+            </svg>
+          </div>
         </div>
       </section>
 
@@ -135,7 +168,7 @@ export function HomePage() {
           
           <div className="bento-grid mobile-scroll-row">
             {services.map((service, index) => (
-              <BentoCard key={index} className="service-card">
+              <BentoCard key={index} className="service-card animate-on-scroll" ref={animateRef}>
                 <Icon name={service.icon} />
                 <h3>{service.title}</h3>
                 <div>
@@ -157,12 +190,19 @@ export function HomePage() {
             <div className="mobile-scroll-cta">
               <Link to="/servicios" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)', whiteSpace: 'nowrap' }}>
                 Ver Todos los Servicios
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
+                  <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                </svg>
               </Link>
             </div>
           </div>
+          <span className="mobile-scroll-hint">Desliza para ver más →</span>
           <div className="text-center desktop-cta" style={{ marginTop: '2rem' }}>
             <Link to="/servicios" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)' }}>
               Ver Todos los Servicios
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+              </svg>
             </Link>
           </div>
         </div>
@@ -178,7 +218,7 @@ export function HomePage() {
           
           <div className="bento-grid mobile-scroll-row">
             {events.map((event, index) => (
-              <BentoCard key={index}>
+              <BentoCard key={index} className="animate-on-scroll" ref={animateRef}>
                 <h3>{event.title}</h3>
                 <div>
                   <span className="event-status-tag">{event.status}</span>
@@ -195,10 +235,22 @@ export function HomePage() {
                 </a>
               </BentoCard>
             ))}
+            <div className="mobile-scroll-cta">
+              <Link to="/eventos" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)', whiteSpace: 'nowrap' }}>
+                Ver Más Eventos
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
+                  <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                </svg>
+              </Link>
+            </div>
           </div>
-          <div className="text-center" style={{ marginTop: '2rem' }}>
+          <span className="mobile-scroll-hint">Desliza para ver más →</span>
+          <div className="text-center desktop-cta" style={{ marginTop: '2rem' }}>
             <Link to="/eventos" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)' }}>
               Ver Más Eventos
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+              </svg>
             </Link>
           </div>
         </div>
@@ -214,7 +266,7 @@ export function HomePage() {
           
           <div className="bento-grid">
             {testimonials.map((testimonial, index) => (
-              <BentoCard key={index} className="testimonial-card">
+              <BentoCard key={index} className="testimonial-card animate-on-scroll" ref={animateRef}>
                 <div className="testimonial-quote">
                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="quote-icon">
                     <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" fill="currentColor"/>
