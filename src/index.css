@@ -262,6 +262,77 @@ nav ul li a.active {
 }
 
 /* ===================================
+   Carousel Component
+=================================== */
+.carousel-wrapper {
+    position: relative;
+}
+
+.carousel-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1.5rem;
+    padding: 2rem 0;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.carousel-track::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-track > .bento-card {
+    min-width: 300px;
+    flex: 0 0 calc(33.333% - 1rem);
+    scroll-snap-align: start;
+}
+
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: var(--transition);
+}
+
+.carousel-arrow:hover {
+    background: var(--secondary);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-arrow svg {
+    width: 20px;
+    height: 20px;
+}
+
+.carousel-arrow-left {
+    left: -20px;
+}
+
+.carousel-arrow-right {
+    right: -20px;
+}
+
+/* Desktop "Ver más" button */
+.desktop-section-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+/* ===================================
    Bento Grid System
 =================================== */
 .bento-grid {
@@ -843,15 +914,15 @@ footer {
     }
 
     .hero h1 {
-        font-size: 1.8rem;
+        font-size: 2.2rem;
     }
 
     .hero .slogan {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
 
     section {
-        padding: 2.5rem 0;
+        padding: 3rem 0;
     }
 
     .section-title {
@@ -859,11 +930,11 @@ footer {
     }
 
     .section-title h2 {
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
 
     .section-title p {
-        font-size: 0.95rem;
+        font-size: 1rem;
     }
 
     .bento-grid {
@@ -873,22 +944,22 @@ footer {
     }
 
     .bento-card {
-        padding: 1.25rem;
+        padding: 1.5rem;
         gap: 0.75rem;
     }
 
     .bento-card h3 {
-        font-size: 1.2rem;
+        font-size: 1.35rem;
     }
 
     .bento-card p {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
     }
 
     .icon-svg {
-        width: 36px;
-        height: 36px;
-        margin-bottom: 0.5rem;
+        width: 40px;
+        height: 40px;
+        margin-bottom: 0.25rem;
     }
     
     /* Improved mobile filter buttons */
@@ -917,25 +988,23 @@ footer {
         flex-shrink: 0;
     }
 
-    /* Horizontal scroll for mobile cards */
-    .bento-grid.mobile-scroll-row {
-        display: flex;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x mandatory;
+    /* Carousel mobile styles */
+    .carousel-arrow {
+        display: none;
+    }
+
+    .carousel-track {
         gap: 1rem;
         padding: 0.5rem 20px 1rem;
         margin: 0 -20px;
-        position: relative;
     }
 
-    .bento-grid.mobile-scroll-row > .bento-card {
+    .carousel-track > .bento-card {
         min-width: var(--mobile-card-width);
-        flex-shrink: 0;
-        scroll-snap-align: start;
+        flex: 0 0 auto;
     }
 
-    .bento-grid.mobile-scroll-row > .mobile-scroll-cta {
+    .carousel-track > .mobile-scroll-cta {
         min-width: 180px;
         flex-shrink: 0;
         scroll-snap-align: start;
@@ -944,100 +1013,69 @@ footer {
         justify-content: center;
     }
 
-    /* Scroll hint gradient on right edge - disabled to avoid overflow */
-    .bento-grid.mobile-scroll-row::after {
+    .desktop-section-cta {
         display: none;
-    }
-
-    /* Scroll hint swipe indicator */
-    .scroll-hint {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.25rem;
-        color: var(--accent);
-        opacity: 0;
-        animation: swipeHint 3s ease 0.5s forwards;
-        pointer-events: none;
-        font-size: 0.85rem;
-        font-weight: 600;
-        margin-top: 0.5rem;
-    }
-
-    .scroll-hint svg {
-        width: 20px;
-        height: 20px;
-    }
-
-    @keyframes swipeHint {
-        0% { opacity: 0; transform: translateX(0); }
-        15% { opacity: 1; transform: translateX(0); }
-        40% { opacity: 1; transform: translateX(8px); }
-        55% { opacity: 1; transform: translateX(0); }
-        70% { opacity: 1; transform: translateX(8px); }
-        85% { opacity: 1; transform: translateX(0); }
-        100% { opacity: 0; transform: translateX(0); }
     }
 }
 
 @media (max-width: 480px) {
     .hero {
-        padding: 1rem 0;
+        padding: 2rem 0;
         min-height: 50vh;
     }
 
     .hero h1 {
-        font-size: 1.5rem;
+        font-size: 2rem;
         margin-bottom: 0.5rem;
     }
     
     .hero .slogan {
-        font-size: 0.9rem;
-        margin-bottom: 0.75rem;
+        font-size: 1rem;
+        margin-bottom: 1rem;
     }
 
     .hero-cta {
         padding: 0.75rem 1.5rem;
-        font-size: 0.95rem;
+        font-size: 1rem;
     }
 
     section {
-        padding: 2rem 0;
+        padding: 2.5rem 0;
     }
 
     .section-title {
-        margin-bottom: 1.25rem;
+        margin-bottom: 1rem;
     }
 
     .section-title h2 {
-        font-size: 1.3rem;
+        font-size: 1.75rem;
     }
 
     .bento-card {
-        padding: 1rem;
+        padding: 1.25rem;
     }
 
     .bento-card h3 {
-        font-size: 1.1rem;
+        font-size: 1.25rem;
     }
 
     .btn-consult {
         padding: 0.6rem 1rem;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
     }
 
     .testimonial-card {
-        padding: 1.25rem 1rem;
+        padding: 1.5rem 1.25rem;
     }
 
     .faq-question {
         padding: 1rem;
-        font-size: 0.95rem;
+        font-size: 1rem;
     }
 
     .faq-answer-content {
         padding: 0 1rem 1rem;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
     }
 }
 
@@ -1244,7 +1282,13 @@ footer {
    Service Card Filter Transition
 =================================== */
 .bento-grid .bento-card {
+    opacity: 0;
     animation: fadeIn 0.4s ease forwards;
+}
+
+.carousel-track .bento-card {
+    opacity: 1;
+    animation: none;
 }
 
 /* ===================================
