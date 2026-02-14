@@ -47,6 +47,7 @@ body::after {
     border-radius: 50%;
     pointer-events: none;
     z-index: -1;
+    will-change: transform;
 }
 
 body::before {
@@ -264,6 +265,15 @@ nav ul li a.active {
     }
     50% {
         box-shadow: 0 4px 25px rgba(0, 86, 208, 0.4);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-cta {
+        animation: none;
+    }
+    .scroll-down-indicator {
+        animation: none;
     }
 }
 
