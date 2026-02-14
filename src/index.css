@@ -23,6 +23,8 @@
     --shadow: 0 4px 20px rgba(0, 44, 106, 0.15);
     --radius: 16px;
     --transition: all 0.3s ease;
+    --mobile-card-width: 85vw;
+    --scroll-hint-gradient: linear-gradient(to left, var(--white) 0%, transparent 100%);
 }
 
 html {
@@ -890,7 +892,7 @@ footer {
     }
 
     .bento-grid.mobile-scroll-row > .bento-card {
-        min-width: 85vw;
+        min-width: var(--mobile-card-width);
         flex-shrink: 0;
         scroll-snap-align: start;
     }
@@ -917,13 +919,9 @@ footer {
         min-width: 24px;
         flex-shrink: 0;
         align-self: stretch;
-        background: linear-gradient(to left, var(--white) 0%, transparent 100%);
+        background: var(--scroll-hint-gradient);
         pointer-events: none;
         z-index: 1;
-    }
-
-    .alt-bg .bento-grid.mobile-scroll-row::after {
-        background: linear-gradient(to left, var(--white) 0%, transparent 100%);
     }
 }
 
