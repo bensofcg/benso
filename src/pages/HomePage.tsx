@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BentoCard, FAQAccordion, Icon, ScrollReveal } from '../components';
+import { BentoCard, Carousel, FAQAccordion, Icon, ScrollReveal } from '../components';
 
 const faqItems = [
   {
@@ -138,7 +138,7 @@ export function HomePage() {
             <p>Soluciones integrales para potenciar tu negocio</p>
           </div>
           
-          <div className="bento-grid mobile-scroll-row">
+          <Carousel>
             {services.map((service, index) => (
               <BentoCard key={index} className="service-card">
                 <Icon name={service.icon} />
@@ -167,12 +167,14 @@ export function HomePage() {
                 </svg>
               </Link>
             </div>
-          </div>
-          <div className="scroll-hint" aria-hidden="true">
-            <span>Desliza</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
+          </Carousel>
+          <div className="desktop-section-cta">
+            <Link to="/servicios" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)' }}>
+              Ver Todos los Servicios
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
+                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+              </svg>
+            </Link>
           </div>
         </div>
       </ScrollReveal>
@@ -185,7 +187,7 @@ export function HomePage() {
             <p>Próximas capacitaciones y actividades</p>
           </div>
           
-          <div className="bento-grid mobile-scroll-row">
+          <Carousel>
             {events.map((event, index) => (
               <BentoCard key={index}>
                 <h3>{event.title}</h3>
@@ -212,12 +214,14 @@ export function HomePage() {
                 </svg>
               </Link>
             </div>
-          </div>
-          <div className="scroll-hint" aria-hidden="true">
-            <span>Desliza</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
+          </Carousel>
+          <div className="desktop-section-cta">
+            <Link to="/eventos" className="hero-cta" style={{ background: 'var(--primary)', color: 'var(--white)' }}>
+              Ver Más Eventos
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
+                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+              </svg>
+            </Link>
           </div>
         </div>
       </ScrollReveal>

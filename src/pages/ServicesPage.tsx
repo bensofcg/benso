@@ -135,7 +135,7 @@ export function ServicesPage() {
                 key={`${activeFilter}-${service.title}`} 
                 className="service-card"
                 dataCategory={service.category}
-                style={{ animationDelay: `${filteredServices.indexOf(service) * 0.05}s` }}
+                style={{ animationDelay: `${filteredServices.indexOf(service) * 0.1}s` }}
               >
                 <Icon name={service.icon} aria-label={`Icono de ${service.title}`} />
                 <h3>{service.title}</h3>
