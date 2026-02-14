@@ -1,7 +1,7 @@
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Header, Footer } from './components';
-import { HomePage, ServicesPage, AboutPage, EventsPage, ContactPage } from './pages';
+import { HomePage, ServicesPage, ProductsPage, AboutPage, EventsPage, ContactPage } from './pages';
 import './index.css';
 
 // Scroll to top on route change
@@ -24,6 +24,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/servicios" element={<ServicesPage />} />
+          <Route path="/productos" element={<ProductsPage />} />
           <Route path="/nosotros" element={<AboutPage />} />
           <Route path="/eventos" element={<EventsPage />} />
           <Route path="/contacto" element={<ContactPage />} />

@@ -1,4 +1,7 @@
 import { Link } from 'react-router-dom';
+import isologoLogo from '../assets/logos/Isologo-Benso-Negativo-TP.svg';
+
+const currentYear = new Date().getFullYear();
 
 export function Footer() {
   return (
@@ -33,6 +36,7 @@ export function Footer() {
             <ul>
               <li><Link to="/">Inicio</Link></li>
               <li><Link to="/servicios">Servicios</Link></li>
+              <li><Link to="/productos">Productos</Link></li>
               <li><Link to="/nosotros">Nosotros</Link></li>
               <li><Link to="/eventos">Eventos</Link></li>
               <li><Link to="/contacto">Contacto</Link></li>
@@ -49,7 +53,10 @@ export function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <p>&copy; 2026 Benso. Todos los derechos reservados.</p>
+          <div className="footer-bottom-content">
+            <img src={isologoLogo} alt="BENSO" className="footer-logo" />
+            <p>&copy; {currentYear}</p>
+          </div>
         </div>
       </div>
     </footer>
