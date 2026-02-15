@@ -95,7 +95,7 @@ export function HomePage() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      if (window.scrollY > 100) {
         setScrollIndicatorHidden(true);
       } else {
         setScrollIndicatorHidden(false);
@@ -124,11 +124,28 @@ export function HomePage() {
           </div>
         </div>
         <div className={`scroll-down-indicator${scrollIndicatorHidden ? ' hidden' : ''}`} aria-hidden="true">
+          <span className="scroll-down-text">Desliza</span>
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="6 9 12 15 18 9" />
           </svg>
         </div>
       </section>
+
+      {/* Brands Marquee Section */}
+      <ScrollReveal>
+        <div className="container">
+          <div className="section-title">
+            <h2>Empresas que confían en nosotros</h2>
+          </div>
+          <div className="marquee-wrapper">
+            <div className="marquee-track">
+              {[...brands, ...brands].map((brand, index) => (
+                <div key={index} className="marquee-item">{brand}</div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </ScrollReveal>
 
       {/* Services Preview Section */}
       <ScrollReveal>
@@ -204,22 +221,6 @@ export function HomePage() {
         </div>
       </ScrollReveal>
 
-      {/* Brands Marquee Section */}
-      <ScrollReveal>
-        <div className="container">
-          <div className="section-title">
-            <h2>Empresas que confían en nosotros</h2>
-          </div>
-          <div className="marquee-wrapper">
-            <div className="marquee-track">
-              {[...brands, ...brands].map((brand, index) => (
-                <div key={index} className="marquee-item">{brand}</div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </ScrollReveal>
-
       {/* Testimonials Section */}
       <ScrollReveal>
         <div className="container">
@@ -266,7 +267,7 @@ export function HomePage() {
           <p style={{ marginBottom: '2rem', opacity: 0.8 }}>Agenda una cita y descubre cómo podemos ayudarte a alcanzar tus metas.</p>
           <a 
             href="https://wa.me/5355609099?text=Hola%2C%20me%20gustaría%20agendar%20una%20cita%20para%20consultoría" 
-            className="hero-cta" 
+            className="cta-whatsapp" 
             target="_blank" 
             rel="noopener noreferrer"
           >

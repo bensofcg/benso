@@ -1,6 +1,6 @@
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
-import { Header, Footer } from './components';
+import { Header, Footer, Background } from './components';
 import { HomePage, ServicesPage, ProductsPage, AboutPage, EventsPage, ContactPage } from './pages';
 import './index.css';
 
@@ -19,6 +19,7 @@ function App() {
   return (
     <HashRouter>
       <ScrollToTop />
+      <Background />
       <Header />
       <main>
         <Routes>

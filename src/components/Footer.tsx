@@ -55,7 +55,7 @@ export function Footer() {
         <div className="footer-bottom">
           <div className="footer-bottom-content">
             <img src={isologoLogo} alt="BENSO" className="footer-logo" />
-            <p>&copy; {currentYear}</p>
+            <p className="footer-year">&copy; {currentYear}</p>
           </div>
         </div>
       </div>
