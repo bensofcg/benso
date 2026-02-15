@@ -53,9 +53,9 @@ export function Background() {
       aria-hidden="true"
     >
       {circles.map((circle) => {
-        const speed = 0.02 + (circle.id % 3) * 0.015;
-        const offsetY = scrollY * speed * (circle.id % 2 === 0 ? 1 : -1);
-        const offsetX = scrollY * speed * 0.5 * (circle.id % 2 === 0 ? -1 : 1);
+        const parallaxSpeed = 0.02 + (circle.id % 3) * 0.015;
+        const offsetY = scrollY * parallaxSpeed * (circle.id % 2 === 0 ? 1 : -1);
+        const offsetX = scrollY * parallaxSpeed * 0.5 * (circle.id % 2 === 0 ? -1 : 1);
 
         return (
           <div
@@ -72,7 +72,6 @@ export function Background() {
               left: `${circle.x}%`,
               transform: `translate(${offsetX}px, ${offsetY}px)`,
               willChange: 'transform',
-              transition: 'transform 0.1s linear',
             }}
           />
         );
