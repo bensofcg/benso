@@ -19,6 +19,8 @@
     --white: #ffffff;
     --light-gray: #e6e6e6;
     --dark: #001737;
+    --whatsapp: #25D366;
+    --whatsapp-hover: #1ebe5d;
     --font-main: 'TT Commons Pro', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --shadow: 0 4px 20px rgba(0, 44, 106, 0.15);
     --radius: 16px;
@@ -35,7 +37,7 @@ body {
     font-family: var(--font-main);
     line-height: 1.6;
     color: var(--dark);
-    background-color: var(--white);
+    background-color: rgba(255, 255, 255, 0.92);
     overflow-x: hidden;
     position: relative;
 }
@@ -124,7 +126,7 @@ nav ul li a.active {
 }
 
 .cta-header {
-    background: #25D366;
+    background: var(--whatsapp);
     color: var(--white);
     padding: 0.75rem 1.5rem;
     border-radius: 50px;
@@ -136,7 +138,7 @@ nav ul li a.active {
 }
 
 .cta-header:hover {
-    background: #128C7E;
+    background: var(--whatsapp-hover);
     transform: scale(1.05);
 }
 
@@ -164,12 +166,15 @@ nav ul li a.active {
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
     position: relative;
     color: var(--white);
-    padding: 6rem 0;
+    padding: 6rem 0 2rem;
     text-align: center;
-    min-height: 100vh;
-    min-height: 100dvh;
+    height: 100vh;
+    height: 100dvh;
     display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .hero::before {
@@ -217,8 +222,8 @@ nav ul li a.active {
 }
 
 .hero-cta {
-    background: linear-gradient(135deg, #ffffff 0%, #e0ecff 100%);
-    color: var(--primary);
+    background: var(--whatsapp);
+    color: var(--white);
     padding: 1.1rem 2.8rem;
     border-radius: 50px;
     font-weight: 700;
@@ -228,31 +233,10 @@ nav ul li a.active {
     justify-content: center;
     text-align: center;
     gap: 0.5rem;
-    transition: var(--transition);
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 4px 20px rgba(0, 86, 208, 0.4), 0 0 40px rgba(0, 86, 208, 0.15);
-    animation: ctaPulse 2.5s ease-in-out infinite;
+    transition: transform 0.3s ease, background 0.3s ease;
+    border: none;
+    box-shadow: none;
     position: relative;
-}
-
-@keyframes ctaPulse {
-    0%, 100% {
-        box-shadow: 0 4px 20px rgba(0, 86, 208, 0.4), 0 0 40px rgba(0, 86, 208, 0.15);
-        transform: translateY(0);
-    }
-    50% {
-        box-shadow: 0 8px 35px rgba(0, 86, 208, 0.6), 0 0 60px rgba(0, 86, 208, 0.25);
-        transform: translateY(-2px);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .hero-cta {
-        animation: none;
-    }
-    .scroll-down-indicator {
-        animation: none;
-    }
 }
 
 .hero-cta svg {
@@ -262,15 +246,19 @@ nav ul li a.active {
 }
 
 .hero-cta:hover {
-    background: linear-gradient(135deg, #ffffff 0%, #d0e0ff 100%);
+    background: var(--whatsapp-hover);
     transform: translateY(-3px);
-    box-shadow: 0 10px 40px rgba(0, 86, 208, 0.5), 0 0 60px rgba(0, 86, 208, 0.2);
-    animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scroll-down-indicator {
+        animation: none;
+    }
 }
 
 /* WhatsApp CTA Button */
 .cta-whatsapp {
-    background: #25D366;
+    background: var(--whatsapp);
     color: var(--white);
     padding: 1.1rem 2.8rem;
     border-radius: 50px;
@@ -292,7 +280,7 @@ nav ul li a.active {
 }
 
 .cta-whatsapp:hover {
-    background: #1ebe5d;
+    background: var(--whatsapp-hover);
     transform: translateY(-3px);
 }
 
@@ -303,6 +291,7 @@ nav ul li a.active {
     align-items: center;
     position: absolute;
     bottom: 2rem;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 2rem);
     left: 50%;
     transform: translateX(-50%);
     color: var(--white);
@@ -464,7 +453,7 @@ section {
 }
 
 section.alt-bg {
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.85);
 }
 
 .section-title {
@@ -750,7 +739,7 @@ section.alt-bg {
 }
 
 .whatsapp-cta {
-    background: #25D366;
+    background: var(--whatsapp);
     color: var(--white);
     padding: 1.5rem 2rem;
     border-radius: var(--radius);
@@ -764,7 +753,7 @@ section.alt-bg {
 }
 
 .whatsapp-cta:hover {
-    background: #128C7E;
+    background: var(--whatsapp-hover);
     transform: scale(1.02);
 }
 
@@ -894,7 +883,6 @@ footer {
     padding-top: 1.5rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     font-size: 0.9rem;
-    opacity: 0.7;
 }
 
 .footer-bottom-content {
@@ -1008,22 +996,23 @@ footer {
     }
 
     .hero {
-        min-height: 100vh;
-        min-height: 100dvh;
+        height: 100vh;
+        height: 100dvh;
     }
 
     .scroll-down-indicator {
-        position: relative;
-        bottom: auto;
-        left: auto;
-        transform: none;
+        position: absolute;
+        bottom: 1.5rem;
+        bottom: calc(env(safe-area-inset-bottom, 0px) + 1.5rem);
+        left: 50%;
+        transform: translateX(-50%);
         color: var(--white);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 1rem 0;
-        animation: bounceDownMobile 2s ease infinite;
+        padding: 0;
+        animation: bounceDown 2s ease infinite;
     }
 
     .scroll-down-indicator.hidden {
@@ -1150,8 +1139,8 @@ footer {
 @media (max-width: 480px) {
     .hero {
         padding: 2rem 0;
-        min-height: 100vh;
-        min-height: 100dvh;
+        height: 100vh;
+        height: 100dvh;
     }
 
     .hero h1 {

@@ -166,7 +166,7 @@ export function ServicesPage() {
           <p style={{ marginBottom: '2rem', opacity: 0.8 }}>Agenda una cita y descubre cómo podemos ayudarte a alcanzar tus metas.</p>
           <a 
             href="https://wa.me/5355609099?text=Hola%2C%20me%20gustaría%20agendar%20una%20cita%20para%20consultoría" 
-            className="hero-cta" 
+            className="cta-whatsapp" 
             target="_blank" 
             rel="noopener noreferrer"
           >
