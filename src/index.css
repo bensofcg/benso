@@ -19,6 +19,8 @@
     --white: #ffffff;
     --light-gray: #e6e6e6;
     --dark: #001737;
+    --whatsapp: #25D366;
+    --whatsapp-hover: #1ebe5d;
     --font-main: 'TT Commons Pro', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --shadow: 0 4px 20px rgba(0, 44, 106, 0.15);
     --radius: 16px;
@@ -124,7 +126,7 @@ nav ul li a.active {
 }
 
 .cta-header {
-    background: #25D366;
+    background: var(--whatsapp);
     color: var(--white);
     padding: 0.75rem 1.5rem;
     border-radius: 50px;
@@ -136,7 +138,7 @@ nav ul li a.active {
 }
 
 .cta-header:hover {
-    background: #128C7E;
+    background: var(--whatsapp-hover);
     transform: scale(1.05);
 }
 
@@ -220,7 +222,7 @@ nav ul li a.active {
 }
 
 .hero-cta {
-    background: #25D366;
+    background: var(--whatsapp);
     color: var(--white);
     padding: 1.1rem 2.8rem;
     border-radius: 50px;
@@ -244,7 +246,7 @@ nav ul li a.active {
 }
 
 .hero-cta:hover {
-    background: #1ebe5d;
+    background: var(--whatsapp-hover);
     transform: translateY(-3px);
 }
 
@@ -256,7 +258,7 @@ nav ul li a.active {
 
 /* WhatsApp CTA Button */
 .cta-whatsapp {
-    background: #25D366;
+    background: var(--whatsapp);
     color: var(--white);
     padding: 1.1rem 2.8rem;
     border-radius: 50px;
@@ -278,7 +280,7 @@ nav ul li a.active {
 }
 
 .cta-whatsapp:hover {
-    background: #1ebe5d;
+    background: var(--whatsapp-hover);
     transform: translateY(-3px);
 }
 
@@ -737,7 +739,7 @@ section.alt-bg {
 }
 
 .whatsapp-cta {
-    background: #25D366;
+    background: var(--whatsapp);
     color: var(--white);
     padding: 1.5rem 2rem;
     border-radius: var(--radius);
@@ -751,7 +753,7 @@ section.alt-bg {
 }
 
 .whatsapp-cta:hover {
-    background: #128C7E;
+    background: var(--whatsapp-hover);
     transform: scale(1.02);
 }
 
