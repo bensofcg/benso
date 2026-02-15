@@ -167,7 +167,6 @@ export function ProductsPage() {
           <a 
             href="https://wa.me/5355609099?text=Hola%2C%20me%20gustaría%20agendar%20una%20cita%20para%20consultoría" 
             className="hero-cta" 
-            style={{ background: '#25D366', color: 'var(--white)' }}
             target="_blank" 
             rel="noopener noreferrer"
           >

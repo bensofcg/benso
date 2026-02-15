@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BentoCard, FAQAccordion, Icon, ScrollReveal } from '../components';
 
@@ -90,6 +91,20 @@ const testimonials = [
 const brands = ['Empresa A', 'Empresa B', 'Empresa C', 'Empresa D', 'Empresa E', 'Empresa F'];
 
 export function HomePage() {
+  const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrollIndicatorHidden(true);
+      } else {
+        setScrollIndicatorHidden(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <>
       {/* Hero Section */}
@@ -108,7 +123,7 @@ export function HomePage() {
             </Link>
           </div>
         </div>
-        <div className="scroll-down-indicator" aria-hidden="true">
+        <div className={`scroll-down-indicator${scrollIndicatorHidden ? ' hidden' : ''}`} aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="6 9 12 15 18 9" />
           </svg>
@@ -252,7 +267,6 @@ export function HomePage() {
           <a 
             href="https://wa.me/5355609099?text=Hola%2C%20me%20gustaría%20agendar%20una%20cita%20para%20consultoría" 
             className="hero-cta" 
-            style={{ background: '#25D366', color: 'var(--white)' }}
             target="_blank" 
             rel="noopener noreferrer"
           >
