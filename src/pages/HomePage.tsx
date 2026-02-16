@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import type { SyntheticEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { BentoCard, FAQAccordion, ScrollReveal } from '../components';
 import faqItems from '../data/faqs.json';
@@ -10,6 +11,12 @@ const services = servicesData.featured;
 const events = eventsData.upcoming.slice(0, 2);
 
 const brands = ['Empresa A', 'Empresa B', 'Empresa C', 'Empresa D', 'Empresa E', 'Empresa F'];
+
+function handleImageError(e: SyntheticEvent<HTMLImageElement>) {
+  const img = e.currentTarget;
+  img.style.display = 'none';
+  img.parentElement?.classList.add('card-image-fallback');
+}
 
 export function HomePage() {
   const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
@@ -82,7 +89,7 @@ export function HomePage() {
                     <img
                       src={service.image}
                       alt={service.title}
-                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; (e.target as HTMLImageElement).parentElement!.classList.add('card-image-fallback'); }}
+                      onError={handleImageError}
                     />
                   ) : (
                     <div className="card-image-fallback" />

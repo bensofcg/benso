@@ -5,7 +5,17 @@ import categoriesData from '../data/categories.json';
 
 type CategoryFilter = 'all' | 'capacitacion' | 'asesoramiento' | 'herramientas';
 
-const products = productsData as { title: string; price: string; description: string; icon: string; image: string; category: CategoryFilter; whatsappLink: string }[];
+interface Product {
+  title: string;
+  price: string;
+  description: string;
+  icon: string;
+  image: string;
+  category: CategoryFilter;
+  whatsappLink: string;
+}
+
+const products = productsData as Product[];
 const filters = categoriesData as { label: string; value: CategoryFilter }[];
 
 export function ProductsPage() {

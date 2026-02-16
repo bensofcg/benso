@@ -1,12 +1,29 @@
 import { useState } from 'react';
+import type { SyntheticEvent } from 'react';
 import { BentoCard, ScrollReveal } from '../components';
 import servicesData from '../data/services.json';
 import categoriesData from '../data/categories.json';
 
 type CategoryFilter = 'all' | 'capacitacion' | 'asesoramiento' | 'herramientas';
 
-const services = servicesData.all as { title: string; price: string; description: string; icon: string; image: string; category: CategoryFilter; whatsappLink: string }[];
+interface Service {
+  title: string;
+  price: string;
+  description: string;
+  icon: string;
+  image: string;
+  category: CategoryFilter;
+  whatsappLink: string;
+}
+
+const services = servicesData.all as Service[];
 const filters = categoriesData as { label: string; value: CategoryFilter }[];
+
+function handleImageError(e: SyntheticEvent<HTMLImageElement>) {
+  const img = e.currentTarget;
+  img.style.display = 'none';
+  img.parentElement?.classList.add('card-image-fallback');
+}
 
 export function ServicesPage() {
   const [activeFilter, setActiveFilter] = useState<CategoryFilter>('all');
@@ -56,7 +73,7 @@ export function ServicesPage() {
                     <img
                       src={service.image}
                       alt={service.title}
-                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; (e.target as HTMLImageElement).parentElement!.classList.add('card-image-fallback'); }}
+                      onError={handleImageError}
                     />
                   ) : (
                     <div className="card-image-fallback" />
