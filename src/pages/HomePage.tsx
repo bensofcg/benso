@@ -135,12 +135,12 @@ export function HomePage() {
           <div className="section-title">
             <h2>Empresas que confían en nosotros</h2>
           </div>
-          <div className="marquee-wrapper">
-            <div className="marquee-track">
-              {[...brands, ...brands].map((brand, index) => (
-                <div key={index} className="marquee-item">{brand}</div>
-              ))}
-            </div>
+        </div>
+        <div className="marquee-wrapper">
+          <div className="marquee-track">
+            {[...brands, ...brands].map((brand, index) => (
+              <div key={index} className="marquee-item">{brand}</div>
+            ))}
           </div>
         </div>
       </ScrollReveal>

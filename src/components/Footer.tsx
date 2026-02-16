@@ -46,8 +46,8 @@ export function Footer() {
           <div className="footer-section">
             <h4>Contacto</h4>
             <ul>
-              <li>Email: info@benso.com</li>
-              <li>WhatsApp: +53 55609099</li>
+              <li>Email: <a href="mailto:info@benso.com">info@benso.com</a></li>
+              <li>Teléfono: <a href="tel:+5355609099">+53 55609099</a></li>
             </ul>
           </div>
         </div>

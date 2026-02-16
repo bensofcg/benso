@@ -168,8 +168,8 @@ nav ul li a.active {
     color: var(--white);
     padding: 6rem 0 2rem;
     text-align: center;
-    height: 100vh;
-    height: 100dvh;
+    height: 95vh;
+    height: 95dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -222,8 +222,8 @@ nav ul li a.active {
 }
 
 .hero-cta {
-    background: var(--whatsapp);
-    color: var(--white);
+    background: var(--white);
+    color: var(--accent);
     padding: 1.1rem 2.8rem;
     border-radius: 50px;
     font-weight: 700;
@@ -233,7 +233,7 @@ nav ul li a.active {
     justify-content: center;
     text-align: center;
     gap: 0.5rem;
-    transition: transform 0.3s ease, background 0.3s ease;
+    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
     border: none;
     box-shadow: none;
     position: relative;
@@ -246,7 +246,8 @@ nav ul li a.active {
 }
 
 .hero-cta:hover {
-    background: var(--whatsapp-hover);
+    background: var(--light-gray);
+    color: var(--primary);
     transform: translateY(-3px);
 }
 
@@ -454,6 +455,7 @@ section {
 
 section.alt-bg {
     background: rgba(255, 255, 255, 0.85);
+    position: relative;
 }
 
 .section-title {
@@ -996,8 +998,8 @@ footer {
     }
 
     .hero {
-        height: 100vh;
-        height: 100dvh;
+        height: 95vh;
+        height: 95dvh;
     }
 
     .scroll-down-indicator {
@@ -1139,8 +1141,8 @@ footer {
 @media (max-width: 480px) {
     .hero {
         padding: 2rem 0;
-        height: 100vh;
-        height: 100dvh;
+        height: 95vh;
+        height: 95dvh;
     }
 
     .hero h1 {
