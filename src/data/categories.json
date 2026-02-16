@@ -1,0 +1,6 @@
+[
+  { "label": "Todos", "value": "all" },
+  { "label": "Capacitación", "value": "capacitacion" },
+  { "label": "Asesoramiento", "value": "asesoramiento" },
+  { "label": "Herramientas Digitales", "value": "herramientas" }
+]

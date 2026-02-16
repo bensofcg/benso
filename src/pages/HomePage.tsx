@@ -1,94 +1,22 @@
 import { useState, useEffect } from 'react';
+import type { SyntheticEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { BentoCard, FAQAccordion, Icon, ScrollReveal } from '../components';
+import { BentoCard, FAQAccordion, ScrollReveal } from '../components';
+import faqItems from '../data/faqs.json';
+import servicesData from '../data/services.json';
+import eventsData from '../data/events.json';
+import testimonials from '../data/testimonials.json';
 
-const faqItems = [
-  {
-    question: '¿Cómo funciona la primera consulta?',
-    answer: 'La primera consulta es gratuita. Agendamos una videollamada de 30 minutos para conocer tu negocio, entender tus desafíos y explicarte cómo podemos ayudarte. No hay compromiso y recibirás recomendaciones iniciales sin costo.'
-  },
-  {
-    question: '¿Trabajan con negocios de cualquier tamaño?',
-    answer: 'Nos especializamos en PyMEs y emprendimientos. Si tienes un negocio pequeño o mediano, somos la opción ideal. Nuestros servicios están diseñados específicamente para las necesidades y presupuestos de este tipo de empresas.'
-  },
-  {
-    question: '¿Cuánto tiempo toma ver resultados?',
-    answer: 'Depende del servicio contratado. Generalmente, comenzarás a ver mejoras en los primeros 30-60 días de trabajo conjunto. En capacitaciones, el impacto puede ser inmediato al aplicar los conocimientos adquiridos.'
-  },
-  {
-    question: '¿Ofrecen planes de pago?',
-    answer: 'Sí, ofrecemos opciones de financiamiento y planes de pago flexibles para que puedas acceder a nuestros servicios. Consultanos por las opciones disponibles según el servicio que te interese.'
-  },
-  {
-    question: '¿Qué incluye el diagnóstico empresarial?',
-    answer: 'Incluye análisis FODA completo, revisión de procesos operativos, análisis financiero, identificación de áreas de mejora y un plan de acción personalizado con recomendaciones específicas para tu negocio.'
-  },
-  {
-    question: '¿Trabajan de forma presencial o remota?',
-    answer: 'Ofrecemos ambas modalidades. Podemos trabajar de forma remota mediante videollamadas y herramientas digitales, o presencial según tu ubicación y preferencia. La mayoría de nuestros servicios pueden realizarse completamente online.'
-  }
-];
-
-const services = [
-  {
-    title: 'Formación Empresarial',
-    tags: ['Capacitación', 'Consultar precio'],
-    description: 'Programas de capacitación diseñados para desarrollar las habilidades digitales y financieras de tu equipo.',
-    icon: 'document',
-    whatsappLink: 'https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Formación%20Empresarial'
-  },
-  {
-    title: 'Consultoría Personalizada',
-    tags: ['Asesoramiento', 'Consultar precio'],
-    description: 'Análisis profundo de tu negocio con estrategias personalizadas para maximizar tu rentabilidad.',
-    icon: 'info',
-    whatsappLink: 'https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Consultoría%20Personalizada'
-  },
-  {
-    title: 'Soluciones a Medida',
-    tags: ['Herramientas Digitales', 'Consultar precio'],
-    description: 'Desarrollo de herramientas digitales personalizadas que automatizan y optimizan tus procesos.',
-    icon: 'computer',
-    whatsappLink: 'https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Soluciones%20a%20Medida'
-  }
-];
-
-const events = [
-  {
-    title: 'Masterclass de E-commerce',
-    status: 'Próximamente',
-    date: 'Enero 2025',
-    description: 'Todo lo que necesitas saber para vender online y escalar tu negocio digital.',
-    whatsappLink: 'https://wa.me/5355609099?text=Hola%2C%20quiero%20inscribirme%20al%20evento%20Masterclass%20de%20E-commerce'
-  },
-  {
-    title: 'Bootcamp Emprendedor',
-    status: 'Próximamente',
-    date: 'Febrero 2025',
-    description: 'Programa intensivo de 4 semanas para acelerar el crecimiento de tu emprendimiento.',
-    whatsappLink: 'https://wa.me/5355609099?text=Hola%2C%20quiero%20inscribirme%20al%20evento%20Bootcamp%20Emprendedor'
-  }
-];
-
-const testimonials = [
-  {
-    quote: 'Benso transformó nuestra gestión financiera completamente. En solo tres meses logramos optimizar nuestros costos operativos en un 30% y mejorar nuestro flujo de caja significativamente.',
-    author: 'María González',
-    position: 'CEO, Logística Global'
-  },
-  {
-    quote: 'La capacitación que recibió nuestro equipo fue excepcional. Los conceptos complejos se explicaron de manera clara y práctica. Ahora tenemos herramientas concretas para crecer.',
-    author: 'Carlos Ramírez',
-    position: 'Director, Tech Innovations'
-  },
-  {
-    quote: 'El diagnóstico empresarial que nos brindaron fue revelador. Identificaron oportunidades que no habíamos considerado y nos dieron un plan de acción claro para implementar.',
-    author: 'Ana Patricia Silva',
-    position: 'Fundadora, Consultoría Empresarial Plus'
-  }
-];
+const services = servicesData.featured;
+const events = eventsData.upcoming.slice(0, 2);
 
 const brands = ['Empresa A', 'Empresa B', 'Empresa C', 'Empresa D', 'Empresa E', 'Empresa F'];
+
+function handleImageError(e: SyntheticEvent<HTMLImageElement>) {
+  const img = e.currentTarget;
+  img.style.display = 'none';
+  img.parentElement?.classList.add('card-image-fallback');
+}
 
 export function HomePage() {
   const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
@@ -156,14 +84,20 @@ export function HomePage() {
           <div className="bento-grid">
             {services.map((service, index) => (
               <BentoCard key={index} className="service-card">
-                <Icon name={service.icon} />
-                <h3>{service.title}</h3>
-                <div>
-                  {service.tags.map((tag, i) => (
-                    <span key={i} className="category-tag">{tag}</span>
-                  ))}
+                <div className="card-image-placeholder">
+                  {service.image ? (
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      onError={handleImageError}
+                    />
+                  ) : (
+                    <div className="card-image-fallback" />
+                  )}
                 </div>
+                <h3>{service.title}</h3>
                 <p>{service.description}</p>
+                <span className="card-price">{service.price}</span>
                 <a 
                   href={service.whatsappLink} 
                   className="btn-consult" 
