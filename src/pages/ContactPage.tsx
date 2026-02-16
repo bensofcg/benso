@@ -1,32 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { BentoCard, FAQAccordion, ScrollReveal } from '../components';
-
-const faqItems = [
-  {
-    question: '¿Cómo funciona la primera consulta?',
-    answer: 'La primera consulta es gratuita. Agendamos una videollamada de 30 minutos para conocer tu negocio, entender tus desafíos y explicarte cómo podemos ayudarte. No hay compromiso y recibirás recomendaciones iniciales sin costo.'
-  },
-  {
-    question: '¿Trabajan con negocios de cualquier tamaño?',
-    answer: 'Nos especializamos en PyMEs y emprendimientos. Si tienes un negocio pequeño o mediano, somos la opción ideal. Nuestros servicios están diseñados específicamente para las necesidades y presupuestos de este tipo de empresas.'
-  },
-  {
-    question: '¿Cuánto tiempo toma ver resultados?',
-    answer: 'Depende del servicio contratado. Generalmente, comenzarás a ver mejoras en los primeros 30-60 días de trabajo conjunto. En capacitaciones, el impacto puede ser inmediato al aplicar los conocimientos adquiridos.'
-  },
-  {
-    question: '¿Ofrecen planes de pago?',
-    answer: 'Sí, ofrecemos opciones de financiamiento y planes de pago flexibles para que puedas acceder a nuestros servicios. Consultanos por las opciones disponibles según el servicio que te interese.'
-  },
-  {
-    question: '¿Qué incluye el diagnóstico empresarial?',
-    answer: 'Incluye análisis FODA completo, revisión de procesos operativos, análisis financiero, identificación de áreas de mejora y un plan de acción personalizado con recomendaciones específicas para tu negocio.'
-  },
-  {
-    question: '¿Trabajan de forma presencial o remota?',
-    answer: 'Ofrecemos ambas modalidades. Podemos trabajar de forma remota mediante videollamadas y herramientas digitales, o presencial según tu ubicación y preferencia. La mayoría de nuestros servicios pueden realizarse completamente online.'
-  }
-];
+import faqItems from '../data/faqs.json';
 
 export function ContactPage() {
   const [formData, setFormData] = useState({

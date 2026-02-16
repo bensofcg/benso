@@ -1,0 +1,111 @@
+{
+  "featured": [
+    {
+      "title": "Formación Empresarial",
+      "price": "$199",
+      "description": "Programas de capacitación diseñados para desarrollar las habilidades digitales y financieras de tu equipo.",
+      "icon": "document",
+      "image": "",
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Formación%20Empresarial"
+    },
+    {
+      "title": "Consultoría Personalizada",
+      "price": "$299",
+      "description": "Análisis profundo de tu negocio con estrategias personalizadas para maximizar tu rentabilidad.",
+      "icon": "info",
+      "image": "",
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Consultoría%20Personalizada"
+    },
+    {
+      "title": "Soluciones a Medida",
+      "price": "$499",
+      "description": "Desarrollo de herramientas digitales personalizadas que automatizan y optimizan tus procesos.",
+      "icon": "computer",
+      "image": "",
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Soluciones%20a%20Medida"
+    }
+  ],
+  "all": [
+    {
+      "title": "Gestión Financiera para PyMEs",
+      "price": "$199",
+      "description": "Aprende a gestionar las finanzas de tu negocio de manera efectiva. Incluye control de flujo de caja, análisis de costos y planificación presupuestaria.",
+      "icon": "money",
+      "image": "",
+      "category": "capacitacion",
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Gestión%20Financiera%20para%20PyMEs"
+    },
+    {
+      "title": "Marketing Digital Básico",
+      "price": "$149",
+      "description": "Domina las redes sociales y estrategias digitales para aumentar la visibilidad de tu negocio y captar más clientes.",
+      "icon": "trending",
+      "image": "",
+      "category": "capacitacion",
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Marketing%20Digital%20Básico"
+    },
+    {
+      "title": "Excel Avanzado para Negocios",
+      "price": "$129",
+      "description": "Optimiza tu productividad con técnicas avanzadas de Excel aplicadas a la gestión empresarial.",
+      "icon": "chart",
+      "image": "",
+      "category": "capacitacion",
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Excel%20Avanzado%20para%20Negocios"
+    },
+    {
+      "title": "Diagnóstico Empresarial Integral",
+      "price": "$399",
+      "description": "Analizamos a profundidad tu negocio para identificar áreas de mejora, oportunidades de crecimiento y estrategias para optimizar la rentabilidad. Incluye análisis FODA, revisión de procesos y plan de acción personalizado.",
+      "icon": "globe",
+      "image": "",
+      "category": "asesoramiento",
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Diagnóstico%20Empresarial%20Integral"
+    },
+    {
+      "title": "Planificación Estratégica",
+      "price": "$349",
+      "description": "Definimos juntos los objetivos de tu negocio y diseñamos la ruta para alcanzarlos con indicadores claros y metas medibles.",
+      "icon": "calendar",
+      "image": "",
+      "category": "asesoramiento",
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Planificación%20Estratégica"
+    },
+    {
+      "title": "Optimización de Costos",
+      "price": "$249",
+      "description": "Identificamos oportunidades para reducir gastos sin afectar la calidad, mejorando los márgenes de tu negocio.",
+      "icon": "bolt",
+      "image": "",
+      "category": "asesoramiento",
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Optimización%20de%20Costos"
+    },
+    {
+      "title": "Dashboard de Control",
+      "price": "$299",
+      "description": "Panel de control personalizado para visualizar los indicadores clave de tu negocio en tiempo real.",
+      "icon": "grid",
+      "image": "",
+      "category": "herramientas",
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Dashboard%20de%20Control"
+    },
+    {
+      "title": "Sistema de Gestión de Inventarios",
+      "price": "$349",
+      "description": "Herramienta digital para llevar el control de tu inventario, alertas de stock y reportes automáticos.",
+      "icon": "box",
+      "image": "",
+      "category": "herramientas",
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Sistema%20de%20Gestión%20de%20Inventarios"
+    },
+    {
+      "title": "Automatización de Procesos",
+      "price": "$499",
+      "description": "Desarrollamos soluciones personalizadas para automatizar tareas repetitivas, integrar sistemas y optimizar el flujo de trabajo de tu empresa. Incluye análisis de procesos, desarrollo a medida e implementación.",
+      "icon": "tools",
+      "image": "",
+      "category": "herramientas",
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Automatización%20de%20Procesos"
+    }
+  ]
+}
