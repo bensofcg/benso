@@ -1,6 +1,17 @@
-[
-  { "label": "Todos", "value": "all" },
-  { "label": "Consultoría", "value": "consultoria" },
-  { "label": "Herramientas", "value": "herramientas" },
-  { "label": "Capacitación", "value": "capacitacion" }
-]
+{
+  "services": [
+    { "label": "Todos", "value": "all" },
+    { "label": "Consultoría", "value": "consultoria" },
+    { "label": "Herramientas", "value": "herramientas" },
+    { "label": "Capacitación", "value": "capacitacion" }
+  ],
+  "products": [
+    { "label": "Todos", "value": "all" },
+    { "label": "Pegatinas", "value": "pegatinas" },
+    { "label": "Pósters", "value": "posters" },
+    { "label": "Cuadros PVC", "value": "cuadros" },
+    { "label": "Tarjetas", "value": "tarjetas" },
+    { "label": "Lonas", "value": "lonas" },
+    { "label": "Otros", "value": "otros" }
+  ]
+}
