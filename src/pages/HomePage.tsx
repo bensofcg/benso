@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BentoCard, Icon, FAQAccordion, ScrollReveal, StatusIcon } from '../components';
+import { BentoCard, Icon, FAQAccordion, ScrollReveal, StatusIcon, CalendarIcon } from '../components';
 import { useCart } from '../hooks/useCart';
 import faqItems from '../data/faqs.json';
 import servicesData from '../data/services.json';
@@ -41,7 +41,7 @@ export function HomePage() {
       <section className="hero">
         <div className="container">
           <div className="hero-content">
-            <h1 className="typewriter">Asesoramiento, Herramientas y Capacitación para Emprendedores</h1>
+            <h1>Asesoramiento, Herramientas y Capacitación para Emprendedores</h1>
             <p className="slogan">
               Te enseñamos cómo posicionar un negocio y te acompañamos en cada paso del camino
             </p>
@@ -179,7 +179,10 @@ export function HomePage() {
                 <h3>{event.title}</h3>
                 <div>
                   <span className="event-status-tag"><StatusIcon status={event.status} />{event.status}</span>
-                  <span className="event-date-tag">{event.date}</span>
+                  <span className="event-date-tag">
+                    <CalendarIcon />
+                    {event.date}
+                  </span>
                 </div>
                 <p>{event.description}</p>
                 <a 

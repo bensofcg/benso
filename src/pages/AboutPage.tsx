@@ -1,12 +1,11 @@
 import { BentoCard, Icon, ScrollReveal } from '../components';
 
 const values = [
-  { title: 'Integridad', description: 'Actuamos con honestidad y transparencia en cada proyecto.', icon: 'star' },
-  { title: 'Innovación', description: 'Buscamos nuevas formas de resolver problemas con agilidad.', icon: 'info' },
-  { title: 'Compromiso con el Cliente', description: 'Cada cliente merece atención personalizada y dedicada.', icon: 'heart' },
-  { title: 'Excelencia', description: 'Buscamos superar expectativas en cada proyecto.', icon: 'bolt' },
-  { title: 'Responsabilidad Social', description: 'Promovemos prácticas sostenibles y éticas.', icon: 'leaf' },
-  { title: 'Aprendizaje Continuo', description: 'Nos actualizamos para ofrecer las mejores soluciones.', icon: 'document' }
+  { title: 'Ética', icon: 'star' },
+  { title: 'Profesionalismo', icon: 'bolt' },
+  { title: 'Innovación', icon: 'info' },
+  { title: 'Compromiso con el Cliente', icon: 'heart' },
+  { title: 'Aprendizaje Continuo', icon: 'document' }
 ];
 
 const coloredCardStyle = {
@@ -22,12 +21,12 @@ const whiteIconStyle = { color: 'var(--white)', filter: 'drop-shadow(0 1px 2px r
 export function AboutPage() {
   return (
     <>
-      {/* Mission Section */}
+      {/* Title & Mission Section */}
       <ScrollReveal style={{ paddingTop: '7rem' }}>
         <div className="container">
           <div className="section-title">
             <h2>Sobre Nosotros</h2>
-            <p>Transformando negocios con consultoría de excelencia</p>
+            <p>Empoderamos a PyMEs con soluciones digitales y estrategias para lograr una rentabilidad sostenible.</p>
           </div>
           
           <div className="bento-grid">
@@ -36,24 +35,8 @@ export function AboutPage() {
               <div className="horizontal-card-text">
                 <h3 style={{ ...whiteH3Style, fontSize: '2rem' }}>Nuestra Misión</h3>
                 <p style={{ ...whitePStyle, fontSize: '1.1rem', lineHeight: 1.9 }}>
-                  Empoderar a PyMEs con soluciones digitales y estrategias para lograr rentabilidad sostenible.
+                  El Proyecto Benso ofrece servicios profesionales de asesoramiento, herramientas y capacitación estratégica para impulsar la rentabilidad de emprendimientos en cualquier sector. Nos especializamos en áreas tales como la contabilidad, el marketing digital y la automatización de procesos.
                 </p>
-              </div>
-            </BentoCard>
-            
-            <BentoCard className="horizontal-card" style={coloredCardStyle.secondary}>
-              <Icon name="star" style={whiteIconStyle} />
-              <div className="horizontal-card-text">
-                <h3 style={whiteH3Style}>Innovación</h3>
-                <p style={whitePStyle}>Soluciones creativas que agregan valor real.</p>
-              </div>
-            </BentoCard>
-            
-            <BentoCard className="horizontal-card" style={coloredCardStyle.accent}>
-              <Icon name="people" style={whiteIconStyle} />
-              <div className="horizontal-card-text">
-                <h3 style={whiteH3Style}>Compromiso</h3>
-                <p style={whitePStyle}>Tu éxito es nuestro éxito.</p>
               </div>
             </BentoCard>
           </div>
@@ -65,41 +48,16 @@ export function AboutPage() {
         <div className="container">
           <div className="section-title">
             <h2>Nuestra Visión</h2>
-            <p>Ser líderes en consultoría digital para PyMEs</p>
           </div>
           
           <div className="bento-grid">
             <BentoCard className="horizontal-card" style={coloredCardStyle.secondary}>
-              <Icon name="info" style={whiteIconStyle} />
-              <div className="horizontal-card-text">
-                <h3 style={whiteH3Style}>Excelencia Accesible</h3>
-                <p style={{ ...whitePStyle, fontSize: '1.1rem', lineHeight: 1.9 }}>
-                  Alcanzar estándares de excelencia con un enfoque humanizado y accesible para PyMEs.
-                </p>
-              </div>
-            </BentoCard>
-            
-            <BentoCard className="horizontal-card" style={coloredCardStyle.primary}>
-              <Icon name="trending" style={whiteIconStyle} />
-              <div className="horizontal-card-text">
-                <h3 style={whiteH3Style}>Crecimiento Sostenible</h3>
-                <p style={whitePStyle}>Relaciones a largo plazo basadas en resultados tangibles.</p>
-              </div>
-            </BentoCard>
-            
-            <BentoCard className="horizontal-card" style={coloredCardStyle.accent}>
               <Icon name="globe" style={whiteIconStyle} />
               <div className="horizontal-card-text">
-                <h3 style={whiteH3Style}>Impacto Regional</h3>
-                <p style={whitePStyle}>Expandir nuestra presencia llevando soluciones a más empresarios.</p>
-              </div>
-            </BentoCard>
-            
-            <BentoCard className="horizontal-card" style={coloredCardStyle.primary}>
-              <Icon name="tools" style={whiteIconStyle} />
-              <div className="horizontal-card-text">
-                <h3 style={whiteH3Style}>Tecnología de Punta</h3>
-                <p style={whitePStyle}>A la vanguardia en herramientas y metodologías.</p>
+                <h3 style={whiteH3Style}>Visión</h3>
+                <p style={{ ...whitePStyle, fontSize: '1.1rem', lineHeight: 1.9 }}>
+                  Aspiramos a convertirnos en el primer referente para aquellas empresas que persiguen la calidad, la excelencia y el crecimiento sostenible.
+                </p>
               </div>
             </BentoCard>
           </div>
@@ -111,7 +69,6 @@ export function AboutPage() {
         <div className="container">
           <div className="section-title">
             <h2>Nuestros Valores</h2>
-            <p>Principios que guían nuestras acciones</p>
           </div>
           
           <div className="bento-grid">
@@ -120,7 +77,6 @@ export function AboutPage() {
                 <Icon name={value.icon} />
                 <div className="horizontal-card-text">
                   <h3>{value.title}</h3>
-                  <p>{value.description}</p>
                 </div>
               </BentoCard>
             ))}
@@ -132,41 +88,32 @@ export function AboutPage() {
       <ScrollReveal className="alt-bg">
         <div className="container">
           <div className="section-title">
-            <h2>Por Qué Elegirnos</h2>
-            <p>Nuestro diferencial en el mercado</p>
+            <h2>¿Por qué elegirnos?</h2>
           </div>
           
           <div className="bento-grid">
-            <BentoCard large style={coloredCardStyle.primary}>
-              <Icon name="info" style={whiteIconStyle} />
-              <h3 style={whiteH3Style}>Enfoque en PyMEs</h3>
-              <p style={{ ...whitePStyle, fontSize: '1.05rem', lineHeight: 1.9 }}>
-                Entendemos los desafíos únicos de PyMEs. Cada estrategia está diseñada para tu realidad específica.
-              </p>
-            </BentoCard>
-            
             <BentoCard style={coloredCardStyle.secondary}>
               <Icon name="money" style={whiteIconStyle} />
               <h3 style={whiteH3Style}>Inversión Accesible</h3>
-              <p style={whitePStyle}>Servicios de calidad a precios justos para PyMEs.</p>
+              <p style={whitePStyle}>Ofrecemos servicios de máxima calidad con facilidades de pago justas y personalizables.</p>
             </BentoCard>
             
             <BentoCard style={coloredCardStyle.accent}>
               <Icon name="people" style={whiteIconStyle} />
               <h3 style={whiteH3Style}>Atención Personalizada</h3>
-              <p style={whitePStyle}>Asesor dedicado que conoce tu negocio.</p>
+              <p style={whitePStyle}>Nuestro asesoramiento se basa en conocer tu negocio en profundidad y ajustar las estrategias a tu realidad única.</p>
             </BentoCard>
             
             <BentoCard style={coloredCardStyle.primary}>
-              <Icon name="chart" style={whiteIconStyle} />
-              <h3 style={whiteH3Style}>Resultados Medibles</h3>
-              <p style={whitePStyle}>Indicadores claros e impacto real en tu rentabilidad.</p>
+              <Icon name="check" style={whiteIconStyle} />
+              <h3 style={whiteH3Style}>Soporte Continuo</h3>
+              <p style={whitePStyle}>Te mostramos el camino y te acompañamos en cada paso de la implementación.</p>
             </BentoCard>
             
             <BentoCard style={coloredCardStyle.secondary}>
-              <Icon name="check" style={whiteIconStyle} />
-              <h3 style={whiteH3Style}>Soporte Continuo</h3>
-              <p style={whitePStyle}>Te acompañamos en cada solución implementada.</p>
+              <Icon name="chart" style={whiteIconStyle} />
+              <h3 style={whiteH3Style}>Resultados Medibles</h3>
+              <p style={whitePStyle}>Medimos el rendimiento de nuestras estrategias por el impacto real que tengan sobre tu proyecto.</p>
             </BentoCard>
           </div>
         </div>
