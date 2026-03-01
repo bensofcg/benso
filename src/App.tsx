@@ -1,7 +1,8 @@
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
-import { Header, Footer, Background } from './components';
+import { Header, Footer, Background, Cart, PromoBanner } from './components';
 import { HomePage, ServicesPage, ProductsPage, AboutPage, EventsPage, ContactPage } from './pages';
+import { CartProvider } from './context/CartContext';
 import './index.css';
 
 // Scroll to top on route change
@@ -17,22 +18,26 @@ function ScrollToTop() {
 
 function App() {
   return (
-    <HashRouter>
-      <ScrollToTop />
-      <Background />
-      <Header />
-      <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/servicios" element={<ServicesPage />} />
-          <Route path="/productos" element={<ProductsPage />} />
-          <Route path="/nosotros" element={<AboutPage />} />
-          <Route path="/eventos" element={<EventsPage />} />
-          <Route path="/contacto" element={<ContactPage />} />
-        </Routes>
-      </main>
-      <Footer />
-    </HashRouter>
+    <CartProvider>
+      <HashRouter>
+        <ScrollToTop />
+        <Background />
+        <PromoBanner />
+        <Header />
+        <main>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/servicios" element={<ServicesPage />} />
+            <Route path="/productos" element={<ProductsPage />} />
+            <Route path="/nosotros" element={<AboutPage />} />
+            <Route path="/eventos" element={<EventsPage />} />
+            <Route path="/contacto" element={<ContactPage />} />
+          </Routes>
+        </main>
+        <Footer />
+        <Cart />
+      </HashRouter>
+    </CartProvider>
   );
 }
 

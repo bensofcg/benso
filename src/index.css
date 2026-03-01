@@ -228,7 +228,7 @@ nav ul li a.active {
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
     position: relative;
     color: var(--white);
-    padding: 6rem 0 2rem;
+    padding: 6rem 0 4rem;
     text-align: center;
     height: 95vh;
     height: 95dvh;
@@ -285,7 +285,7 @@ nav ul li a.active {
 .hero .slogan {
     font-size: 1.2rem;
     line-height: 1.6;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     opacity: 0;
     animation: fadeInUpSlogan 0.8s ease 0.4s forwards;
     min-height: 1.9em;
@@ -327,6 +327,40 @@ nav ul li a.active {
 .hero-cta:hover {
     background: var(--light-gray);
     color: var(--primary);
+    transform: translateY(-3px);
+}
+
+/* Hero Buttons Container */
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Hero Outline Button */
+.hero-cta-outline {
+    background: transparent;
+    color: var(--white);
+    padding: 1.1rem 2.8rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.15rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0.5rem;
+    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+    border: 2px solid var(--white);
+    box-shadow: none;
+    position: relative;
+}
+
+.hero-cta-outline:hover {
+    background: var(--white);
+    color: var(--accent);
     transform: translateY(-3px);
 }
 
@@ -686,9 +720,18 @@ section.alt-bg {
 }
 
 .event-status-tag {
-    background: transparent;
-    color: var(--primary);
-    border: 1px solid var(--primary);
+    background: var(--accent);
+    color: var(--white);
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.event-status-tag svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
 }
 
 .event-date-tag {
@@ -1242,6 +1285,20 @@ footer {
         font-size: 1rem;
     }
 
+    .hero-cta-outline {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .hero-buttons {
+        gap: 0.75rem;
+    }
+
+    .promo-banner {
+        font-size: 0.8rem;
+        padding: 0.5rem 2.5rem 0.5rem 1rem;
+    }
+
     section {
         padding: 2.5rem 0;
     }
@@ -1600,4 +1657,340 @@ footer {
 .reveal-section.is-visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* ===================================
+   Promotional Banner
+=================================== */
+.promo-banner {
+    background: linear-gradient(90deg, var(--accent), var(--secondary));
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    position: relative;
+    z-index: 1001;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.promo-banner p {
+    margin: 0;
+}
+
+.promo-banner-cta {
+    background: var(--white);
+    color: var(--accent);
+    padding: 0.3rem 1rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.promo-banner-cta:hover {
+    background: var(--light-gray);
+    color: var(--primary);
+}
+
+.promo-banner-close {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 0.25rem;
+    line-height: 1;
+    opacity: 0.8;
+    transition: var(--transition);
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.promo-banner-close:hover {
+    opacity: 1;
+}
+
+/* ===================================
+   Shopping Cart
+=================================== */
+.cart-fab {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0, 44, 106, 0.35);
+    transition: var(--transition);
+    z-index: 998;
+}
+
+.cart-fab:hover {
+    background: var(--secondary);
+    transform: scale(1.08);
+}
+
+.cart-fab svg {
+    width: 24px;
+    height: 24px;
+}
+
+.cart-fab-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #e53935;
+    color: var(--white);
+    font-size: 0.75rem;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1100;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.cart-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cart-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 380px;
+    max-width: 90vw;
+    height: 100vh;
+    background: var(--white);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+    z-index: 1101;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+.cart-panel.open {
+    transform: translateX(0);
+}
+
+.cart-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.cart-panel-header h3 {
+    color: var(--primary);
+    font-size: 1.25rem;
+    margin: 0;
+}
+
+.cart-panel-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--dark);
+    padding: 0.25rem;
+    line-height: 1;
+}
+
+.cart-panel-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 1.5rem;
+}
+
+.cart-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--dark);
+    opacity: 0.6;
+}
+
+.cart-empty svg {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1rem;
+    opacity: 0.4;
+}
+
+.cart-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.cart-item-info {
+    flex: 1;
+}
+
+.cart-item-info h4 {
+    color: var(--primary);
+    font-size: 0.95rem;
+    margin: 0 0 0.25rem;
+}
+
+.cart-item-info span {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.cart-item-remove {
+    background: none;
+    border: none;
+    color: #e53935;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.25rem;
+    transition: var(--transition);
+}
+
+.cart-item-remove:hover {
+    opacity: 0.7;
+}
+
+.cart-item-qty {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.cart-item-qty button {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--light-gray);
+    background: var(--white);
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    color: var(--dark);
+}
+
+.cart-item-qty button:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.cart-item-qty span {
+    font-weight: 600;
+    min-width: 1.5rem;
+    text-align: center;
+    color: var(--dark);
+}
+
+.cart-panel-footer {
+    padding: 1.25rem 1.5rem;
+    border-top: 1px solid var(--light-gray);
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--primary);
+}
+
+.cart-whatsapp-btn {
+    background: var(--whatsapp);
+    color: var(--white);
+    width: 100%;
+    padding: 0.85rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.cart-whatsapp-btn:hover {
+    background: var(--whatsapp-hover);
+}
+
+.cart-whatsapp-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Add to cart button on product/service cards */
+.btn-add-cart {
+    background: transparent;
+    color: var(--primary);
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    border: 2px solid var(--primary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.btn-add-cart:hover {
+    background: var(--primary);
+    color: var(--white);
+}
+
+.btn-add-cart svg {
+    width: 16px;
+    height: 16px;
+}
+
+.card-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: auto;
+    flex-wrap: wrap;
 }
