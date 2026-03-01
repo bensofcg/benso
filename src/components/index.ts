@@ -6,3 +6,6 @@ export { Carousel } from './Carousel';
 export { FAQAccordion } from './FAQAccordion';
 export { Icon } from './Icon';
 export { ScrollReveal } from './ScrollReveal';
+export { Cart } from './Cart';
+export { PromoBanner } from './PromoBanner';
+export { StatusIcon } from './StatusIcon';

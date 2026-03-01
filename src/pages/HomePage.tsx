@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BentoCard, Icon, FAQAccordion, ScrollReveal } from '../components';
+import { BentoCard, Icon, FAQAccordion, ScrollReveal, StatusIcon } from '../components';
+import { useCart } from '../hooks/useCart';
 import faqItems from '../data/faqs.json';
 import servicesData from '../data/services.json';
 import productsData from '../data/products.json';
@@ -20,6 +21,7 @@ const featuredProducts = [
 
 export function HomePage() {
   const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
+  const { addItem } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,10 +45,15 @@ export function HomePage() {
             <p className="slogan">
               Te enseñamos cómo posicionar un negocio y te acompañamos en cada paso del camino
             </p>
-            <Link to="/contacto" className="hero-cta">
-              Agendar cita gratis
-              <span aria-hidden="true">→</span>
-            </Link>
+            <div className="hero-buttons">
+              <Link to="/nosotros" className="hero-cta-outline">
+                Sobre nosotros
+              </Link>
+              <Link to="/contacto" className="hero-cta">
+                Agendar cita gratis
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
           </div>
         </div>
         <div className={`scroll-down-indicator${scrollIndicatorHidden ? ' hidden' : ''}`} aria-hidden="true">
@@ -88,14 +95,23 @@ export function HomePage() {
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
                 <span className="card-price">{service.price}</span>
-                <a 
-                  href={service.whatsappLink} 
-                  className="btn-consult" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
-                  Solicitar servicio
-                </a>
+                <div className="card-actions">
+                  <a 
+                    href={service.whatsappLink} 
+                    className="btn-consult" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    Solicitar servicio
+                  </a>
+                  <button
+                    className="btn-add-cart"
+                    onClick={() => addItem(service.title, service.price.replace(/[^0-9.,]/g, ''))}
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    Añadir
+                  </button>
+                </div>
               </BentoCard>
             ))}
           </div>
@@ -121,14 +137,23 @@ export function HomePage() {
                 <h3>{product.title}</h3>
                 <p>{product.description}</p>
                 <span className="card-price">{product.price} CUP</span>
-                <a 
-                  href={product.whatsappLink} 
-                  className="btn-consult" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
-                  Solicitar producto
-                </a>
+                <div className="card-actions">
+                  <a 
+                    href={product.whatsappLink} 
+                    className="btn-consult" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    Solicitar producto
+                  </a>
+                  <button
+                    className="btn-add-cart"
+                    onClick={() => addItem(product.title, product.price.replace(/[^0-9.,]/g, ''))}
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    Añadir
+                  </button>
+                </div>
               </BentoCard>
             ))}
           </div>
@@ -153,7 +178,7 @@ export function HomePage() {
               <BentoCard key={index}>
                 <h3>{event.title}</h3>
                 <div>
-                  <span className="event-status-tag">{event.status}</span>
+                  <span className="event-status-tag"><StatusIcon status={event.status} />{event.status}</span>
                   <span className="event-date-tag">{event.date}</span>
                 </div>
                 <p>{event.description}</p>

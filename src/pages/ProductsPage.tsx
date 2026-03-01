@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BentoCard, ScrollReveal } from '../components';
+import { useCart } from '../hooks/useCart';
 import productsData from '../data/products.json';
 import categoriesData from '../data/categories.json';
 
@@ -21,6 +22,7 @@ const filters = categoriesData.products as { label: string; value: CategoryFilte
 export function ProductsPage() {
   const [activeFilter, setActiveFilter] = useState<CategoryFilter>('all');
   const [animKey, setAnimKey] = useState(0);
+  const { addItem } = useCart();
 
   const filteredProducts = products.filter(
     product => activeFilter === 'all' || product.category === activeFilter
@@ -64,14 +66,23 @@ export function ProductsPage() {
                 <h3>{product.title}</h3>
                 <p>{product.description}</p>
                 <span className="card-price">{product.price} CUP</span>
-                <a 
-                  href={product.whatsappLink} 
-                  className="btn-consult" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
-                  Solicitar producto
-                </a>
+                <div className="card-actions">
+                  <a 
+                    href={product.whatsappLink} 
+                    className="btn-consult" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    Solicitar producto
+                  </a>
+                  <button
+                    className="btn-add-cart"
+                    onClick={() => addItem(product.title, product.price.replace(/[^0-9.,]/g, ''))}
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    Añadir
+                  </button>
+                </div>
               </BentoCard>
             ))}
           </div>

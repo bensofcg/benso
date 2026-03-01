@@ -1,4 +1,4 @@
-import { BentoCard, ScrollReveal } from '../components';
+import { BentoCard, ScrollReveal, StatusIcon } from '../components';
 import eventsData from '../data/events.json';
 
 const currentEvents = eventsData.current;
@@ -20,7 +20,7 @@ export function EventsPage() {
               <BentoCard key={index}>
                 <h3>{event.title}</h3>
                 <div>
-                  <span className="event-status-tag">{event.status}</span>
+                  <span className="event-status-tag"><StatusIcon status={event.status} />{event.status}</span>
                   <span className="event-date-tag">{event.date}</span>
                 </div>
                 <p>{event.description}</p>
@@ -43,7 +43,7 @@ export function EventsPage() {
               <BentoCard key={index}>
                 <h3>{event.title}</h3>
                 <div>
-                  <span className="event-status-tag" style={{ background: 'var(--accent)' }}>{event.status}</span>
+                  <span className="event-status-tag"><StatusIcon status={event.status} />{event.status}</span>
                   <span className="event-date-tag">{event.date}</span>
                 </div>
                 <p>{event.description}</p>
