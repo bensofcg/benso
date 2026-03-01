@@ -67,6 +67,29 @@ export function EventsPage() {
         </div>
       </ScrollReveal>
 
+      {/* Event Timeline */}
+      <ScrollReveal>
+        <div className="container">
+          <div className="section-title">
+            <h2>Línea del Tiempo</h2>
+            <p>Nuestro recorrido de eventos y capacitaciones</p>
+          </div>
+          
+          <div className="timeline">
+            {[...currentEvents, ...upcomingEvents].map((event) => (
+              <div key={event.title} className="timeline-item">
+                <div className="timeline-dot" />
+                <div className="timeline-content">
+                  <span className="timeline-date">{event.date}</span>
+                  <h4>{event.title}</h4>
+                  <span className={`timeline-status ${event.status === 'En Curso' ? 'active' : ''}`}>{event.status}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </ScrollReveal>
+
       {/* CTA Section */}
       <ScrollReveal>
         <div className="container text-center">
