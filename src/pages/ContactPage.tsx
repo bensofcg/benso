@@ -13,8 +13,7 @@ export function ContactPage() {
   });
   const [errors, setErrors] = useState({
     nombre: false,
-    fecha: false,
-    servicio: false
+    fecha: false
   });
 
   const handleSubmit = (e: FormEvent) => {
@@ -22,8 +21,7 @@ export function ContactPage() {
     
     const newErrors = {
       nombre: !formData.nombre.trim(),
-      fecha: !formData.fecha.trim(),
-      servicio: false
+      fecha: !formData.fecha.trim()
     };
     
     setErrors(newErrors);
@@ -45,7 +43,7 @@ export function ContactPage() {
 
   const handleChange = (field: keyof typeof formData) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData(prev => ({ ...prev, [field]: e.target.value }));
-    if (errors[field]) {
+    if (field in errors && errors[field as keyof typeof errors]) {
       setErrors(prev => ({ ...prev, [field]: false }));
     }
   };
@@ -97,7 +95,6 @@ export function ContactPage() {
                     name="servicio"
                     value={formData.servicio}
                     onChange={handleChange('servicio')}
-                    style={{ borderColor: errors.servicio ? '#e74c3c' : undefined }}
                   >
                     <option value="">Selecciona un servicio (opcional)</option>
                     {serviceOptions.map((option) => (
