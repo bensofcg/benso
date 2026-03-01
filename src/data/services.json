@@ -1,111 +1,102 @@
 {
   "featured": [
     {
-      "title": "Formación Empresarial",
-      "price": "$199",
-      "description": "Programas de capacitación diseñados para desarrollar las habilidades digitales y financieras de tu equipo.",
-      "icon": "document",
-      "image": "",
-      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Formación%20Empresarial"
-    },
-    {
-      "title": "Consultoría Personalizada",
-      "price": "$299",
-      "description": "Análisis profundo de tu negocio con estrategias personalizadas para maximizar tu rentabilidad.",
+      "title": "Consultoría Experta",
+      "price": "Desde $0 CUP",
+      "description": "Servicio inicial de análisis que incluye informes y evaluaciones rápidas sobre el estado actual de tu negocio.",
       "icon": "info",
       "image": "",
-      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Consultoría%20Personalizada"
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Consultoría%20Experta"
     },
     {
-      "title": "Soluciones a Medida",
-      "price": "$499",
-      "description": "Desarrollo de herramientas digitales personalizadas que automatizan y optimizan tus procesos.",
-      "icon": "computer",
+      "title": "Marketing Digital",
+      "price": "Desde $5,000 CUP/mes",
+      "description": "Creación de contenido multiplataforma, diseño de identidad visual y estrategias de marketing digital.",
+      "icon": "trending",
       "image": "",
-      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Soluciones%20a%20Medida"
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Marketing%20Digital"
+    },
+    {
+      "title": "Automatización",
+      "price": "Desde $5,000 MXN",
+      "description": "Bot de WhatsApp, páginas web, funnel de ventas multicanal y más soluciones para automatizar tu negocio.",
+      "icon": "tools",
+      "image": "",
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Automatización"
     }
   ],
   "all": [
     {
-      "title": "Gestión Financiera para PyMEs",
-      "price": "$199",
-      "description": "Aprende a gestionar las finanzas de tu negocio de manera efectiva. Incluye control de flujo de caja, análisis de costos y planificación presupuestaria.",
-      "icon": "money",
+      "title": "Consultoría Experta (Diagnóstico Inicial)",
+      "price": "Desde $0 CUP",
+      "description": "Servicio inicial de análisis que incluye informes y evaluaciones rápidas sobre el estado actual de tu negocio. Ideal para identificar puntos de mejora. Áreas: Contabilidad, Marketing, Planificación.",
+      "icon": "info",
       "image": "",
-      "category": "capacitacion",
-      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Gestión%20Financiera%20para%20PyMEs"
+      "category": "consultoria",
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20agendar%20un%20diagnóstico%20gratuito"
     },
     {
-      "title": "Marketing Digital Básico",
-      "price": "$149",
-      "description": "Domina las redes sociales y estrategias digitales para aumentar la visibilidad de tu negocio y captar más clientes.",
-      "icon": "trending",
-      "image": "",
-      "category": "capacitacion",
-      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Marketing%20Digital%20Básico"
-    },
-    {
-      "title": "Excel Avanzado para Negocios",
-      "price": "$129",
-      "description": "Optimiza tu productividad con técnicas avanzadas de Excel aplicadas a la gestión empresarial.",
-      "icon": "chart",
-      "image": "",
-      "category": "capacitacion",
-      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Excel%20Avanzado%20para%20Negocios"
-    },
-    {
-      "title": "Diagnóstico Empresarial Integral",
-      "price": "$399",
-      "description": "Analizamos a profundidad tu negocio para identificar áreas de mejora, oportunidades de crecimiento y estrategias para optimizar la rentabilidad. Incluye análisis FODA, revisión de procesos y plan de acción personalizado.",
+      "title": "Asesoramiento Técnico y Profesional",
+      "price": "Desde $1,500 CUP",
+      "description": "Implementación de soluciones personalizadas para problemas detectados en áreas clave. Contabilidad desde $1,500 CUP / Marketing desde $3,000 CUP.",
       "icon": "globe",
       "image": "",
-      "category": "asesoramiento",
-      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Diagnóstico%20Empresarial%20Integral"
+      "category": "consultoria",
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20asesoría%20técnica"
     },
     {
-      "title": "Planificación Estratégica",
-      "price": "$349",
-      "description": "Definimos juntos los objetivos de tu negocio y diseñamos la ruta para alcanzarlos con indicadores claros y metas medibles.",
-      "icon": "calendar",
-      "image": "",
-      "category": "asesoramiento",
-      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Planificación%20Estratégica"
-    },
-    {
-      "title": "Optimización de Costos",
-      "price": "$249",
-      "description": "Identificamos oportunidades para reducir gastos sin afectar la calidad, mejorando los márgenes de tu negocio.",
-      "icon": "bolt",
-      "image": "",
-      "category": "asesoramiento",
-      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Optimización%20de%20Costos"
-    },
-    {
-      "title": "Dashboard de Control",
-      "price": "$299",
-      "description": "Panel de control personalizado para visualizar los indicadores clave de tu negocio en tiempo real.",
-      "icon": "grid",
+      "title": "Sistemas de Contabilidad",
+      "price": "Desde $3,800 CUP",
+      "description": "Implementación de estándares (Versat, Desfot, SAP, Odoo, etc.) desde $5,000 CUP. Personalizados de Microsoft desde $3,800 CUP. Software único a medida desde $25,000 MXN.",
+      "icon": "money",
       "image": "",
       "category": "herramientas",
-      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Dashboard%20de%20Control"
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Sistemas%20de%20Contabilidad"
     },
     {
-      "title": "Sistema de Gestión de Inventarios",
-      "price": "$349",
-      "description": "Herramienta digital para llevar el control de tu inventario, alertas de stock y reportes automáticos.",
-      "icon": "box",
+      "title": "Marketing Digital",
+      "price": "Desde $5,000 CUP/mes",
+      "description": "Contenido para redes sociales desde $5,000 CUP/mes. Diseño de identidad visual desde $9,000 CUP. Estrategia de marketing digital con dashboard incluido, precio a consultar.",
+      "icon": "trending",
       "image": "",
       "category": "herramientas",
-      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Sistema%20de%20Gestión%20de%20Inventarios"
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Marketing%20Digital"
     },
     {
       "title": "Automatización de Procesos",
-      "price": "$499",
-      "description": "Desarrollamos soluciones personalizadas para automatizar tareas repetitivas, integrar sistemas y optimizar el flujo de trabajo de tu empresa. Incluye análisis de procesos, desarrollo a medida e implementación.",
+      "price": "Desde $5,000 MXN",
+      "description": "Bot de WhatsApp: $15,000 MXN. Páginas Web: $6,500 MXN/mensuales (plan de mantenimiento y hosting). Funnel de Ventas Multicanal: $5,000 MXN.",
       "icon": "tools",
       "image": "",
       "category": "herramientas",
       "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20servicio%20de%20Automatización%20de%20Procesos"
+    },
+    {
+      "title": "Taller de Negociación",
+      "price": "$465 CUP",
+      "description": "Programa de capacitación en técnicas de negociación aplicadas al entorno empresarial. Duración: 2 semanas.",
+      "icon": "document",
+      "image": "",
+      "category": "capacitacion",
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20inscribirme%20al%20Taller%20de%20Negociación"
+    },
+    {
+      "title": "Taller de Marketing Digital",
+      "price": "$465 CUP",
+      "description": "Aprende estrategias de marketing digital para posicionar tu negocio en redes sociales. Duración: 2 semanas.",
+      "icon": "chart",
+      "image": "",
+      "category": "capacitacion",
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20inscribirme%20al%20Taller%20de%20Marketing%20Digital"
+    },
+    {
+      "title": "Curso básico de Contabilidad",
+      "price": "$1,265 CUP",
+      "description": "Gestiona las finanzas de tu negocio de manera efectiva. Incluye control de flujo de caja, análisis de costos y planificación presupuestaria. Duración: 4 semanas.",
+      "icon": "money",
+      "image": "",
+      "category": "capacitacion",
+      "whatsappLink": "https://wa.me/5355609099?text=Quiero%20inscribirme%20al%20Curso%20básico%20de%20Contabilidad"
     }
   ]
 }

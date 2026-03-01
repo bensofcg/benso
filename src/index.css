@@ -3,6 +3,63 @@
    Paleta: #002c6a, #00419d, #0056d0, #ffffff, #e6e6e6, #001737
 =================================== */
 
+/* Font Faces */
+@font-face {
+    font-family: 'Cocogoose Pro';
+    src: url('./Cocogoose-Pro-Regular-trial.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cocogoose Pro';
+    src: url('./Cocogoose-Pro-Bold-trial.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cocogoose Pro';
+    src: url('./Cocogoose-Pro-Light-trial.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cocogoose Pro';
+    src: url('./Cocogoose-Pro-Semilight-trial.ttf') format('truetype');
+    font-weight: 350;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Commons Pro';
+    src: url('./TT Commons Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Commons Pro';
+    src: url('./TT Commons Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Commons Pro';
+    src: url('./TT Commons Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* Reset & Base Styles */
 *,
 *::before,
@@ -22,6 +79,7 @@
     --whatsapp: #25D366;
     --whatsapp-hover: #1ebe5d;
     --font-main: 'TT Commons Pro', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-heading: 'Cocogoose Pro', 'TT Commons Pro', system-ui, sans-serif;
     --shadow: 0 4px 20px rgba(0, 44, 106, 0.15);
     --radius: 16px;
     --transition: all 0.3s ease;
@@ -45,6 +103,10 @@ body {
 /* Dynamic blur background is handled by the Background component */
 
 /* Note: AOS library is not used in this project */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+}
 
 a {
     text-decoration: none;
@@ -692,7 +754,8 @@ section.alt-bg {
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
     width: 100%;
     padding: 1rem;
     border: 2px solid var(--light-gray);
@@ -700,10 +763,12 @@ section.alt-bg {
     font-family: inherit;
     font-size: 1rem;
     transition: var(--transition);
+    background-color: var(--white);
 }
 
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.form-group select:focus {
     outline: none;
     border-color: var(--accent);
 }
