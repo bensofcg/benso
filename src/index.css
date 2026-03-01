@@ -280,6 +280,7 @@ nav ul li a.active {
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+    padding-bottom: 4rem;
 }
 
 .hero h1 {
@@ -323,7 +324,7 @@ nav ul li a.active {
     text-align: center;
     gap: 0.5rem;
     transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
-    border: none;
+    border: 2px solid var(--white);
     box-shadow: none;
     position: relative;
 }
@@ -742,8 +743,8 @@ section.alt-bg {
 }
 
 .event-date-tag {
-    border-color: var(--primary);
-    color: var(--primary);
+    border-color: var(--accent);
+    color: var(--accent);
 }
 
 /* ===================================
@@ -1276,6 +1277,10 @@ footer {
         margin-top: -60px;
     }
 
+    .hero-content {
+        padding-bottom: 3.5rem;
+    }
+
     .hero h1 {
         font-size: 1.6rem;
         margin-bottom: 0.5rem;
@@ -1576,6 +1581,85 @@ footer {
 }
 
 /* ===================================
+   Vertical Timeline (Events Page)
+=================================== */
+.timeline {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 1rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--light-gray);
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 3rem;
+    margin-bottom: 2rem;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 0.55rem;
+    top: 0.35rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 3px var(--accent);
+    z-index: 1;
+}
+
+.timeline-content {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--light-gray);
+}
+
+.timeline-date {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 0.35rem;
+}
+
+.timeline-content h4 {
+    color: var(--primary);
+    font-size: 1.1rem;
+    margin-bottom: 0.35rem;
+}
+
+.timeline-status {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--secondary);
+    opacity: 0.8;
+}
+
+.timeline-status.active {
+    color: var(--accent);
+    opacity: 1;
+}
+
+/* ===================================
    Utility Classes
 =================================== */
 .text-center {
@@ -1664,35 +1748,41 @@ footer {
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    padding: 0.6rem 1rem;
+    padding: 0.6rem 2.5rem 0.6rem 1rem;
     font-size: 0.9rem;
     font-weight: 500;
     position: relative;
     z-index: 1001;
     text-align: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     border-bottom: 1px solid var(--light-gray);
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.promo-banner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgba(0, 86, 208, 0.08) 40%, rgba(0, 86, 208, 0.15) 50%, rgba(0, 86, 208, 0.08) 60%, transparent 100%);
+    animation: bannerShimmer 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes bannerShimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
 }
 
 .promo-banner p {
     margin: 0;
-}
-
-.promo-banner-cta {
-    background: transparent;
-    color: var(--accent);
-    padding: 0.3rem 1rem;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 0.85rem;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    transition: var(--transition);
-    white-space: nowrap;
-}
-
-.promo-banner-cta:hover {
-    color: var(--primary);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .promo-banner-close {
@@ -1709,6 +1799,7 @@ footer {
     right: 0.75rem;
     top: 50%;
     transform: translateY(-50%);
+    z-index: 1;
 }
 
 .promo-banner-close:hover {

@@ -21,7 +21,7 @@ const whiteIconStyle = { color: 'var(--white)', filter: 'drop-shadow(0 1px 2px r
 export function AboutPage() {
   return (
     <>
-      {/* Title & Mission Section */}
+      {/* Title, Mission & Vision Section */}
       <ScrollReveal style={{ paddingTop: '7rem' }}>
         <div className="container">
           <div className="section-title">
@@ -29,33 +29,22 @@ export function AboutPage() {
             <p>Empoderamos a PyMEs con soluciones digitales y estrategias para lograr una rentabilidad sostenible.</p>
           </div>
           
-          <div className="bento-grid">
+          <div className="bento-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 400px), 1fr))' }}>
             <BentoCard className="horizontal-card" style={coloredCardStyle.primary}>
               <Icon name="starFilled" style={whiteIconStyle} />
               <div className="horizontal-card-text">
-                <h3 style={{ ...whiteH3Style, fontSize: '2rem' }}>Nuestra Misión</h3>
-                <p style={{ ...whitePStyle, fontSize: '1.1rem', lineHeight: 1.9 }}>
+                <h3 style={{ ...whiteH3Style, fontSize: '1.5rem' }}>Nuestra Misión</h3>
+                <p style={{ ...whitePStyle, fontSize: '1.05rem', lineHeight: 1.8 }}>
                   El Proyecto Benso ofrece servicios profesionales de asesoramiento, herramientas y capacitación estratégica para impulsar la rentabilidad de emprendimientos en cualquier sector. Nos especializamos en áreas tales como la contabilidad, el marketing digital y la automatización de procesos.
                 </p>
               </div>
             </BentoCard>
-          </div>
-        </div>
-      </ScrollReveal>
 
-      {/* Vision Section */}
-      <ScrollReveal className="alt-bg">
-        <div className="container">
-          <div className="section-title">
-            <h2>Nuestra Visión</h2>
-          </div>
-          
-          <div className="bento-grid">
             <BentoCard className="horizontal-card" style={coloredCardStyle.secondary}>
               <Icon name="globe" style={whiteIconStyle} />
               <div className="horizontal-card-text">
-                <h3 style={whiteH3Style}>Visión</h3>
-                <p style={{ ...whitePStyle, fontSize: '1.1rem', lineHeight: 1.9 }}>
+                <h3 style={{ ...whiteH3Style, fontSize: '1.5rem' }}>Nuestra Visión</h3>
+                <p style={{ ...whitePStyle, fontSize: '1.05rem', lineHeight: 1.8 }}>
                   Aspiramos a convertirnos en el primer referente para aquellas empresas que persiguen la calidad, la excelencia y el crecimiento sostenible.
                 </p>
               </div>
