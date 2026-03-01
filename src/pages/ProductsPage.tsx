@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BentoCard, Icon, ScrollReveal } from '../components';
+import { BentoCard, ScrollReveal } from '../components';
 import productsData from '../data/products.json';
 import categoriesData from '../data/categories.json';
 
@@ -61,10 +61,9 @@ export function ProductsPage() {
                 dataCategory={product.category}
                 style={{ animationDelay: `${idx * 0.1}s` }}
               >
-                <Icon name={product.icon} aria-label={`Icono de ${product.title}`} />
                 <h3>{product.title}</h3>
                 <p>{product.description}</p>
-                <span className="card-price">{product.price}</span>
+                <span className="card-price">{product.price} CUP</span>
                 <a 
                   href={product.whatsappLink} 
                   className="btn-consult" 

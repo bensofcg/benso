@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import type { SyntheticEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { BentoCard, FAQAccordion, ScrollReveal } from '../components';
+import { BentoCard, Icon, FAQAccordion, ScrollReveal } from '../components';
 import faqItems from '../data/faqs.json';
 import servicesData from '../data/services.json';
+import productsData from '../data/products.json';
 import eventsData from '../data/events.json';
 import testimonials from '../data/testimonials.json';
 
@@ -12,11 +12,11 @@ const events = eventsData.upcoming.slice(0, 2);
 
 const brands = ['AfroDiSíAcá', 'Estilo Natural', 'Marayosva', 'Sarandonga', "D'Sara", "Divas'Store"];
 
-function handleImageError(e: SyntheticEvent<HTMLImageElement>) {
-  const img = e.currentTarget;
-  img.style.display = 'none';
-  img.parentElement?.classList.add('card-image-fallback');
-}
+const featuredProducts = [
+  productsData.find(p => p.category === 'pegatinas'),
+  productsData.find(p => p.category === 'lonas'),
+  productsData.find(p => p.category === 'tarjetas'),
+].filter(Boolean) as typeof productsData;
 
 export function HomePage() {
   const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
@@ -39,7 +39,7 @@ export function HomePage() {
       <section className="hero">
         <div className="container">
           <div className="hero-content">
-            <h1>Asesoramiento, Herramientas y Capacitación para Emprendedores</h1>
+            <h1 className="typewriter">Asesoramiento, Herramientas y Capacitación para Emprendedores</h1>
             <p className="slogan">
               Te enseñamos cómo posicionar un negocio y te acompañamos en cada paso del camino
             </p>
@@ -84,17 +84,7 @@ export function HomePage() {
           <div className="bento-grid">
             {services.map((service, index) => (
               <BentoCard key={index} className="service-card">
-                <div className="card-image-placeholder">
-                  {service.image ? (
-                    <img
-                      src={service.image}
-                      alt={service.title}
-                      onError={handleImageError}
-                    />
-                  ) : (
-                    <div className="card-image-fallback" />
-                  )}
-                </div>
+                <Icon name={service.icon} />
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
                 <span className="card-price">{service.price}</span>
@@ -112,6 +102,39 @@ export function HomePage() {
           <div className="section-text-cta">
             <Link to="/servicios" className="text-cta-link">
               Ver Todos los Servicios →
+            </Link>
+          </div>
+        </div>
+      </ScrollReveal>
+
+      {/* Featured Products Section */}
+      <ScrollReveal className="alt-bg">
+        <div className="container">
+          <div className="section-title">
+            <h2>Productos Destacados</h2>
+            <p>Impresión profesional para potenciar tu marca</p>
+          </div>
+          
+          <div className="bento-grid">
+            {featuredProducts.map((product, index) => (
+              <BentoCard key={index} className="service-card">
+                <h3>{product.title}</h3>
+                <p>{product.description}</p>
+                <span className="card-price">{product.price} CUP</span>
+                <a 
+                  href={product.whatsappLink} 
+                  className="btn-consult" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  Solicitar producto
+                </a>
+              </BentoCard>
+            ))}
+          </div>
+          <div className="section-text-cta">
+            <Link to="/productos" className="text-cta-link">
+              Ver más →
             </Link>
           </div>
         </div>
