@@ -1,16 +1,18 @@
 import { useState, type FormEvent } from 'react';
 import { BentoCard, FAQAccordion, ScrollReveal } from '../components';
 import faqItems from '../data/faqs.json';
+import servicesData from '../data/services.json';
+
+const serviceOptions = servicesData.all.map(s => s.title);
 
 export function ContactPage() {
   const [formData, setFormData] = useState({
     nombre: '',
-    empresa: '',
-    fecha: ''
+    fecha: '',
+    servicio: ''
   });
   const [errors, setErrors] = useState({
     nombre: false,
-    empresa: false,
     fecha: false
   });
 
@@ -19,30 +21,29 @@ export function ContactPage() {
     
     const newErrors = {
       nombre: !formData.nombre.trim(),
-      empresa: !formData.empresa.trim(),
       fecha: !formData.fecha.trim()
     };
     
     setErrors(newErrors);
     
     if (Object.values(newErrors).some(Boolean)) {
-      alert('Por favor, complete todos los campos del formulario.');
+      alert('Por favor, complete todos los campos requeridos del formulario.');
       return;
     }
     
     // Sanitize inputs
     const sanitizedNombre = formData.nombre.replace(/[<>]/g, '');
-    const sanitizedEmpresa = formData.empresa.replace(/[<>]/g, '');
     const sanitizedFecha = formData.fecha.replace(/[<>]/g, '');
+    const sanitizedServicio = formData.servicio.replace(/[<>]/g, '') || 'sus servicios';
     
-    const message = `Hola, mi nombre es ${sanitizedNombre}, mi empresa es ${sanitizedEmpresa} y quiero agendar una cita el ${sanitizedFecha}`;
+    const message = `Hola, soy ${sanitizedNombre}. Quiero agendar una cita para el ${sanitizedFecha} para consultar sobre ${sanitizedServicio}.`;
     const whatsappUrl = `https://wa.me/5355609099?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
-  const handleChange = (field: keyof typeof formData) => (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (field: keyof typeof formData) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData(prev => ({ ...prev, [field]: e.target.value }));
-    if (errors[field]) {
+    if (field in errors && errors[field as keyof typeof errors]) {
       setErrors(prev => ({ ...prev, [field]: false }));
     }
   };
@@ -62,7 +63,7 @@ export function ContactPage() {
               <h3 style={{ color: 'var(--primary)', marginBottom: '1.5rem' }}>Formulario de Contacto</h3>
               <form id="appointment-form" style={{ textAlign: 'left' }} onSubmit={handleSubmit}>
                 <div className="form-group">
-                  <label htmlFor="nombre">Nombre completo</label>
+                  <label htmlFor="nombre">Nombre</label>
                   <input 
                     type="text" 
                     id="nombre" 
@@ -72,19 +73,6 @@ export function ContactPage() {
                     value={formData.nombre}
                     onChange={handleChange('nombre')}
                     style={{ borderColor: errors.nombre ? '#e74c3c' : undefined }}
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="empresa">Empresa</label>
-                  <input 
-                    type="text" 
-                    id="empresa" 
-                    name="empresa" 
-                    required 
-                    aria-required="true"
-                    value={formData.empresa}
-                    onChange={handleChange('empresa')}
-                    style={{ borderColor: errors.empresa ? '#e74c3c' : undefined }}
                   />
                 </div>
                 <div className="form-group">
@@ -99,6 +87,20 @@ export function ContactPage() {
                     onChange={handleChange('fecha')}
                     style={{ borderColor: errors.fecha ? '#e74c3c' : undefined }}
                   />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="servicio">Servicio de interés</label>
+                  <select
+                    id="servicio"
+                    name="servicio"
+                    value={formData.servicio}
+                    onChange={handleChange('servicio')}
+                  >
+                    <option value="">Selecciona un servicio (opcional)</option>
+                    {serviceOptions.map((option) => (
+                      <option key={option} value={option}>{option}</option>
+                    ))}
+                  </select>
                 </div>
                 <button type="submit" className="btn-submit" style={{ background: '#25D366' }}>
                   Enviar por WhatsApp

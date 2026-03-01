@@ -10,7 +10,7 @@ import testimonials from '../data/testimonials.json';
 const services = servicesData.featured;
 const events = eventsData.upcoming.slice(0, 2);
 
-const brands = ['Empresa A', 'Empresa B', 'Empresa C', 'Empresa D', 'Empresa E', 'Empresa F'];
+const brands = ['AfroDiSíAcá', 'Estilo Natural', 'Marayosva', 'Sarandonga', "D'Sara", "Divas'Store"];
 
 function handleImageError(e: SyntheticEvent<HTMLImageElement>) {
   const img = e.currentTarget;
@@ -39,12 +39,12 @@ export function HomePage() {
       <section className="hero">
         <div className="container">
           <div className="hero-content">
-            <h1>BENSO</h1>
+            <h1>Asesoramiento, Herramientas y Capacitación para Emprendedores</h1>
             <p className="slogan">
-              Consultoría y Soluciones Digitales para la Rentabilidad Sostenible
+              Te enseñamos cómo posicionar un negocio y te acompañamos en cada paso del camino
             </p>
             <Link to="/contacto" className="hero-cta">
-              Agendar cita
+              Agendar cita gratis
               <span aria-hidden="true">→</span>
             </Link>
           </div>
@@ -61,7 +61,7 @@ export function HomePage() {
       <ScrollReveal>
         <div className="container">
           <div className="section-title">
-            <h2>Empresas que confían en nosotros</h2>
+            <h2>Emprendimientos que confían en nosotros</h2>
           </div>
         </div>
         <div className="marquee-wrapper">

@@ -4,7 +4,7 @@ import { BentoCard, ScrollReveal } from '../components';
 import servicesData from '../data/services.json';
 import categoriesData from '../data/categories.json';
 
-type CategoryFilter = 'all' | 'capacitacion' | 'asesoramiento' | 'herramientas';
+type CategoryFilter = 'all' | 'consultoria' | 'capacitacion' | 'herramientas';
 
 interface Service {
   title: string;
