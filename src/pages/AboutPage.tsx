@@ -29,7 +29,7 @@ export function AboutPage() {
             <p>Empoderamos a PyMEs con soluciones digitales y estrategias para lograr una rentabilidad sostenible.</p>
           </div>
           
-          <div className="bento-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 400px), 1fr))' }}>
+          <div className="bento-grid mission-vision-grid">
             <BentoCard className="horizontal-card" style={coloredCardStyle.primary}>
               <Icon name="starFilled" style={whiteIconStyle} />
               <div className="horizontal-card-text">

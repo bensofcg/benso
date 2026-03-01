@@ -34,7 +34,7 @@ export function PromoBanner() {
   if (!visible) return null;
 
   return (
-    <div className="promo-banner" ref={bannerRef} onClick={handleBannerClick} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleBannerClick(); }}>
+    <div className="promo-banner" ref={bannerRef} onClick={handleBannerClick} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleBannerClick(); } }}>
       <p>🎓 ¡Nuevo curso de Marketing Digital disponible! Inscríbete con un <strong>20% de descuento</strong>.</p>
       <button
         className="promo-banner-close"

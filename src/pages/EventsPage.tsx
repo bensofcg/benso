@@ -76,8 +76,8 @@ export function EventsPage() {
           </div>
           
           <div className="timeline">
-            {[...currentEvents, ...upcomingEvents].map((event, index) => (
-              <div key={index} className="timeline-item">
+            {[...currentEvents, ...upcomingEvents].map((event) => (
+              <div key={event.title} className="timeline-item">
                 <div className="timeline-dot" />
                 <div className="timeline-content">
                   <span className="timeline-date">{event.date}</span>

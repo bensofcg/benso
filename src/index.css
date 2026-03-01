@@ -1056,6 +1056,10 @@ footer {
     flex: 1;
 }
 
+.mission-vision-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+}
+
 /* ===================================
    Responsive Design
 =================================== */
