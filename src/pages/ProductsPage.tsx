@@ -3,7 +3,7 @@ import { BentoCard, Icon, ScrollReveal } from '../components';
 import productsData from '../data/products.json';
 import categoriesData from '../data/categories.json';
 
-type CategoryFilter = 'all' | 'capacitacion' | 'asesoramiento' | 'herramientas';
+type CategoryFilter = 'all' | 'pegatinas' | 'posters' | 'cuadros' | 'tarjetas' | 'lonas' | 'otros';
 
 interface Product {
   title: string;
@@ -16,7 +16,7 @@ interface Product {
 }
 
 const products = productsData as Product[];
-const filters = categoriesData as { label: string; value: CategoryFilter }[];
+const filters = categoriesData.products as { label: string; value: CategoryFilter }[];
 
 export function ProductsPage() {
   const [activeFilter, setActiveFilter] = useState<CategoryFilter>('all');

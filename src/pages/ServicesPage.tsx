@@ -17,7 +17,7 @@ interface Service {
 }
 
 const services = servicesData.all as Service[];
-const filters = categoriesData as { label: string; value: CategoryFilter }[];
+const filters = categoriesData.services as { label: string; value: CategoryFilter }[];
 
 function handleImageError(e: SyntheticEvent<HTMLImageElement>) {
   const img = e.currentTarget;
