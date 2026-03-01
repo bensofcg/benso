@@ -292,16 +292,6 @@ nav ul li a.active {
     animation: fadeInUp 0.8s ease forwards;
 }
 
-.hero h1.typewriter {
-    opacity: 0;
-    animation: fadeInUp 0.8s ease forwards;
-}
-
-@keyframes revealText {
-    0% { clip-path: inset(0 100% 0 0); }
-    100% { clip-path: inset(0 0 0 0); }
-}
-
 .hero .slogan {
     font-size: 1.2rem;
     line-height: 1.6;
@@ -744,13 +734,8 @@ section.alt-bg {
     color: var(--accent);
 }
 
-.event-status-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-}
-
-.event-status-tag svg {
+.event-status-tag svg,
+.event-date-tag svg {
     width: 14px;
     height: 14px;
     flex-shrink: 0;
@@ -759,12 +744,6 @@ section.alt-bg {
 .event-date-tag {
     border-color: var(--primary);
     color: var(--primary);
-}
-
-.event-date-tag svg {
-    width: 14px;
-    height: 14px;
-    flex-shrink: 0;
 }
 
 /* ===================================
@@ -1644,17 +1623,6 @@ footer {
     }
     to {
         opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInUpSlogan {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 0.95;
         transform: translateY(0);
     }
 }
