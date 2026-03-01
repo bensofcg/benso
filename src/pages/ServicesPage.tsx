@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import type { SyntheticEvent } from 'react';
-import { BentoCard, ScrollReveal } from '../components';
+import { BentoCard, Icon, ScrollReveal } from '../components';
 import servicesData from '../data/services.json';
 import categoriesData from '../data/categories.json';
 
@@ -18,12 +17,6 @@ interface Service {
 
 const services = servicesData.all as Service[];
 const filters = categoriesData.services as { label: string; value: CategoryFilter }[];
-
-function handleImageError(e: SyntheticEvent<HTMLImageElement>) {
-  const img = e.currentTarget;
-  img.style.display = 'none';
-  img.parentElement?.classList.add('card-image-fallback');
-}
 
 export function ServicesPage() {
   const [activeFilter, setActiveFilter] = useState<CategoryFilter>('all');
@@ -68,17 +61,7 @@ export function ServicesPage() {
                 dataCategory={service.category}
                 style={{ animationDelay: `${filteredServices.indexOf(service) * 0.1}s` }}
               >
-                <div className="card-image-placeholder">
-                  {service.image ? (
-                    <img
-                      src={service.image}
-                      alt={service.title}
-                      onError={handleImageError}
-                    />
-                  ) : (
-                    <div className="card-image-fallback" />
-                  )}
-                </div>
+                <Icon name={service.icon} />
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
                 <span className="card-price">{service.price}</span>
