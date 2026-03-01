@@ -2,9 +2,14 @@ import { useState } from 'react';
 import type { SyntheticEvent } from 'react';
 import { BentoCard, ScrollReveal } from '../components';
 import servicesData from '../data/services.json';
-import categoriesData from '../data/categories.json';
-
 type CategoryFilter = 'all' | 'capacitacion' | 'asesoramiento' | 'herramientas';
+
+const serviceCategoriesData = [
+  { "label": "Todos", "value": "all" },
+  { "label": "Capacitación", "value": "capacitacion" },
+  { "label": "Asesoramiento", "value": "asesoramiento" },
+  { "label": "Herramientas Digitales", "value": "herramientas" }
+];
 
 interface Service {
   title: string;
@@ -17,7 +22,7 @@ interface Service {
 }
 
 const services = servicesData.all as Service[];
-const filters = categoriesData as { label: string; value: CategoryFilter }[];
+const filters = serviceCategoriesData as { label: string; value: CategoryFilter }[];
 
 function handleImageError(e: SyntheticEvent<HTMLImageElement>) {
   const img = e.currentTarget;

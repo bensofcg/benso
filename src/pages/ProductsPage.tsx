@@ -3,7 +3,7 @@ import { BentoCard, Icon, ScrollReveal } from '../components';
 import productsData from '../data/products.json';
 import categoriesData from '../data/categories.json';
 
-type CategoryFilter = 'all' | 'capacitacion' | 'asesoramiento' | 'herramientas';
+type CategoryFilter = 'all' | 'pegatinas' | 'posters' | 'cuadros' | 'tarjetas' | 'lonas' | 'otros';
 
 interface Product {
   title: string;

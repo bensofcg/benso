@@ -1,6 +1,9 @@
 [
   { "label": "Todos", "value": "all" },
-  { "label": "Capacitación", "value": "capacitacion" },
-  { "label": "Asesoramiento", "value": "asesoramiento" },
-  { "label": "Herramientas Digitales", "value": "herramientas" }
+  { "label": "Pegatinas", "value": "pegatinas" },
+  { "label": "Pósters", "value": "posters" },
+  { "label": "Cuadros en PVC", "value": "cuadros" },
+  { "label": "Tarjetas", "value": "tarjetas" },
+  { "label": "Lonas", "value": "lonas" },
+  { "label": "Otros", "value": "otros" }
 ]
