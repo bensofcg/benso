@@ -270,6 +270,37 @@ nav ul li a.active {
     pointer-events: none;
 }
 
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.08) 40%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0.08) 60%,
+        transparent 100%
+    );
+    animation: heroShiny 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes heroShiny {
+    0% {
+        left: -100%;
+    }
+    50% {
+        left: 150%;
+    }
+    100% {
+        left: 150%;
+    }
+}
+
 .hero-content {
     max-width: 800px;
     margin: 0 auto;
@@ -323,7 +354,7 @@ nav ul li a.active {
     text-align: center;
     gap: 0.5rem;
     transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
-    border: none;
+    border: 2px solid var(--white);
     box-shadow: none;
     position: relative;
 }
@@ -338,6 +369,12 @@ nav ul li a.active {
     background: var(--light-gray);
     color: var(--primary);
     transform: translateY(-3px);
+}
+
+/* Hero Banner Link (clickable on mobile) */
+.hero-banner-link {
+    color: var(--white);
+    display: contents;
 }
 
 /* Hero Buttons Container */
@@ -729,7 +766,7 @@ section.alt-bg {
     margin-right: 0.5rem;
     margin-top: 0.5rem;
     margin-bottom: 0.25rem;
-    background: transparent;
+    background: rgba(0, 86, 208, 0.1);
     border: 1.5px solid var(--accent);
     color: var(--accent);
 }
@@ -742,8 +779,109 @@ section.alt-bg {
 }
 
 .event-date-tag {
-    border-color: var(--primary);
+    background: rgba(0, 44, 106, 0.1);
+    border-color: var(--secondary);
+    color: var(--secondary);
+}
+
+/* ===================================
+   Events Timeline
+=================================== */
+.events-timeline {
+    position: relative;
+    padding: 2rem 0;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.events-timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--accent), var(--primary));
+    border-radius: 2px;
+}
+
+.timeline-item {
+    position: relative;
+    padding: 1.5rem 0;
+    display: flex;
+    align-items: flex-start;
+}
+
+.timeline-item:nth-child(odd) {
+    flex-direction: row;
+    padding-right: calc(50% + 2rem);
+    text-align: right;
+}
+
+.timeline-item:nth-child(even) {
+    flex-direction: row-reverse;
+    padding-left: calc(50% + 2rem);
+    text-align: left;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 2rem;
+    width: 14px;
+    height: 14px;
+    background: var(--accent);
+    border: 3px solid var(--white);
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px var(--accent);
+    z-index: 1;
+}
+
+.timeline-content {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--light-gray);
+    flex: 1;
+}
+
+.timeline-content h3 {
     color: var(--primary);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-content p {
+    color: var(--dark);
+    opacity: 0.8;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.timeline-content .event-status-tag,
+.timeline-content .event-date-tag {
+    font-size: 0.75rem;
+}
+
+@media (max-width: 768px) {
+    .events-timeline::before {
+        left: 1rem;
+    }
+
+    .timeline-item:nth-child(odd),
+    .timeline-item:nth-child(even) {
+        flex-direction: row;
+        padding-left: 3rem;
+        padding-right: 0;
+        text-align: left;
+    }
+
+    .timeline-dot {
+        left: 1rem;
+    }
 }
 
 /* ===================================
@@ -1133,6 +1271,10 @@ footer {
         margin-top: -60px;
     }
 
+    .hero-content {
+        padding-bottom: 4rem;
+    }
+
     .scroll-down-indicator {
         position: absolute;
         bottom: 1.5rem;
@@ -1165,11 +1307,34 @@ footer {
     }
 
     .hero h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        letter-spacing: 2px;
     }
 
     .hero .slogan {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin-bottom: 1rem;
+    }
+
+    .hero-banner-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        color: var(--white);
+        gap: 0.5rem;
+        padding: 1rem 1.5rem;
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.08);
+        transition: background 0.3s ease;
+    }
+
+    .hero-banner-link:hover {
+        background: rgba(255, 255, 255, 0.15);
     }
 
     section {
@@ -1277,12 +1442,13 @@ footer {
     }
 
     .hero h1 {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
         margin-bottom: 0.5rem;
+        letter-spacing: 1px;
     }
     
     .hero .slogan {
-        font-size: 1rem;
+        font-size: 0.9rem;
         margin-bottom: 1rem;
     }
 

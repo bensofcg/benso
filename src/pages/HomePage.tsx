@@ -41,10 +41,12 @@ export function HomePage() {
       <section className="hero">
         <div className="container">
           <div className="hero-content">
-            <h1>Asesoramiento, Herramientas y Capacitación para Emprendedores</h1>
-            <p className="slogan">
-              Te enseñamos cómo posicionar un negocio y te acompañamos en cada paso del camino
-            </p>
+            <Link to="/nosotros" className="hero-banner-link">
+              <h1>Asesoramiento, Herramientas y Capacitación para Emprendedores</h1>
+              <p className="slogan">
+                Te enseñamos cómo posicionar un negocio y te acompañamos en cada paso del camino
+              </p>
+            </Link>
             <div className="hero-buttons">
               <Link to="/nosotros" className="hero-cta-outline">
                 Sobre nosotros

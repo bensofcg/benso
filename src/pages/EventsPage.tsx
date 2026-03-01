@@ -3,6 +3,7 @@ import eventsData from '../data/events.json';
 
 const currentEvents = eventsData.current;
 const upcomingEvents = eventsData.upcoming;
+const allEvents = [...currentEvents, ...upcomingEvents];
 
 export function EventsPage() {
   return (
@@ -62,6 +63,35 @@ export function EventsPage() {
                   Inscribirme
                 </a>
               </BentoCard>
+            ))}
+          </div>
+        </div>
+      </ScrollReveal>
+
+      {/* Events Timeline */}
+      <ScrollReveal>
+        <div className="container">
+          <div className="section-title">
+            <h2>Línea del Tiempo</h2>
+            <p>Recorrido de nuestros eventos</p>
+          </div>
+          
+          <div className="events-timeline">
+            {allEvents.map((event, index) => (
+              <div key={index} className="timeline-item">
+                <div className="timeline-dot" />
+                <div className="timeline-content">
+                  <h3>{event.title}</h3>
+                  <div>
+                    <span className="event-status-tag"><StatusIcon status={event.status} />{event.status}</span>
+                    <span className="event-date-tag">
+                      <CalendarIcon />
+                      {event.date}
+                    </span>
+                  </div>
+                  <p>{event.description}</p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
