@@ -63,6 +63,7 @@ export function ProductsPage() {
                 dataCategory={product.category}
                 style={{ animationDelay: `${idx * 0.1}s` }}
               >
+                <div className="product-image-container" />
                 <h3>{product.title}</h3>
                 <p>{product.description}</p>
                 <span className="card-price">{product.price} CUP</span>
