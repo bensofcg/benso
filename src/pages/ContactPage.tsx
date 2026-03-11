@@ -8,26 +8,39 @@ const serviceOptions = servicesData.all.map(s => s.title);
 export function ContactPage() {
   const [formData, setFormData] = useState({
     nombre: '',
+    email: '',
     fecha: '',
     servicio: ''
   });
-  const [errors, setErrors] = useState({
-    nombre: false,
-    fecha: false
-  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const validateField = (field: string, value: string): string => {
+    switch (field) {
+      case 'nombre':
+        return value.trim() ? '' : 'El nombre es obligatorio.';
+      case 'email':
+        if (!value.trim()) return 'El correo electrónico es obligatorio.';
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Introduce un correo electrónico válido.';
+        return '';
+      case 'fecha':
+        return value.trim() ? '' : 'La fecha es obligatoria.';
+      default:
+        return '';
+    }
+  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     
-    const newErrors = {
-      nombre: !formData.nombre.trim(),
-      fecha: !formData.fecha.trim()
-    };
+    const newErrors: Record<string, string> = {};
+    for (const field of ['nombre', 'email', 'fecha'] as const) {
+      const msg = validateField(field, formData[field]);
+      if (msg) newErrors[field] = msg;
+    }
     
     setErrors(newErrors);
     
-    if (Object.values(newErrors).some(Boolean)) {
-      alert('Por favor, complete todos los campos requeridos del formulario.');
+    if (Object.keys(newErrors).length > 0) {
       return;
     }
     
@@ -42,9 +55,19 @@ export function ContactPage() {
   };
 
   const handleChange = (field: keyof typeof formData) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData(prev => ({ ...prev, [field]: e.target.value }));
-    if (field in errors && errors[field as keyof typeof errors]) {
-      setErrors(prev => ({ ...prev, [field]: false }));
+    const value = e.target.value;
+    setFormData(prev => ({ ...prev, [field]: value }));
+    if (errors[field]) {
+      const msg = validateField(field, value);
+      setErrors(prev => {
+        const next = { ...prev };
+        if (msg) {
+          next[field] = msg;
+        } else {
+          delete next[field];
+        }
+        return next;
+      });
     }
   };
 
@@ -61,32 +84,52 @@ export function ContactPage() {
           <div className="text-center">
             <BentoCard style={{ maxWidth: '600px', margin: '0 auto' }}>
               <h3 style={{ color: 'var(--primary)', marginBottom: '1.5rem' }}>Formulario de Contacto</h3>
-              <form id="appointment-form" style={{ textAlign: 'left' }} onSubmit={handleSubmit}>
+              <form id="appointment-form" style={{ textAlign: 'left' }} onSubmit={handleSubmit} noValidate>
                 <div className="form-group">
-                  <label htmlFor="nombre">Nombre</label>
+                  <label htmlFor="nombre">Nombre *</label>
                   <input 
                     type="text" 
                     id="nombre" 
                     name="nombre" 
                     required 
                     aria-required="true"
+                    aria-invalid={!!errors.nombre}
                     value={formData.nombre}
                     onChange={handleChange('nombre')}
                     style={{ borderColor: errors.nombre ? '#e74c3c' : undefined }}
                   />
+                  {errors.nombre && <span className="form-error">{errors.nombre}</span>}
                 </div>
                 <div className="form-group">
-                  <label htmlFor="fecha">Fecha preferida para la cita</label>
+                  <label htmlFor="email">Correo electrónico *</label>
+                  <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    required 
+                    aria-required="true"
+                    aria-invalid={!!errors.email}
+                    value={formData.email}
+                    onChange={handleChange('email')}
+                    placeholder="ejemplo@correo.com"
+                    style={{ borderColor: errors.email ? '#e74c3c' : undefined }}
+                  />
+                  {errors.email && <span className="form-error">{errors.email}</span>}
+                </div>
+                <div className="form-group">
+                  <label htmlFor="fecha">Fecha preferida para la cita *</label>
                   <input 
                     type="date" 
                     id="fecha" 
                     name="fecha" 
                     required 
                     aria-required="true"
+                    aria-invalid={!!errors.fecha}
                     value={formData.fecha}
                     onChange={handleChange('fecha')}
                     style={{ borderColor: errors.fecha ? '#e74c3c' : undefined }}
                   />
+                  {errors.fecha && <span className="form-error">{errors.fecha}</span>}
                 </div>
                 <div className="form-group">
                   <label htmlFor="servicio">Servicio de interés</label>

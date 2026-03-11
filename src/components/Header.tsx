@@ -30,16 +30,19 @@ export function Header() {
           <img src={isotipoLogo} alt="BENSO" className="logo-img" />
         </Link>
 
-        <div 
-          className="menu-toggle" 
+        <button
+          className="menu-toggle"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-expanded={isMenuOpen}
+          aria-label={isMenuOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'}
+          aria-controls="main-nav"
         >
           <span></span>
           <span></span>
           <span></span>
-        </div>
+        </button>
 
-        <nav className={isMenuOpen ? 'active' : ''}>
+        <nav id="main-nav" className={isMenuOpen ? 'active' : ''}>
           <ul>
             <li><Link to="/" className={isActive('/')} onClick={closeMenu}>Inicio</Link></li>
             <li><Link to="/servicios" className={isActive('/servicios')} onClick={closeMenu}>Servicios</Link></li>
