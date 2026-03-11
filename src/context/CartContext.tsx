@@ -1,4 +1,5 @@
-import { createContext, useState, type ReactNode } from 'react';
+import { createContext, useState, useEffect, type ReactNode } from 'react';
+import toast from 'react-hot-toast';
 
 export interface CartItem {
   title: string;
@@ -17,12 +18,33 @@ export interface CartContextType {
   setIsOpen: (open: boolean) => void;
 }
 
+const CART_STORAGE_KEY = 'benso-cart-items';
+
+function loadCartFromStorage(): CartItem[] {
+  try {
+    const stored = localStorage.getItem(CART_STORAGE_KEY);
+    if (stored) {
+      const parsed: unknown = JSON.parse(stored);
+      if (Array.isArray(parsed)) {
+        return parsed as CartItem[];
+      }
+    }
+  } catch {
+    // Ignore invalid stored data
+  }
+  return [];
+}
+
 // eslint-disable-next-line react-refresh/only-export-components
 export const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
+  const [items, setItems] = useState<CartItem[]>(loadCartFromStorage);
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+  }, [items]);
 
   const addItem = (title: string, price: string) => {
     setItems(prev => {
@@ -34,6 +56,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       }
       return [...prev, { title, price, quantity: 1 }];
     });
+    toast.success(`"${title}" añadido al carrito`);
   };
 
   const removeItem = (title: string) => {

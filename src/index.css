@@ -230,6 +230,10 @@ nav ul li a.active {
     gap: 5px;
     cursor: pointer;
     padding: 10px;
+    background: none;
+    border: none;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .menu-toggle span {
@@ -872,6 +876,13 @@ section.alt-bg {
 .form-group textarea {
     min-height: 150px;
     resize: vertical;
+}
+
+.form-error {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    display: block;
 }
 
 .btn-submit {
