@@ -1644,7 +1644,7 @@ footer {
 .timeline::after {
     content: '';
     position: absolute;
-    left: calc(1rem - 5px);
+    left: calc(1rem - 5px); /* center arrow on 2px line: 6px (half arrow) - 1px (half line) */
     bottom: 0;
     width: 0;
     height: 0;
