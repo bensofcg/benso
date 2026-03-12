@@ -347,14 +347,15 @@ nav ul li a.active::after {
     display: inline-block;
 }
 
-.hero-underline {
+.hero-highlight::after {
+    content: '';
     position: absolute;
-    bottom: -8px;
-    left: -2%;
-    width: 104%;
-    height: 22px;
-    color: rgba(255, 255, 255, 0.85);
-    pointer-events: none;
+    bottom: 2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 2px;
 }
 
 .hero .slogan {
@@ -609,8 +610,15 @@ nav ul li a.active::after {
 }
 
 .bento-card:hover {
-    transform: translateY(-10px) scale(1.03);
-    box-shadow: 0 20px 50px rgba(0, 44, 106, 0.22);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 44, 106, 0.12);
+}
+
+/* Non-interactive cards: no hover effect */
+.testimonial-card.bento-card:hover,
+.horizontal-card.bento-card:hover {
+    transform: none;
+    box-shadow: 0 2px 12px rgba(0, 44, 106, 0.08);
 }
 
 .contact-form-card,
@@ -647,7 +655,6 @@ nav ul li a.active::after {
 
 /* Popular Product Badge */
 .bento-card.popular-card {
-    border: 2px solid var(--accent);
     position: relative;
     overflow: visible;
 }
@@ -655,12 +662,13 @@ nav ul li a.active::after {
 .popular-badge {
     position: absolute;
     top: -12px;
-    left: 1.5rem;
-    background: var(--accent);
-    color: var(--white);
-    font-size: 0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 86, 208, 0.12);
+    color: var(--accent);
+    font-size: 0.7rem;
     font-weight: 700;
-    padding: 0.2rem 0.75rem;
+    padding: 0.25rem 0.85rem;
     border-radius: 50px;
     letter-spacing: 0.5px;
     text-transform: uppercase;
@@ -691,8 +699,22 @@ section.section-blur-top::before {
     top: 0;
     left: 0;
     right: 0;
-    height: 120px;
-    background: linear-gradient(180deg, rgba(0, 86, 208, 0.08) 0%, transparent 100%);
+    height: 220px;
+    background: linear-gradient(180deg, rgba(0, 86, 208, 0.07) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+section.section-blur-top::after {
+    content: '';
+    position: absolute;
+    top: -80px;
+    left: -60px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 86, 208, 0.06) 0%, transparent 70%);
+    filter: blur(60px);
     pointer-events: none;
     z-index: 0;
 }
@@ -708,8 +730,22 @@ section.section-blur-top-right::before {
     top: 0;
     right: 0;
     left: 0;
-    height: 120px;
-    background: linear-gradient(180deg, rgba(0, 86, 208, 0.07) 0%, transparent 100%);
+    height: 220px;
+    background: linear-gradient(180deg, rgba(0, 86, 208, 0.06) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+section.section-blur-top-right::after {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -80px;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 86, 208, 0.05) 0%, transparent 70%);
+    filter: blur(60px);
     pointer-events: none;
     z-index: 0;
 }
@@ -773,7 +809,7 @@ section.section-blur-top-right::before {
 }
 
 .mvv-card:hover {
-    transform: scale(1.03);
+    transform: none;
 }
 
 .mvv-card h3 {
@@ -1835,24 +1871,26 @@ footer {
 .timeline::before {
     content: '';
     position: absolute;
-    left: 1rem;
+    left: calc(1rem - 1px);
     top: 0;
     bottom: 0;
-    width: 3px;
-    background: linear-gradient(180deg, var(--primary), var(--secondary), var(--accent));
+    width: 4px;
+    background: var(--accent);
     border-radius: 2px;
+    opacity: 0.25;
 }
 
 .timeline::after {
     content: '';
     position: absolute;
-    left: calc(1rem - 4px); /* center 12px arrow on 3px line: 1rem (line pos) - 6px (half arrow) + 1.5px (half line) ≈ 4px */
+    left: calc(1rem - 4px);
     bottom: 0;
     width: 0;
     height: 0;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
     border-top: 10px solid var(--accent);
+    opacity: 0.35;
 }
 
 .timeline-item {
@@ -1867,51 +1905,54 @@ footer {
 
 .timeline-dot {
     position: absolute;
-    left: 0.4rem;
-    top: 0.35rem;
+    left: calc(1rem - 5px);
+    top: 1.1rem;
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background: var(--white);
-    border: 3px solid var(--primary);
+    background: var(--accent);
     z-index: 1;
-    box-shadow: 0 0 0 3px rgba(0, 86, 208, 0.15);
+    opacity: 0.6;
 }
 
 .timeline-content {
     background: var(--white);
-    border-radius: var(--radius);
-    padding: 1.25rem 1.5rem;
-    box-shadow: var(--shadow);
-    border: 1px solid rgba(0, 86, 208, 0.15);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 1px 6px rgba(0, 44, 106, 0.06);
+    border: 1px solid rgba(0, 86, 208, 0.08);
 }
 
 .timeline-date {
-    font-size: 0.8rem;
-    font-weight: 600;
+    font-size: 0.75rem;
+    font-weight: 700;
     color: var(--accent);
     text-transform: uppercase;
     letter-spacing: 1px;
-    display: block;
-    margin-bottom: 0.35rem;
+    display: inline-block;
+    margin-bottom: 0.25rem;
+    background: rgba(0, 86, 208, 0.06);
+    padding: 0.15rem 0.6rem;
+    border-radius: 4px;
 }
 
 .timeline-content h4 {
-    color: var(--primary);
-    font-size: 1.1rem;
-    margin-bottom: 0.35rem;
+    color: var(--dark);
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+    font-weight: 600;
 }
 
 .timeline-status {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 600;
     color: var(--secondary);
-    opacity: 0.8;
+    opacity: 0.6;
 }
 
 .timeline-status.active {
     color: var(--accent);
-    opacity: 1;
+    opacity: 0.8;
 }
 
 /* ===================================

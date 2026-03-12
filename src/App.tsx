@@ -82,7 +82,7 @@ function App() {
         </main>
         <Footer />
         <Cart />
-        <Toaster position="bottom-right" toastOptions={{ duration: 3000 }} />
+        <Toaster position="bottom-left" toastOptions={{ duration: 3000 }} />
       </HashRouter>
     </CartProvider>
   );
