@@ -13,6 +13,7 @@ interface Product {
   icon: string;
   image: string;
   category: CategoryFilter;
+  popular?: boolean;
   whatsappLink: string;
 }
 
@@ -59,10 +60,11 @@ export function ProductsPage() {
             {filteredProducts.map((product, idx) => (
               <BentoCard 
                 key={`${activeFilter}-${product.title}`} 
-                className="service-card"
+                className={`service-card${product.popular ? ' popular-card' : ''}`}
                 dataCategory={product.category}
                 style={{ animationDelay: `${idx * 0.1}s` }}
               >
+                {product.popular && <span className="popular-badge">Más Popular</span>}
                 <div className="product-image-container" />
                 <h3>{product.title}</h3>
                 <p>{product.description}</p>
