@@ -13,14 +13,12 @@ export function PromoBanner() {
     };
   }, []);
 
-  const text = '¡Nuevo curso de Marketing Digital! 20% de descuento';
-
   return (
     <div className="promo-banner" ref={bannerRef}>
       <div className="promo-banner-track">
         {Array.from({ length: 8 }).map((_, i) => (
           <span key={i} className="promo-banner-item">
-            {text} <span aria-hidden="true">★</span>
+            ¡Nuevo curso de <strong>Marketing Digital</strong>! <span className="promo-highlight">20% de descuento</span>
           </span>
         ))}
       </div>
