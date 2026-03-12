@@ -45,9 +45,8 @@ export function HomePage() {
               Asesoramiento, Herramientas y Capacitación para{' '}
               <span className="hero-highlight">
                 Emprendedores
-                <svg className="hero-underline" viewBox="0 0 220 20" preserveAspectRatio="none" aria-hidden="true">
-                  <path d="M5 14 C 15 8, 35 16, 55 10 S 85 14, 110 9 S 140 15, 165 10 S 190 14, 215 10" stroke="currentColor" strokeWidth="8" fill="none" strokeLinecap="round" strokeLinejoin="round" opacity="0.45"/>
-                  <path d="M8 13 C 20 9, 40 15, 60 10 S 90 13, 115 9 S 145 14, 170 10 S 195 13, 212 11" stroke="currentColor" strokeWidth="5" fill="none" strokeLinecap="round" strokeLinejoin="round" opacity="0.3"/>
+                <svg className="hero-underline" viewBox="0 0 220 24" preserveAspectRatio="none" aria-hidden="true">
+                  <path d="M3 6 C 30 4, 50 5, 75 5 S 130 4, 160 5 S 195 4, 217 6 L 215 10 C 190 12, 170 11, 140 11 S 90 12, 60 11 S 30 12, 5 10 L 3 14 C 30 16, 55 15, 80 15 S 135 16, 165 15 S 200 16, 218 18" stroke="currentColor" strokeWidth="3.5" fill="none" strokeLinecap="round" strokeLinejoin="round" opacity="0.7"/>
                 </svg>
               </span>
             </h1>
@@ -142,7 +141,8 @@ export function HomePage() {
           
           <div className="bento-grid bento-grid-center">
             {featuredProducts.map((product, index) => (
-              <BentoCard key={index} className="service-card">
+              <BentoCard key={index} className={`service-card${product.popular ? ' popular-card' : ''}`}>
+                {product.popular && <span className="popular-badge">Más Popular</span>}
                 <h3>{product.title}</h3>
                 <p>{product.description}</p>
                 <span className="card-price">{product.price} CUP</span>

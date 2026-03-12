@@ -6,6 +6,7 @@
     "icon": "star",
     "image": "",
     "category": "pegatinas",
+    "popular": true,
     "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20producto%20Stickers%205x5%20cm"
   },
   {
@@ -141,6 +142,7 @@
     "icon": "document",
     "image": "",
     "category": "tarjetas",
+    "popular": true,
     "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20producto%20Tarjetas%20de%20Presentaci%C3%B3n%202%20caras%20(Mica)"
   },
   {
@@ -186,6 +188,7 @@
     "icon": "bolt",
     "image": "",
     "category": "lonas",
+    "popular": true,
     "whatsappLink": "https://wa.me/5355609099?text=Quiero%20solicitar%20el%20producto%20Lonas%2060x40"
   },
   {
