@@ -156,12 +156,11 @@ img {
     position: sticky;
     top: 0;
     z-index: 1001;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .top-bar.top-bar-hidden {
     transform: translateY(-100%);
-    opacity: 0;
 }
 
 header {
@@ -219,7 +218,7 @@ nav ul li a::after {
     left: 50%;
     width: 0;
     height: 2px;
-    background: var(--accent);
+    background: rgba(255, 255, 255, 0.85);
     transition: width 0.3s ease, left 0.3s ease;
 }
 
@@ -227,12 +226,6 @@ nav ul li a:hover::after,
 nav ul li a.active::after {
     width: 100%;
     left: 0;
-}
-
-nav ul li a:hover,
-nav ul li a.active {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 6px;
 }
 
 .cta-header {
@@ -347,6 +340,21 @@ nav ul li a.active {
     line-height: 1.3;
     opacity: 0;
     animation: fadeInUp 0.8s ease forwards;
+}
+
+.hero-highlight {
+    position: relative;
+    display: inline-block;
+}
+
+.hero-underline {
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 14px;
+    color: rgba(255, 255, 255, 0.5);
+    pointer-events: none;
 }
 
 .hero .slogan {
@@ -591,8 +599,8 @@ nav ul li a.active {
     background: var(--white);
     border-radius: var(--radius);
     padding: 2rem;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
+    box-shadow: 0 2px 12px rgba(0, 44, 106, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid var(--light-gray);
     display: flex;
     flex-direction: column;
@@ -601,8 +609,8 @@ nav ul li a.active {
 }
 
 .bento-card:hover {
-    transform: translateY(-8px) scale(1.04);
-    box-shadow: 0 12px 40px rgba(0, 44, 106, 0.3);
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 20px 50px rgba(0, 44, 106, 0.22);
 }
 
 .contact-form-card,
@@ -647,6 +655,51 @@ section {
 section.alt-bg {
     background: rgba(255, 255, 255, 0.85);
     position: relative;
+}
+
+section.section-blur-top {
+    position: relative;
+    overflow: hidden;
+}
+
+section.section-blur-top::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    left: -60px;
+    width: 380px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(0, 86, 208, 0.1) 0%, transparent 70%);
+    filter: blur(60px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+section.section-blur-top-right {
+    position: relative;
+    overflow: hidden;
+}
+
+section.section-blur-top-right::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 350px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(0, 86, 208, 0.08) 0%, transparent 70%);
+    filter: blur(60px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Centered bento grid (for homepage sections with fewer items) */
+.bento-grid-center {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 370px));
+    gap: 1.5rem;
+    padding: 2rem 0;
+    justify-content: center;
 }
 
 .section-title {
@@ -1289,6 +1342,10 @@ footer {
         padding: 1rem 0;
     }
 
+    .bento-grid-center {
+        grid-template-columns: 1fr;
+    }
+
     .bento-card {
         padding: 1.5rem;
         gap: 0.75rem;
@@ -1826,7 +1883,8 @@ footer {
 /* ===================================
    Service Card Filter Transition
 =================================== */
-.bento-grid .bento-card {
+.bento-grid .bento-card,
+.bento-grid-center .bento-card {
     opacity: 0;
     animation: fadeIn 0.4s ease forwards;
 }
@@ -1870,7 +1928,7 @@ footer {
 .promo-banner-track {
     display: flex;
     gap: 2rem;
-    animation: bannerMarquee 20s linear infinite;
+    animation: bannerMarquee 40s linear infinite;
     width: max-content;
     white-space: nowrap;
 }
