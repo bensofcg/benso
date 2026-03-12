@@ -22,6 +22,7 @@ export function PromoBanner() {
       href={BANNER_LINK}
       target="_blank"
       rel="noopener noreferrer"
+      aria-label="Acceder a la promoción de Marketing Digital con 20% de descuento"
     >
       <div className="promo-banner-track">
         {Array.from({ length: 8 }).map((_, i) => (

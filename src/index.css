@@ -1846,7 +1846,7 @@ footer {
 .timeline::after {
     content: '';
     position: absolute;
-    left: calc(1rem - 4px); /* center arrow on 3px line */
+    left: calc(1rem - 4px); /* center 12px arrow on 3px line: 1rem (line pos) - 6px (half arrow) + 1.5px (half line) ≈ 4px */
     bottom: 0;
     width: 0;
     height: 0;
