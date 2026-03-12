@@ -41,7 +41,15 @@ export function HomePage() {
       <section className="hero">
         <div className="container">
           <div className="hero-content">
-            <h1>Asesoramiento, Herramientas y Capacitación para Emprendedores</h1>
+            <h1>
+              Asesoramiento, Herramientas y Capacitación para{' '}
+              <span className="hero-highlight">
+                Emprendedores
+                <svg className="hero-underline" viewBox="0 0 220 14" preserveAspectRatio="none" aria-hidden="true">
+                  <path d="M3 10 C 25 4, 55 13, 90 7 S 150 3, 180 9 S 200 5, 217 8" stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </span>
+            </h1>
             <p className="slogan">
               Te enseñamos cómo posicionar un negocio y te acompañamos en cada paso del camino
             </p>
@@ -88,7 +96,7 @@ export function HomePage() {
             <p>Soluciones integrales para potenciar tu negocio</p>
           </div>
           
-          <div className="bento-grid">
+          <div className="bento-grid bento-grid-center">
             {services.map((service, index) => (
               <BentoCard key={index} className="service-card">
                 <Icon name={service.icon} />
@@ -124,14 +132,14 @@ export function HomePage() {
       </ScrollReveal>
 
       {/* Featured Products Section */}
-      <ScrollReveal className="alt-bg">
+      <ScrollReveal className="alt-bg section-blur-top-right">
         <div className="container">
           <div className="section-title">
             <h2>Productos Destacados</h2>
             <p>Impresión profesional para potenciar tu marca</p>
           </div>
           
-          <div className="bento-grid">
+          <div className="bento-grid bento-grid-center">
             {featuredProducts.map((product, index) => (
               <BentoCard key={index} className="service-card">
                 <h3>{product.title}</h3>
@@ -173,7 +181,7 @@ export function HomePage() {
             <p>Próximas capacitaciones y actividades</p>
           </div>
           
-          <div className="bento-grid">
+          <div className="bento-grid bento-grid-center">
             {events.map((event, index) => (
               <BentoCard key={index}>
                 <h3>{event.title}</h3>
@@ -205,14 +213,14 @@ export function HomePage() {
       </ScrollReveal>
 
       {/* Testimonials Section */}
-      <ScrollReveal>
+      <ScrollReveal className="section-blur-top">
         <div className="container">
           <div className="section-title">
             <h2>Lo que dicen nuestros clientes</h2>
             <p>Testimonios reales de empresas que han confiado en nosotros</p>
           </div>
           
-          <div className="bento-grid">
+          <div className="bento-grid bento-grid-center">
             {testimonials.map((testimonial, index) => (
               <BentoCard key={index} className="testimonial-card">
                 <div className="testimonial-quote">

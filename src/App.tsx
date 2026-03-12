@@ -27,16 +27,31 @@ function ScrollToTop() {
 function App() {
   const [topBarHidden, setTopBarHidden] = useState(false);
   const lastScrollY = useRef(0);
+  const accumulatedDelta = useRef(0);
 
   useEffect(() => {
+    const THRESHOLD = 80;
+    const MIN_SCROLL = 200;
+
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       const delta = currentScrollY - lastScrollY.current;
-      if (delta > 10 && currentScrollY > 100) {
-        setTopBarHidden(true);
-      } else if (delta < -10) {
-        setTopBarHidden(false);
+
+      // Reset accumulated delta when scroll direction reverses
+      if ((accumulatedDelta.current > 0 && delta < 0) || (accumulatedDelta.current < 0 && delta > 0)) {
+        accumulatedDelta.current = 0;
       }
+
+      accumulatedDelta.current += delta;
+
+      if (accumulatedDelta.current > THRESHOLD && currentScrollY > MIN_SCROLL) {
+        setTopBarHidden(true);
+        accumulatedDelta.current = 0;
+      } else if (accumulatedDelta.current < -THRESHOLD) {
+        setTopBarHidden(false);
+        accumulatedDelta.current = 0;
+      }
+
       lastScrollY.current = currentScrollY;
     };
     window.addEventListener('scroll', handleScroll, { passive: true });

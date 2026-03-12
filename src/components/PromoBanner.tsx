@@ -18,7 +18,7 @@ export function PromoBanner() {
       <div className="promo-banner-track">
         {Array.from({ length: 8 }).map((_, i) => (
           <span key={i} className="promo-banner-item">
-            ¡Nuevo curso de <strong>Marketing Digital</strong>! <span className="promo-highlight">20% de descuento</span>
+            ¡Nuevo curso de Marketing Digital! <span className="promo-highlight">20% de descuento</span>
           </span>
         ))}
       </div>
