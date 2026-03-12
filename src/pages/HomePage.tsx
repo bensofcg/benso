@@ -41,7 +41,15 @@ export function HomePage() {
       <section className="hero">
         <div className="container">
           <div className="hero-content">
-            <h1>Asesoramiento, Herramientas y Capacitación para <span className="hero-highlight">Emprendedores<svg className="hero-underline" viewBox="0 0 220 14" preserveAspectRatio="none" aria-hidden="true"><path d="M3 10 C 25 4, 55 13, 90 7 S 150 3, 180 9 S 200 5, 217 8" stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg></span></h1>
+            <h1>
+              Asesoramiento, Herramientas y Capacitación para{' '}
+              <span className="hero-highlight">
+                Emprendedores
+                <svg className="hero-underline" viewBox="0 0 220 14" preserveAspectRatio="none" aria-hidden="true">
+                  <path d="M3 10 C 25 4, 55 13, 90 7 S 150 3, 180 9 S 200 5, 217 8" stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </span>
+            </h1>
             <p className="slogan">
               Te enseñamos cómo posicionar un negocio y te acompañamos en cada paso del camino
             </p>

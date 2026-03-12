@@ -37,6 +37,7 @@ function App() {
       const currentScrollY = window.scrollY;
       const delta = currentScrollY - lastScrollY.current;
 
+      // Reset accumulated delta when scroll direction reverses
       if ((accumulatedDelta.current > 0 && delta < 0) || (accumulatedDelta.current < 0 && delta > 0)) {
         accumulatedDelta.current = 0;
       }
