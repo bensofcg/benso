@@ -4,16 +4,7 @@ import isotipoLogo from '../assets/logos/Isotipo-Benso-Negativo-TP.svg';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 100);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -35,7 +26,7 @@ export function Header() {
   };
 
   return (
-    <header style={{ boxShadow: scrolled ? '0 4px 30px rgba(0, 44, 106, 0.3)' : undefined }}>
+    <header>
       <div className="header-container">
         <Link to="/" className="logo" onClick={closeMenu}>
           <img src={isotipoLogo} alt="BENSO" className="logo-img" />

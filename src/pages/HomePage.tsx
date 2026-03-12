@@ -45,8 +45,9 @@ export function HomePage() {
               Asesoramiento, Herramientas y Capacitación para{' '}
               <span className="hero-highlight">
                 Emprendedores
-                <svg className="hero-underline" viewBox="0 0 220 14" preserveAspectRatio="none" aria-hidden="true">
-                  <path d="M3 10 C 25 4, 55 13, 90 7 S 150 3, 180 9 S 200 5, 217 8" stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg className="hero-underline" viewBox="0 0 220 20" preserveAspectRatio="none" aria-hidden="true">
+                  <path d="M5 14 C 15 8, 35 16, 55 10 S 85 14, 110 9 S 140 15, 165 10 S 190 14, 215 10" stroke="currentColor" strokeWidth="8" fill="none" strokeLinecap="round" strokeLinejoin="round" opacity="0.45"/>
+                  <path d="M8 13 C 20 9, 40 15, 60 10 S 90 13, 115 9 S 145 14, 170 10 S 195 13, 212 11" stroke="currentColor" strokeWidth="5" fill="none" strokeLinecap="round" strokeLinejoin="round" opacity="0.3"/>
                 </svg>
               </span>
             </h1>
