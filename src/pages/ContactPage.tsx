@@ -82,7 +82,7 @@ export function ContactPage() {
           </div>
           
           <div className="text-center">
-            <BentoCard style={{ maxWidth: '600px', margin: '0 auto' }}>
+            <BentoCard className="contact-form-card" style={{ maxWidth: '600px', margin: '0 auto' }}>
               <h3 style={{ color: 'var(--primary)', marginBottom: '1.5rem' }}>Formulario de Contacto</h3>
               <form id="appointment-form" style={{ textAlign: 'left' }} onSubmit={handleSubmit} noValidate>
                 <div className="form-group">

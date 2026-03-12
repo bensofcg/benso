@@ -15,6 +15,17 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
+
   const isActive = (path: string) => {
     return location.pathname === path ? 'active' : '';
   };
@@ -31,7 +42,7 @@ export function Header() {
         </Link>
 
         <button
-          className="menu-toggle"
+          className={`menu-toggle${isMenuOpen ? ' open' : ''}`}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-expanded={isMenuOpen}
           aria-label={isMenuOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'}

@@ -156,11 +156,12 @@ img {
     position: sticky;
     top: 0;
     z-index: 1001;
-    transition: transform 0.3s ease;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .top-bar.top-bar-hidden {
     transform: translateY(-100%);
+    opacity: 0;
 }
 
 header {
@@ -230,7 +231,8 @@ nav ul li a.active::after {
 
 nav ul li a:hover,
 nav ul li a.active {
-    background: transparent;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
 }
 
 .cta-header {
@@ -268,7 +270,19 @@ nav ul li a.active {
     height: 3px;
     background: var(--white);
     border-radius: 2px;
-    transition: var(--transition);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.menu-toggle.open span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.open span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
 }
 
 /* ===================================
@@ -329,8 +343,7 @@ nav ul li a.active {
 .hero h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     line-height: 1.3;
     opacity: 0;
     animation: fadeInUp 0.8s ease forwards;
@@ -588,8 +601,19 @@ nav ul li a.active {
 }
 
 .bento-card:hover {
-    transform: translateY(-5px) scale(1.03);
-    box-shadow: 0 8px 30px rgba(0, 44, 106, 0.25);
+    transform: translateY(-8px) scale(1.04);
+    box-shadow: 0 12px 40px rgba(0, 44, 106, 0.3);
+}
+
+.contact-form-card,
+.contact-form-card.bento-card {
+    cursor: default;
+}
+
+.contact-form-card:hover,
+.contact-form-card.bento-card:hover {
+    transform: none;
+    box-shadow: var(--shadow);
 }
 
 .bento-card.large {
@@ -681,8 +705,7 @@ section.alt-bg {
 .mvv-card h3 {
     font-size: 1.8rem;
     margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 
 .mvv-card p {
@@ -1836,8 +1859,8 @@ footer {
     display: flex;
     align-items: center;
     padding: 0.6rem 0;
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: 1rem;
+    font-weight: 400;
     position: relative;
     z-index: 1001;
     border-bottom: 1px solid var(--light-gray);
@@ -1855,6 +1878,18 @@ footer {
 .promo-banner-item {
     flex-shrink: 0;
     white-space: nowrap;
+}
+
+.promo-banner-item strong {
+    font-weight: 700;
+}
+
+.promo-highlight {
+    font-weight: 700;
+    color: var(--accent);
+    background: rgba(0, 86, 208, 0.1);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
 }
 
 @keyframes bannerMarquee {

@@ -31,9 +31,10 @@ function App() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
+      const delta = currentScrollY - lastScrollY.current;
+      if (delta > 10 && currentScrollY > 100) {
         setTopBarHidden(true);
-      } else {
+      } else if (delta < -10) {
         setTopBarHidden(false);
       }
       lastScrollY.current = currentScrollY;
