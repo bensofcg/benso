@@ -11,7 +11,7 @@
   {
     "title": "Pegatinas grandes",
     "price": "$495.00",
-    "description": "Pegatinas de gran formato (aprox A4). Ideales para promociones y decoración de vitrinas.",
+    "description": "Pegatinas de gran formato (aprox. A4). Ideales para promociones y decoración de vitrinas.",
     "icon": "star",
     "image": "",
     "category": "pegatinas",
@@ -92,7 +92,7 @@
   {
     "title": "Cuadros 30x20",
     "price": "$1,600.00",
-    "description": "Formato mediano. Ideal para bienvenidas y carteles.",
+    "description": "Formato mediano. Ideal para señalética y carteles de bienvenida.",
     "icon": "box",
     "image": "",
     "category": "cuadros",
@@ -101,7 +101,7 @@
   {
     "title": "Cuadros 35x25",
     "price": "$2,150.00",
-    "description": "Formato mediano. Ideal para bienvenidas y carteles.",
+    "description": "Formato mediano. Ideal para señalética y carteles de bienvenida.",
     "icon": "box",
     "image": "",
     "category": "cuadros",
@@ -191,7 +191,7 @@
   {
     "title": "Ampliación 1.30x90",
     "price": "$8,100.00",
-    "description": "Gran lona, impresión en lonafront. Para exteriores.",
+    "description": "Gran lona, impresión en Lona Front. Ideal para exteriores.",
     "icon": "bolt",
     "image": "",
     "category": "lonas",
@@ -200,7 +200,7 @@
   {
     "title": "Credenciales",
     "price": "$500.00",
-    "description": "Credenciales plasticadas con cordón, personalizadas.",
+    "description": "Credenciales plastificadas con cordón, personalizadas.",
     "icon": "tools",
     "image": "",
     "category": "otros",
@@ -218,7 +218,7 @@
   {
     "title": "Cartas con código QR en PVC",
     "price": "$580.00",
-    "description": "Ideal para enlazar a menú digital, pago en línea o redes sociales.",
+    "description": "Ideal para vincular a menú digital, pago en línea o redes sociales.",
     "icon": "tools",
     "image": "",
     "category": "otros",
