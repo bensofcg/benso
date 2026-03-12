@@ -152,10 +152,20 @@ img {
 /* ===================================
    Header & Navigation
 =================================== */
-header {
-    background: var(--primary);
+.top-bar {
     position: sticky;
     top: 0;
+    z-index: 1001;
+    transition: transform 0.3s ease;
+}
+
+.top-bar.top-bar-hidden {
+    transform: translateY(-100%);
+}
+
+header {
+    background: var(--primary);
+    position: relative;
     z-index: 1000;
     box-shadow: var(--shadow);
 }
@@ -197,13 +207,30 @@ nav ul li a {
     color: var(--white);
     font-weight: 500;
     padding: 0.5rem 1rem;
-    border-radius: 8px;
+    position: relative;
     transition: var(--transition);
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+nav ul li a:hover::after,
+nav ul li a.active::after {
+    width: 100%;
+    left: 0;
 }
 
 nav ul li a:hover,
 nav ul li a.active {
-    background: var(--secondary);
+    background: transparent;
 }
 
 .cta-header {
@@ -1808,64 +1835,31 @@ footer {
     color: var(--dark);
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    padding: 0.6rem 2.5rem 0.6rem 1rem;
+    padding: 0.6rem 0;
     font-size: 0.9rem;
     font-weight: 500;
     position: relative;
     z-index: 1001;
-    text-align: center;
-    flex-wrap: nowrap;
     border-bottom: 1px solid var(--light-gray);
-    cursor: pointer;
     overflow: hidden;
 }
 
-.promo-banner::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent 0%, rgba(0, 86, 208, 0.08) 40%, rgba(0, 86, 208, 0.15) 50%, rgba(0, 86, 208, 0.08) 60%, transparent 100%);
-    animation: bannerShimmer 3s ease-in-out infinite;
-    pointer-events: none;
+.promo-banner-track {
+    display: flex;
+    gap: 2rem;
+    animation: bannerMarquee 20s linear infinite;
+    width: max-content;
+    white-space: nowrap;
 }
 
-@keyframes bannerShimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
+.promo-banner-item {
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
-.promo-banner p {
-    margin: 0;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-}
-
-.promo-banner-close {
-    background: none;
-    border: none;
-    color: var(--dark);
-    font-size: 1.2rem;
-    cursor: pointer;
-    padding: 0 0.25rem;
-    line-height: 1;
-    opacity: 0.5;
-    transition: var(--transition);
-    position: absolute;
-    right: 0.75rem;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1;
-}
-
-.promo-banner-close:hover {
-    opacity: 1;
+@keyframes bannerMarquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
 
 /* ===================================

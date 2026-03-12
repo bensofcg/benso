@@ -1,5 +1,5 @@
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect, lazy, Suspense } from 'react';
+import { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { Header, Footer, Background, Cart, PromoBanner } from './components';
 import { CartProvider } from './context/CartContext';
 import { Toaster } from 'react-hot-toast';
@@ -25,13 +25,32 @@ function ScrollToTop() {
 }
 
 function App() {
+  const [topBarHidden, setTopBarHidden] = useState(false);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
+        setTopBarHidden(true);
+      } else {
+        setTopBarHidden(false);
+      }
+      lastScrollY.current = currentScrollY;
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <CartProvider>
       <HashRouter>
         <ScrollToTop />
         <Background />
-        <PromoBanner />
-        <Header />
+        <div className={`top-bar${topBarHidden ? ' top-bar-hidden' : ''}`}>
+          <PromoBanner />
+          <Header />
+        </div>
         <main>
           <Suspense fallback={<div className="container" style={{ paddingTop: '10rem', textAlign: 'center' }}>Cargando…</div>}>
             <Routes>
