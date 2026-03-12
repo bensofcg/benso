@@ -45,9 +45,6 @@ export function HomePage() {
               Asesoramiento, Herramientas y Capacitación para{' '}
               <span className="hero-highlight">
                 Emprendedores
-                <svg className="hero-underline" viewBox="0 0 220 24" preserveAspectRatio="none" aria-hidden="true">
-                  <path d="M3 6 C 30 4, 50 5, 75 5 S 130 4, 160 5 S 195 4, 217 6 L 215 10 C 190 12, 170 11, 140 11 S 90 12, 60 11 S 30 12, 5 10 L 3 14 C 30 16, 55 15, 80 15 S 135 16, 165 15 S 200 16, 218 18" stroke="currentColor" strokeWidth="3.5" fill="none" strokeLinecap="round" strokeLinejoin="round" opacity="0.7"/>
-                </svg>
               </span>
             </h1>
             <p className="slogan">
