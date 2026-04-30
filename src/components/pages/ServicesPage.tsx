@@ -1,0 +1,145 @@
+'use client';
+
+import { useState } from 'react';
+import { ShoppingCart, Send, Calendar, Search } from 'lucide-react';
+import { BentoCard, Icon, ScrollReveal, AnimatedCard, PriceDisplay, ServicesGridSkeleton, RequestModal, ShinyText } from '@/components';
+import { useCart } from '@/hooks/useCart';
+import { useServicios } from '@/hooks/useData';
+
+type CategoryFilter = 'all' | 'consultoria' | 'capacitacion' | 'herramientas';
+
+interface RequestItem {
+  title: string;
+  price: string;
+  priceNum: number;
+  whatsappLink: string;
+  type: 'servicio' | 'producto' | 'evento';
+}
+
+const filters = [
+  { label: 'Todos', value: 'all' as CategoryFilter },
+  { label: 'Consultoría', value: 'consultoria' as CategoryFilter },
+  { label: 'Capacitación', value: 'capacitacion' as CategoryFilter },
+  { label: 'Herramientas', value: 'herramientas' as CategoryFilter },
+];
+
+export function ServicesPage() {
+  const [activeFilter, setActiveFilter] = useState<CategoryFilter>('all');
+  const [animKey, setAnimKey] = useState(0);
+  const [requestItem, setRequestItem] = useState<RequestItem | null>(null);
+  const [isRequestOpen, setIsRequestOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const { addItem } = useCart();
+  const { servicios, loading } = useServicios();
+
+  const openRequest = (item: RequestItem) => {
+    setRequestItem(item);
+    setIsRequestOpen(true);
+  };
+
+  const filteredServices = servicios.filter(
+    service => (activeFilter === 'all' || service.category === activeFilter) &&
+    service.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleFilterChange = (value: CategoryFilter) => {
+    setActiveFilter(value);
+    setAnimKey(prev => prev + 1);
+  };
+
+  return (
+    <>
+      <ScrollReveal>
+        <div className="container">
+          <div className="section-title-row page-intro-title">
+            <div className="section-title">
+              <h2>Nuestros servicios</h2>
+            </div>
+            <div className="filter-controls">
+              <div className="search-input-wrapper">
+                <Search size={18} className="search-icon" />
+                <input
+                  type="text"
+                  placeholder="Buscar servicios..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="search-input"
+                />
+              </div>
+              <select
+                className="filter-select"
+                value={activeFilter}
+                onChange={(e) => handleFilterChange(e.target.value as CategoryFilter)}
+              >
+                {filters.map(filter => (
+                  <option key={filter.value} value={filter.value}>
+                    {filter.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {loading ? (
+            <ServicesGridSkeleton count={6} />
+          ) : (
+          <div className="bento-grid" key={animKey}>
+            {filteredServices.map((service, idx) => (
+              <AnimatedCard key={`${activeFilter}-${service.id}`} index={idx}>
+                <BentoCard 
+                  className="service-card"
+                  dataCategory={service.category}
+                >
+                  <Icon name={service.icon} />
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+                  <span className="card-price"><PriceDisplay price={service.price} priceNum={service.price_num} /></span>
+                  <div className="card-actions">
+                    <button
+                      className="btn-consult"
+                      onClick={() => openRequest({
+                        title: service.title,
+                        price: service.price,
+                        priceNum: service.price_num,
+                        whatsappLink: service.whatsapp_link,
+                        type: 'servicio'
+                      })}
+                    >
+                      <Send size={16} />
+                      <span>Solicitar</span>
+                    </button>
+                    <button
+                      className="btn-add-cart"
+                    onClick={() => addItem(service.title, String(service.price_num))}
+                  >
+                    <ShoppingCart size={16} />
+                    <span>Añadir</span>
+                  </button>
+                  </div>
+                </BentoCard>
+              </AnimatedCard>
+            ))}
+          </div>
+          )}
+        </div>
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <div className="container section-cta">
+          <h2>¿Listo para transformar tu negocio?</h2>
+          <p>Agenda una cita y descubre cómo podemos ayudarte a alcanzar tus metas.</p>
+          <a href="/contacto" className="cta-button">
+            <Calendar size={18} />
+            <ShinyText text="Agendar cita" speed={3.5} />
+          </a>
+        </div>
+      </ScrollReveal>
+
+      <RequestModal
+        item={requestItem}
+        isOpen={isRequestOpen}
+        onClose={() => setIsRequestOpen(false)}
+      />
+    </>
+  );
+}

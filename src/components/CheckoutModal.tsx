@@ -1,0 +1,564 @@
+'use client';
+
+import { useState } from 'react';
+import { CheckCircle2, Clipboard, AlertCircle, CreditCard, Clock } from 'lucide-react';
+import { useCart } from '@/hooks/useCart';
+
+export function CheckoutModal() {
+  const { items, totalPrice, isCheckoutOpen, setIsCheckoutOpen, saveOrder } = useCart();
+  const [customerName, setCustomerName] = useState('');
+  const [customerEmail, setCustomerEmail] = useState('');
+  const [customerPhone, setCustomerPhone] = useState('');
+  const [customerAddress, setCustomerAddress] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [orderId, setOrderId] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  if (!isCheckoutOpen) return null;
+
+  const formatPrice = (price: number) => {
+    return price.toLocaleString('es', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  };
+
+  const handleClose = () => {
+    setIsCheckoutOpen(false);
+    setTimeout(() => {
+      setSuccess(false);
+      setError(null);
+      setCustomerName('');
+      setCustomerEmail('');
+      setCustomerPhone('');
+      setCustomerAddress('');
+      setOrderId(null);
+    }, 300);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (saving) return;
+    
+    setSaving(true);
+    setError(null);
+    
+    const result = await saveOrder(customerName, customerEmail);
+    
+    if (result.success && result.pedidoId) {
+      setOrderId(result.pedidoId);
+      setSuccess(true);
+    } else {
+      setError(result.error || 'Error al guardar el pedido');
+    }
+    
+    setSaving(false);
+  };
+
+  return (
+    <>
+      <div className="checkout-overlay" onClick={handleClose} />
+      <div className="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
+        <button className="checkout-close" onClick={handleClose} aria-label="Cerrar">
+          ×
+        </button>
+
+        {success ? (
+          <div className="checkout-success">
+            <div className="success-icon">
+              <CheckCircle2 size={40} />
+            </div>
+            <h2 id="checkout-title">¡Pedido recibido!</h2>
+            <div className="order-id-box">
+              <span className="order-label">Número de pedido</span>
+              <span className="order-number">#{orderId}</span>
+              <button 
+                className="copy-btn" 
+                onClick={() => navigator.clipboard.writeText(String(orderId))}
+                title="Copiar ID"
+              >
+                <Clipboard size={16} />
+                Copiar
+              </button>
+            </div>
+            <p className="success-message">
+              Tu pedido ha sido registrado correctamente. 
+              <strong>No es un pago inmediato</strong> - el pago se coordinará manualmente una vez que confirmemos los detalles de tu pedido.
+            </p>
+            <p className="success-note">
+              <Clock size={16} aria-hidden="true" /> Te contactaremos en un plazo de <strong>24-48 horas</strong> para confirmar la disponibilidad y acordar el pago.
+            </p>
+            <div className="success-actions">
+              <button className="btn-primary" onClick={handleClose}>
+                Continuar comprando
+              </button>
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="checkout-header">
+              <h2 id="checkout-title">Finalizar Pedido</h2>
+              <p className="checkout-subtitle">Completa tus datos para procesar tu pedido</p>
+            </div>
+
+            <div className="checkout-content">
+              <form onSubmit={handleSubmit}>
+                <div className="form-section">
+                  <h3>Datos de contacto</h3>
+                  
+                  <div className="form-group">
+                    <label htmlFor="checkout-name">Nombre completo *</label>
+                    <input
+                      type="text"
+                      id="checkout-name"
+                      value={customerName}
+                      onChange={(e) => setCustomerName(e.target.value)}
+                      placeholder="Tu nombre"
+                      required
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="checkout-email">Correo electrónico</label>
+                    <input
+                      type="email"
+                      id="checkout-email"
+                      value={customerEmail}
+                      onChange={(e) => setCustomerEmail(e.target.value)}
+                      placeholder="tu@email.com"
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="checkout-phone">Teléfono / WhatsApp *</label>
+                    <input
+                      type="tel"
+                      id="checkout-phone"
+                      value={customerPhone}
+                      onChange={(e) => setCustomerPhone(e.target.value)}
+                      placeholder="+53 XXXX XXXX"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="form-section">
+                  <h3>Dirección de entrega</h3>
+                  
+                  <div className="form-group">
+                    <label htmlFor="checkout-address">Dirección</label>
+                    <textarea
+                      id="checkout-address"
+                      value={customerAddress}
+                      onChange={(e) => setCustomerAddress(e.target.value)}
+                      placeholder="Calle, número, apartamento, municipio..."
+                      rows={3}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-section">
+                  <h3>Resumen del pedido</h3>
+                  <div className="order-items">
+                    {items.map(item => (
+                      <div key={item.title} className="order-item">
+                        <div className="item-info">
+                          <span className="item-name">{item.title}</span>
+                          <span className="item-qty">x{item.quantity}</span>
+                        </div>
+                        <span className="item-price">{formatPrice(item.priceNum * item.quantity)} CUP</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="order-total">
+                    <span>Total:</span>
+                    <span className="total-amount">{formatPrice(totalPrice)} CUP</span>
+                  </div>
+                </div>
+
+                {error && (
+                  <div className="form-error">
+                    <AlertCircle size={20} />
+                    {error}
+                  </div>
+                )}
+
+                <button 
+                  type="submit" 
+                  className="btn-submit"
+                  disabled={saving || items.length === 0}
+                >
+                  {saving ? (
+                    <>
+                      <span className="spinner"></span>
+                      Procesando...
+                    </>
+                  ) : (
+                    <>
+                      <CreditCard size={20} />
+                      Confirmar pedido
+                    </>
+                  )}
+                </button>
+              </form>
+            </div>
+          </>
+        )}
+      </div>
+
+      <style jsx>{`
+        .checkout-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.6);
+          z-index: 9998;
+          backdrop-filter: blur(4px);
+        }
+
+        .checkout-modal {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 95%;
+          max-width: 500px;
+          max-height: 90vh;
+          background: white;
+          border-radius: 16px;
+          z-index: 9999;
+          overflow-y: auto;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .checkout-close {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          background: none;
+          border: none;
+          font-size: 2rem;
+          color: #666;
+          cursor: pointer;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          transition: all 0.2s;
+        }
+
+        .checkout-close:hover {
+          background: #f0f0f0;
+          color: #333;
+        }
+
+        .checkout-header {
+          padding: 2rem 2rem 1rem;
+          border-bottom: 1px solid #e6e6e6;
+        }
+
+        .checkout-header h2 {
+          color: var(--primary);
+          font-size: 1.5rem;
+          margin: 0 0 0.25rem;
+        }
+
+        .checkout-subtitle {
+          color: #666;
+          font-size: 0.9rem;
+          margin: 0;
+        }
+
+        .checkout-content {
+          padding: 1.5rem 2rem 2rem;
+        }
+
+        .form-section {
+          margin-bottom: 1.5rem;
+        }
+
+        .form-section h3 {
+          font-size: 1rem;
+          color: var(--primary);
+          margin: 0 0 1rem;
+          padding-bottom: 0.5rem;
+          border-bottom: 2px solid var(--light-gray);
+        }
+
+        .form-group {
+          margin-bottom: 1rem;
+        }
+
+        .form-group label {
+          display: block;
+          margin-bottom: 0.5rem;
+          font-weight: 600;
+          font-size: 0.9rem;
+          color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+          width: 100%;
+          padding: 0.75rem;
+          border: 2px solid #e6e6e6;
+          border-radius: 8px;
+          font-size: 1rem;
+          transition: border-color 0.2s;
+          font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+          outline: none;
+          border-color: var(--accent);
+        }
+
+        .form-group textarea {
+          resize: vertical;
+          min-height: 80px;
+        }
+
+        .order-items {
+          background: #f8f8f8;
+          border-radius: 8px;
+          padding: 1rem;
+          margin-bottom: 1rem;
+        }
+
+        .order-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0.5rem 0;
+          border-bottom: 1px solid #e6e6e6;
+        }
+
+        .order-item:last-child {
+          border-bottom: none;
+        }
+
+        .item-info {
+          display: flex;
+          gap: 0.5rem;
+        }
+
+        .item-name {
+          color: #333;
+        }
+
+        .item-qty {
+          color: #666;
+          font-size: 0.9rem;
+        }
+
+        .item-price {
+          font-weight: 600;
+          color: var(--primary);
+        }
+
+        .order-total {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-top: 1rem;
+          border-top: 2px solid var(--primary);
+          font-size: 1.1rem;
+          font-weight: 700;
+        }
+
+        .total-amount {
+          color: var(--primary);
+          font-size: 1.25rem;
+        }
+
+        .form-error {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: #ffebee;
+          color: #c62828;
+          padding: 0.75rem 1rem;
+          border-radius: 8px;
+          margin-bottom: 1rem;
+          font-size: 0.9rem;
+        }
+
+        .btn-submit {
+          width: 100%;
+          padding: 1rem;
+          background: var(--primary);
+          color: white;
+          border: none;
+          border-radius: 8px;
+          font-size: 1.1rem;
+          font-weight: 700;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          transition: all 0.2s;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+          background: var(--secondary);
+          transform: translateY(-2px);
+        }
+
+        .btn-submit:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+        }
+
+        .spinner {
+          width: 20px;
+          height: 20px;
+          border: 2px solid white;
+          border-top-color: transparent;
+          border-radius: 50%;
+          animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+
+        /* Success state */
+        .checkout-success {
+          padding: 3rem 2rem;
+          text-align: center;
+        }
+
+        .success-icon {
+          width: 80px;
+          height: 80px;
+          margin: 0 auto 1.5rem;
+          background: var(--primary);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .success-icon svg {
+          width: 40px;
+          height: 40px;
+          color: white;
+        }
+
+        .checkout-success h2 {
+          color: var(--primary);
+          font-size: 1.75rem;
+          margin: 0 0 0.5rem;
+        }
+
+        .order-number {
+          font-size: 1.25rem;
+          color: var(--accent);
+          font-weight: 700;
+          margin: 0 0 1rem;
+        }
+
+        .success-message {
+          color: #666;
+          line-height: 1.6;
+          margin: 0 0 2rem;
+        }
+
+        .success-actions {
+          display: flex;
+          gap: 1rem;
+          justify-content: center;
+        }
+
+        .btn-primary {
+          padding: 0.875rem 2rem;
+          background: var(--primary);
+          color: white;
+          border: none;
+          border-radius: 8px;
+          font-size: 1rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+          background: var(--secondary);
+        }
+
+        .order-id-box {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.5rem;
+          background: #f8f8f8;
+          padding: 1rem 1.5rem;
+          border-radius: 12px;
+          margin: 1rem 0;
+        }
+
+        .order-label {
+          font-size: 0.85rem;
+          color: #666;
+        }
+
+        .order-id-box .order-number {
+          font-size: 2rem;
+          font-weight: 800;
+          color: var(--primary);
+          margin: 0;
+        }
+
+        .copy-btn {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+          background: transparent;
+          color: var(--accent);
+          border: 1px solid var(--accent);
+          padding: 0.4rem 0.75rem;
+          border-radius: 6px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s;
+          margin-top: 0.25rem;
+        }
+
+        .copy-btn:hover {
+          background: var(--accent);
+          color: white;
+        }
+
+        .success-message {
+          font-size: 0.95rem;
+          color: #444;
+          line-height: 1.6;
+          margin: 0 0 0.75rem;
+        }
+
+        .success-message strong {
+          color: var(--primary);
+        }
+
+        .success-note {
+          background: #fff8e1;
+          color: #f57c00;
+          padding: 0.875rem 1rem;
+          border-radius: 8px;
+          font-size: 0.9rem;
+          font-weight: 600;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+        }
+
+        .success-note strong {
+          display: block;
+          font-size: 1rem;
+        }
+      `}</style>
+    </>
+  );
+}
