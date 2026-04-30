@@ -53,7 +53,7 @@ export function Header() {
     <header className={headerClass}>
       <div className="header-container">
         <Link href="/" className="logo" onClick={closeMenu}>
-          <img src="/assets/logos/Isotipo-Benso-Negativo-TP.svg" alt="BENSO" className="logo-img" />
+          <img src="/benso/assets/logos/Isotipo-Benso-Negativo-TP.svg" alt="BENSO" className="logo-img" />
         </Link>
 
         <button
