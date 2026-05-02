@@ -26,17 +26,17 @@ export function PageLoader() {
         src="/benso/assets/logos/Isotipo Benso Oscuro.svg" 
         alt="" 
         style={{ 
-          width: 70, 
-          height: 70, 
-          opacity: 0.7,
-          transform: 'scale(0.95)',
-          animation: 'pulse 1.5s ease-in-out infinite'
+          width: 80, 
+          height: 80, 
         }} 
       />
       <style>{`
-        @keyframes pulse {
-          0%, 100% { opacity: 0.7; transform: scale(0.95); }
-          50% { opacity: 1; transform: scale(1); }
+        img {
+          animation: reactbits-bounce 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+        }
+        @keyframes reactbits-bounce {
+          0%, 100% { transform: scale(0.88); opacity: 0.6; }
+          50% { transform: scale(1); opacity: 1; }
         }
       `}</style>
     </div>
