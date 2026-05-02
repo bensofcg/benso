@@ -25,18 +25,15 @@ export function PageLoader() {
       <img 
         src="/benso/assets/logos/Isotipo Benso Oscuro.svg" 
         alt="" 
-        style={{ 
-          width: 80, 
-          height: 80, 
-        }} 
+        style={{ width: 80, height: 80 }} 
       />
       <style>{`
         img {
-          animation: reactbits-bounce 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+          animation: reactbits-pulse 2s ease-in-out infinite;
         }
-        @keyframes reactbits-bounce {
-          0%, 100% { transform: scale(0.88); opacity: 0.6; }
-          50% { transform: scale(1); opacity: 1; }
+        @keyframes reactbits-pulse {
+          0%, 100% { opacity: 0.5; transform: scale(0.92); }
+          50% { opacity: 1; transform: scale(1); }
         }
       `}</style>
     </div>
