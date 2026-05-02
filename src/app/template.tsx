@@ -6,6 +6,7 @@ export function PageLoader() {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
+    // Ocultar rápido cuando React hydra
     const timer = setTimeout(() => setShow(false), 600);
     return () => clearTimeout(timer);
   }, []);
