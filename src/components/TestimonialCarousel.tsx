@@ -31,22 +31,22 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) 
           animation: isPaused ? 'none' : 'testimonialScroll 25s linear infinite',
         }}
       >
-        {duplicated.map((testimonial, index) => (
-          <div key={index} className="testimonial-slide">
-            <div className="testimonial-card-carousel">
-              <div className="testimonial-quote">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="quote-icon">
-                  <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" fill="currentColor"/>
-                </svg>
-              </div>
-              <p>"{testimonial.quote}"</p>
-              <div className="testimonial-author">
-                <strong>{testimonial.author}</strong>
-                <span>{testimonial.position}</span>
+        {duplicated.map((testimonial, index) => {
+          const nameParts = testimonial.author.split(' ');
+          const displayName = `${nameParts[0]} ${nameParts[1] || ''}`.trim();
+          return (
+            <div key={index} className="testimonial-slide">
+              <div className="testimonial-card-carousel">
+                <div className="testimonial-header">
+                  <strong className="testimonial-name">{displayName}</strong>
+                  <span className="testimonial-divider">|</span>
+                  <span className="testimonial-sector">{testimonial.position}</span>
+                </div>
+                <p className="testimonial-text">{testimonial.quote}</p>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

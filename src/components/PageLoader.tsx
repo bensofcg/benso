@@ -5,7 +5,7 @@ export function PageLoader() {
     <div className="page-loader">
       <div className="page-loader-logo">
         <img 
-          src="/assets/logos/Isotipo-Benso-Negativo-TP.svg" 
+          src="/benso/assets/logos/Isotipo Benso Claro.svg" 
           alt="Benso" 
           className="page-loader-benso-logo"
         />

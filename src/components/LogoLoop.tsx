@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 
 interface LogoItem {
   node: React.ReactNode;
@@ -14,7 +14,6 @@ interface LogoLoopProps {
   speed?: number;
   direction?: 'left' | 'right';
   className?: string;
-  pauseOnHover?: boolean;
 }
 
 export default function LogoLoop({
@@ -22,9 +21,7 @@ export default function LogoLoop({
   speed = 120,
   direction = 'left',
   className = '',
-  pauseOnHover = true,
 }: LogoLoopProps) {
-  const [isPaused, setIsPaused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const duplicatedLogos = [...logos, ...logos, ...logos];
@@ -33,12 +30,7 @@ export default function LogoLoop({
   const duration = totalWidth / speed;
 
   return (
-    <div
-      ref={containerRef}
-      className={`logo-loop-container ${className}`}
-      onMouseEnter={() => pauseOnHover && setIsPaused(true)}
-      onMouseLeave={() => pauseOnHover && setIsPaused(false)}
-    >
+    <div ref={containerRef} className={`logo-loop-container ${className}`}>
       <style>{`
         .logo-loop-container {
           width: 100%;
@@ -47,7 +39,6 @@ export default function LogoLoop({
         .logo-loop-track {
           display: flex;
           animation: logoScroll${direction === 'left' ? 'Left' : 'Right'} ${duration}s linear infinite;
-          animation-play-state: ${isPaused ? 'paused' : 'running'};
           will-change: transform;
           transform: translate3d(0, 0, 0);
         }
@@ -67,7 +58,7 @@ export default function LogoLoop({
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 0 2rem;
+          padding: 0 2.5rem;
           color: var(--primary);
           opacity: 0.7;
           transition: opacity 0.3s;
@@ -77,7 +68,7 @@ export default function LogoLoop({
           opacity: 1;
         }
         .logo-loop-item svg {
-          height: 40px;
+          height: 56px;
           width: auto;
         }
       `}</style>

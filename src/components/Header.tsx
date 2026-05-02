@@ -10,6 +10,10 @@ export function Header() {
   const pathname = usePathname();
   const isHomePage = pathname === '/';
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -45,6 +49,22 @@ export function Header() {
     setIsMenuOpen(false);
   };
 
+  const handleLogoClick = (e: React.MouseEvent) => {
+    if (isHomePage) {
+      e.preventDefault();
+      scrollToTop();
+    }
+    closeMenu();
+  };
+
+  const handleHomeClick = (e: React.MouseEvent) => {
+    if (isHomePage) {
+      e.preventDefault();
+      scrollToTop();
+      closeMenu();
+    }
+  };
+
   const headerClass = isHomePage 
     ? (isScrolled ? 'header-sticky header-scrolled' : 'header-sticky header-hero')
     : 'header-sticky';
@@ -52,8 +72,8 @@ export function Header() {
   return (
     <header className={headerClass}>
       <div className="header-container">
-        <Link href="/" className="logo" onClick={closeMenu}>
-          <img src="/benso/assets/logos/Isotipo-Benso-Negativo-TP.svg" alt="BENSO" className="logo-img" />
+        <Link href="/" className="logo" onClick={handleLogoClick}>
+          <img src="/benso/assets/logos/Isotipo Benso Claro.svg" alt="BENSO" className="logo-img" />
         </Link>
 
         <button
@@ -70,11 +90,11 @@ export function Header() {
 
         <nav id="main-nav" className={isMenuOpen ? 'active' : ''}>
           <ul>
-            <li><Link href="/" className={isActive('/')} onClick={closeMenu}>Inicio</Link></li>
+            <li><Link href="/" className={isActive('/')} onClick={handleHomeClick}>Inicio</Link></li>
             <li><Link href="/servicios" className={isActive('/servicios')} onClick={closeMenu}>Servicios</Link></li>
             <li><Link href="/productos" className={isActive('/productos')} onClick={closeMenu}>Productos</Link></li>
-            <li><Link href="/nosotros" className={isActive('/nosotros')} onClick={closeMenu}>Nosotros</Link></li>
             <li><Link href="/eventos" className={isActive('/eventos')} onClick={closeMenu}>Eventos</Link></li>
+            <li><Link href="/nosotros" className={isActive('/nosotros')} onClick={closeMenu}>Nosotros</Link></li>
             <li><Link href="/contacto" className={isActive('/contacto')} onClick={closeMenu}>Contacto</Link></li>
           </ul>
         </nav>

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ShoppingCart, Send, Calendar, Ticket } from 'lucide-react';
 import { BentoCard, Icon, FAQAccordion, ScrollReveal, AnimatedCard, AnimatedSection, StatusIcon, CalendarIcon, PriceDisplay, RequestModal, ShinyText, LogoLoop, Grainient, ProductsGridSkeleton, ServicesGridSkeleton, EventsGridSkeleton } from '@/components';
+import TestimonialsLoop from '@/components/TestimonialsLoop';
 import { useCart } from '@/hooks/useCart';
 import { useProductos, useServicios, useEventos } from '@/hooks/useData';
 import faqItems from '@/data/faqs.json';
@@ -126,7 +127,6 @@ export function HomePage() {
             ]}
             direction="left"
             speed={50}
-            pauseOnHover={true}
           />
       </ScrollReveal>
 
@@ -147,30 +147,19 @@ export function HomePage() {
             {servicios.slice(0, 3).map((service, index) => (
               <AnimatedCard key={service.id} index={index}>
                 <BentoCard className="service-card">
-                  <Icon name={service.icon} />
-                  <h3>{service.title}</h3>
+                  <div className="service-card-header">
+                    <Icon name={service.icon} />
+                    <h3>{service.title}</h3>
+                  </div>
                   <p>{service.description}</p>
                   <span className="card-price"><PriceDisplay price={service.price} priceNum={service.price_num} /></span>
                   <div className="card-actions">
                     <button
-                      className="btn-consult"
-                      onClick={() => openRequest({
-                        title: service.title,
-                        price: service.price,
-                        priceNum: service.price_num,
-                        whatsappLink: service.whatsapp_link,
-                        type: 'servicio'
-                      })}
-                    >
-                      <Send size={16} />
-                      <span>Solicitar</span>
-                    </button>
-                    <button
-                      className="btn-add-cart"
+                      className="btn-add-cart btn-add-cart-full"
                       onClick={() => addItem(service.title, String(service.price_num))}
                     >
                       <ShoppingCart size={16} />
-                      <span>Añadir</span>
+                      <span>Añadir al carrito</span>
                     </button>
                   </div>
                 </BentoCard>
@@ -207,24 +196,11 @@ export function HomePage() {
                   <span className="card-price"><PriceDisplay price={product.price} priceNum={product.price_num} /></span>
                   <div className="card-actions">
                     <button
-                      className="btn-consult"
-                      onClick={() => openRequest({
-                        title: product.title,
-                        price: product.price,
-                        priceNum: product.price_num,
-                        whatsappLink: product.whatsapp_link,
-                        type: 'producto'
-                      })}
-                    >
-                      <Send size={16} />
-                      <span>Solicitar</span>
-                    </button>
-                    <button
-                      className="btn-add-cart"
+                      className="btn-add-cart btn-add-cart-full"
                       onClick={() => addItem(product.title, String(product.price_num))}
                     >
                       <ShoppingCart size={16} />
-                      <span>Añadir</span>
+                      <span>Añadir al carrito</span>
                     </button>
                   </div>
                 </BentoCard>
@@ -284,30 +260,18 @@ export function HomePage() {
         </div>
       </ScrollReveal>
 
-      {/* Testimonials Section */}
+{/* Testimonials Section */}
       <ScrollReveal>
         <div className="container">
           <div className="section-title">
             <h2>Lo que dicen nuestros clientes</h2>
           </div>
 
-          <div className="bento-grid bento-grid-center">
-            {testimonials.map((testimonial, index) => (
-              <AnimatedCard key={index} index={index}>
-                <BentoCard className="testimonial-card">
-                  <div className="testimonial-quote">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="quote-icon">
-                      <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" fill="currentColor"/>
-                    </svg>
-                  </div>
-                  <p>"{testimonial.quote}"</p>
-                  <div className="testimonial-author">
-                    <strong>{testimonial.author}</strong>
-                    <span>{testimonial.position}</span>
-                  </div>
-                </BentoCard>
-              </AnimatedCard>
-            ))}
+          <div className="testimonials-section">
+            {/* Fila 1: primeros 4 testimonios */}
+            <TestimonialsLoop testimonials={testimonials.slice(0, 4)} direction="left" speed={50} />
+            {/* Fila 2: últimos 3 testimonios */}
+            <TestimonialsLoop testimonials={testimonials.slice(4)} direction="right" speed={50} />
           </div>
         </div>
       </ScrollReveal>

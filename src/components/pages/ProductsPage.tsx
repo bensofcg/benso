@@ -126,24 +126,11 @@ export function ProductsPage() {
                   <span className="card-price"><PriceDisplay price={product.price} priceNum={product.price_num} /></span>
                   <div className="card-actions">
                     <button
-                      className="btn-consult"
-                      onClick={() => openRequest({
-                        title: product.title,
-                        price: product.price,
-                        priceNum: product.price_num,
-                        whatsappLink: product.whatsapp_link,
-                        type: 'producto'
-                      })}
-                    >
-                      <Send size={16} />
-                      <span>Solicitar</span>
-                    </button>
-                    <button
-                      className="btn-add-cart"
+                      className="btn-add-cart btn-add-cart-full"
                       onClick={() => addItem(product.title, String(product.price_num))}
                     >
                       <ShoppingCart size={16} />
-                      <span>Añadir</span>
+                      <span>Añadir al carrito</span>
                     </button>
                   </div>
                 </BentoCard>

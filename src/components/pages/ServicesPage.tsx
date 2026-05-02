@@ -90,31 +90,20 @@ export function ServicesPage() {
                   className="service-card"
                   dataCategory={service.category}
                 >
-                  <Icon name={service.icon} />
-                  <h3>{service.title}</h3>
+                  <div className="service-card-header">
+                    <Icon name={service.icon} />
+                    <h3>{service.title}</h3>
+                  </div>
                   <p>{service.description}</p>
                   <span className="card-price"><PriceDisplay price={service.price} priceNum={service.price_num} /></span>
                   <div className="card-actions">
                     <button
-                      className="btn-consult"
-                      onClick={() => openRequest({
-                        title: service.title,
-                        price: service.price,
-                        priceNum: service.price_num,
-                        whatsappLink: service.whatsapp_link,
-                        type: 'servicio'
-                      })}
+                      className="btn-add-cart btn-add-cart-full"
+                      onClick={() => addItem(service.title, String(service.price_num))}
                     >
-                      <Send size={16} />
-                      <span>Solicitar</span>
+                      <ShoppingCart size={16} />
+                      <span>Añadir al carrito</span>
                     </button>
-                    <button
-                      className="btn-add-cart"
-                    onClick={() => addItem(service.title, String(service.price_num))}
-                  >
-                    <ShoppingCart size={16} />
-                    <span>Añadir</span>
-                  </button>
                   </div>
                 </BentoCard>
               </AnimatedCard>
