@@ -6,7 +6,7 @@
 /* Font Faces */
 @font-face {
     font-family: 'Cocogoose Pro';
-    src: url('/benso/Cocogoose-Pro-Regular-trial.ttf') format('truetype');
+    src: url('/benso/Cocogoose_trial.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -14,7 +14,7 @@
 
 @font-face {
     font-family: 'Cocogoose Pro';
-    src: url('/benso/Cocogoose-Pro-Bold-trial.ttf') format('truetype');
+    src: url('/benso/Cocogoose_trial.otf') format('opentype');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -22,7 +22,7 @@
 
 @font-face {
     font-family: 'Cocogoose Pro';
-    src: url('/benso/Cocogoose-Pro-Light-trial.ttf') format('truetype');
+    src: url('/benso/Cocogoose_trial.otf') format('opentype');
     font-weight: 300;
     font-style: normal;
     font-display: swap;
@@ -30,7 +30,7 @@
 
 @font-face {
     font-family: 'Cocogoose Pro';
-    src: url('/benso/Cocogoose-Pro-Semilight-trial.ttf') format('truetype');
+    src: url('/benso/Cocogoose_trial.otf') format('opentype');
     font-weight: 350;
     font-style: normal;
     font-display: swap;
@@ -39,7 +39,7 @@
 /* Fallback for Cocogoose numbers: use TT Commons for digits and currency symbols */
 @font-face {
     font-family: 'Cocogoose Pro';
-    src: url('/benso/TT Commons Bold.otf') format('opentype');
+    src: url('/benso/fonnts.com-TT-Commons-Bold.otf') format('opentype');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -48,7 +48,7 @@
 
 @font-face {
     font-family: 'Cocogoose Pro';
-    src: url('/benso/TT Commons Medium.otf') format('opentype');
+    src: url('/benso/fonnts.com-TT-Commons-Medium.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -57,7 +57,7 @@
 
 @font-face {
     font-family: 'TT Commons Pro';
-    src: url('/benso/TT Commons Regular.otf') format('opentype');
+    src: url('/benso/fonnts.com-TT-Commons-Regular.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -65,7 +65,7 @@
 
 @font-face {
     font-family: 'TT Commons Pro';
-    src: url('/benso/TT Commons Medium.otf') format('opentype');
+    src: url('/benso/fonnts.com-TT-Commons-Medium.otf') format('opentype');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -73,7 +73,7 @@
 
 @font-face {
     font-family: 'TT Commons Pro';
-    src: url('/benso/TT Commons Bold.otf') format('opentype');
+    src: url('/benso/fonnts.com-TT-Commons-Bold.otf') format('opentype');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -190,7 +190,13 @@ html {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
+    font-weight: 700;
 }
+
+h1 { font-weight: 700; }
+h2 { font-weight: 700; }
+h3 { font-weight: 600; }
+h4 { font-weight: 500; }
 
 a {
     text-decoration: none;
@@ -415,7 +421,7 @@ nav ul li a.active::after {
     right: -5%;
     width: 60%;
     height: 80%;
-    background: url('/benso/assets/logos/Isotipo-Benso-Negativo-TP.svg') no-repeat center / contain;
+    background: url('/benso/assets/logos/Isotipo Benso Claro.svg') no-repeat center / contain;
     opacity: 0.1;
     pointer-events: none;
 }
@@ -503,7 +509,11 @@ nav ul li a.active::after {
 .hero-cta:hover {
     background: var(--light-gray);
     color: var(--primary);
-    transform: translateY(-3px);
+}
+
+.hero-cta-outline:hover {
+    background: var(--white);
+    color: var(--accent);
 }
 
 /* Hero Buttons Container */
@@ -537,7 +547,6 @@ nav ul li a.active::after {
 .hero-cta-outline:hover {
     background: var(--white);
     color: var(--accent);
-    transform: translateY(-3px);
 }
 
 @keyframes fadeInUp {
@@ -576,7 +585,6 @@ nav ul li a.active::after {
 
 .cta-whatsapp:hover {
     background: var(--whatsapp-hover);
-    transform: translateY(-3px);
 }
 
 /* Contact Form CTA Button */
@@ -599,7 +607,10 @@ nav ul li a.active::after {
 
 .cta-button:hover {
     background: var(--secondary);
-    transform: translateY(-2px);
+}
+
+.btn-primary:hover {
+    background: var(--secondary);
 }
 
 /* Hero Scroll Down Indicator */
@@ -728,13 +739,22 @@ nav ul li a.active::after {
     flex-direction: column;
     height: 100%;
     gap: 1rem;
-    overflow: hidden;
 }
 
 .bento-card:hover {
-    transform: translateY(-8px) scale(1.01);
-    box-shadow: 0 16px 40px rgba(0, 44, 106, 0.15);
-    border-color: rgba(0, 86, 208, 0.2);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 44, 106, 0.2);
+    border-color: rgba(0, 86, 208, 0.3);
+}
+
+.service-card {
+    position: relative;
+}
+
+.bento-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(0, 44, 106, 0.15);
+    border-color: rgba(0, 86, 208, 0.3);
 }
 
 /* Non-interactive cards: no hover effect */
@@ -797,6 +817,12 @@ nav ul li a.active::after {
     justify-content: center;
 }
 
+.btn-add-cart-full {
+    flex: none !important;
+    width: 100%;
+    justify-content: center;
+}
+
 .bento-card .card-actions .btn-consult,
 .bento-card .card-actions .btn-add-cart {
     font-size: 0.85rem;
@@ -820,19 +846,19 @@ nav ul li a.active::after {
 
 .popular-badge {
     position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 86, 208, 0.12);
-    color: var(--accent);
+    top: 0.75rem;
+    left: 0.75rem;
+    background: var(--primary);
+    color: #ffffff;
     font-size: 0.7rem;
-    font-weight: 700;
-    padding: 0.25rem 0.85rem;
-    border-radius: 50px;
-    letter-spacing: 0.5px;
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    letter-spacing: 0.3px;
     text-transform: uppercase;
-    z-index: 2;
+    z-index: 3;
     white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0, 44, 106, 0.3);
 }
 
 /* ===================================
@@ -1066,6 +1092,28 @@ section.alt-border {
     overflow: hidden;
 }
 
+.service-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    margin-bottom: 0.75rem;
+}
+
+.service-card-header .icon-svg {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.service-card-header h3 {
+    margin: 0;
+    font-size: 1.35rem;
+    color: var(--primary);
+    font-weight: 700;
+    line-height: 1.3;
+}
+
 .product-image-container {
     margin: -2rem -2rem 0;
     height: 180px;
@@ -1239,8 +1287,6 @@ section.alt-border {
 .btn-consult:hover {
     background: var(--secondary);
 }
-
-.event-status-tag,
 .event-date-tag {
     display: inline-flex;
     align-items: center;
@@ -1250,6 +1296,21 @@ section.alt-border {
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.3px;
+    background: rgba(0, 86, 208, 0.06);
+    border: 1px solid rgba(0, 86, 208, 0.15);
+    color: rgba(0, 65, 157, 0.85);
+}
+
+.event-status-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: capitalize;
     background: rgba(0, 86, 208, 0.06);
     border: 1px solid rgba(0, 86, 208, 0.15);
     color: rgba(0, 65, 157, 0.85);
@@ -1270,48 +1331,55 @@ section.alt-border {
 }
 
 /* ===================================
+   Testimonials Section
+=================================== */
+.testimonials-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+background: var(--white);
+    padding: 1rem 0;
+}
+
+/* ===================================
    Testimonials
 =================================== */
 .testimonial-card {
     position: relative;
-    padding: 2.5rem 2rem;
+    padding: 1.5rem;
+    text-align: left;
 }
 
-.testimonial-quote {
-    margin-bottom: 1rem;
-}
-
-.quote-icon {
-    width: 48px;
-    height: 48px;
-    color: var(--accent);
-    opacity: 0.3;
-}
-
-.testimonial-card p {
-    font-style: italic;
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
-    color: var(--dark);
-}
-
-.testimonial-author {
+.testimonial-header {
     display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    border-top: 2px solid var(--light-gray);
-    padding-top: 1rem;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
-.testimonial-author strong {
+.testimonial-name {
     color: var(--primary);
-    font-size: 1.1rem;
+    font-size: 0.95rem;
+    font-weight: 700;
 }
 
-.testimonial-author span {
-    color: var(--dark);
-    opacity: 0.7;
+.testimonial-divider {
+    color: var(--primary);
+    opacity: 0.4;
     font-size: 0.9rem;
+}
+
+.testimonial-sector {
+    color: var(--dark);
+    opacity: 0.6;
+    font-size: 0.85rem;
+}
+
+.testimonial-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--dark);
+    text-align: left;
 }
 
 /* ===================================
@@ -1417,7 +1485,6 @@ section.alt-border {
 
 .whatsapp-cta:hover {
     background: var(--whatsapp-hover);
-    transform: scale(1.02);
 }
 
 /* ===================================
@@ -1962,8 +2029,8 @@ section.alt-border {
 
 /* Add to cart button */
 .btn-add-cart {
-    background: transparent;
-    color: var(--primary);
+    background: var(--primary);
+    color: #ffffff;
     padding: 0.6rem 1.2rem;
     border-radius: 8px;
     border: 2px solid var(--primary);
@@ -1978,8 +2045,9 @@ section.alt-border {
 }
 
 .btn-add-cart:hover {
-    background: var(--primary);
-    color: var(--white);
+    background: var(--secondary);
+    border-color: var(--secondary);
+    color: #ffffff;
 }
 
 .btn-add-cart svg {
@@ -2355,21 +2423,73 @@ footer {
 
 .footer-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: 1fr auto;
     gap: 2rem;
     margin-bottom: 3rem;
+    align-items: start;
 }
 
-.footer-section h4 {
-    color: var(--white);
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
+.footer-brand {
+    align-items: flex-start;
+    text-align: left;
+}
+
+.footer-right-blocks {
+    display: flex;
+    gap: 6rem;
+    justify-content: flex-end;
+    max-width: 50%;
+    margin-left: auto;
+}
+
+.footer-contact-block {
+    min-width: 160px;
+    max-width: 200px;
+}
+
+.footer-links-block {
+    min-width: 100px;
+}
+
+.footer-contact-details {
+    margin-bottom: 1.5rem;
+}
+
+.footer-social-title {
+    margin-top: 1rem;
+}
+
+.footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    text-align: left;
 }
 
 .footer-section p {
-    opacity: 0.7;
-    font-size: 0.9rem;
+    color: #b0b0b0;
+}
+
+.footer-section h4 {
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.footer-section p,
+.footer-section ul li a {
+    color: #b0b0b0;
+    font-size: 0.95rem;
     line-height: 1.6;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .footer-section ul li {
@@ -2377,31 +2497,65 @@ footer {
 }
 
 .footer-section ul li a {
-    opacity: 0.7;
-    font-size: 0.9rem;
-    transition: opacity 0.2s;
+    color: #b0b0b0;
+    font-size: 0.95rem;
+    transition: color 0.2s;
 }
 
 .footer-section ul li a:hover {
-    opacity: 1;
+    color: #cccccc;
+}
+
+.footer-section ul li a:hover {
+    color: #cccccc;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.4rem;
+}
+
+.footer-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: #b0b0b0;
+    font-size: 0.95rem;
+}
+
+.footer-contact-item svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    fill: #b0b0b0;
+}
+
+.footer-contact-item a {
+    color: #b0b0b0;
+    transition: color 0.2s;
+}
+
+.footer-contact-item a:hover {
+    color: #cccccc;
 }
 
 .social-links {
     display: flex;
-    gap: 1rem;
-    margin-top: 0.5rem;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
 }
 
 .social-icon {
-    width: 24px;
-    height: 24px;
-    fill: var(--white);
-    opacity: 0.7;
-    transition: opacity 0.2s;
+    width: 22px;
+    height: 22px;
+    fill: #b0b0b0;
+    opacity: 0.9;
+    transition: all 0.2s;
 }
 
 .social-icon:hover {
     opacity: 1;
+    fill: #cccccc;
 }
 
 .footer-bottom {
@@ -2424,9 +2578,28 @@ footer {
     filter: brightness(0) invert(1);
 }
 
+.footer-logo-top {
+    height: 28px;
+    width: auto;
+    margin-bottom: 0.5rem;
+    filter: brightness(0) invert(1);
+}
+
+.footer-logo-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.footer-isotipo {
+    height: 28px;
+    width: auto;
+    filter: brightness(0) invert(1);
+}
+
 .footer-year {
-    opacity: 0.5;
-    font-size: 0.9rem;
+    color: #999999;
+    font-size: 0.85rem;
 }
 
 /* ===================================
@@ -2498,28 +2671,19 @@ footer {
 /* Testimonial card inside carousel */
 .testimonial-card-carousel {
     position: relative;
-    padding: 2.5rem 2rem;
+    padding: 1.25rem 1.5rem;
     background: var(--white);
     border-radius: var(--radius);
     box-shadow: 0 2px 12px rgba(0, 44, 106, 0.08);
     border: 1px solid var(--light-gray);
-}
-
-.testimonial-card-carousel .testimonial-quote {
-    margin-bottom: 1rem;
-}
-
-.testimonial-card-carousel .quote-icon {
-    width: 48px;
-    height: 48px;
-    color: var(--accent);
-    opacity: 0.3;
+    text-align: left;
+    max-width: 320px;
 }
 
 .testimonial-card-carousel p {
-    font-style: italic;
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
     color: var(--dark);
 }
 
@@ -3470,6 +3634,41 @@ footer {
     color: var(--primary);
 }
 
+/* Testimonial Cards in LogoLoop */
+.testimonial-card-loop {
+    width: 360px;
+    padding: 1.25rem 1.5rem;
+    background: white;
+    border-radius: 10px;
+    margin-right: 2rem;
+    border: 1px solid #d0d0d0;
+    box-shadow: 0 2px 8px rgba(0, 44, 106, 0.06);
+    text-align: left;
+}
+
+.testimonial-card-loop .testimonial-name {
+    display: block;
+    color: var(--primary);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+}
+
+.testimonial-card-loop .testimonial-sector {
+    display: block;
+    color: var(--dark);
+    opacity: 0.55;
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+}
+
+.testimonial-card-loop .testimonial-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--dark);
+    margin: 0;
+}
+
 /* Grain Overlay */
 @keyframes grain {
     0%, 100% { transform: translate(0, 0); }
@@ -3881,9 +4080,24 @@ footer {
     border-color: #ccc;
 }
 
+.btn-icon-sm.success:hover {
+    background: #4CAF50;
+    color: var(--white);
+}
+
 .btn-icon-sm.success {
     color: #4CAF50;
     border-color: #4CAF50;
+}
+
+.btn-icon-sm.danger {
+    color: #e53935;
+    border-color: #e53935;
+}
+
+.btn-icon-sm.danger:hover {
+    background: #e53935;
+    color: var(--white);
 }
 
 .btn-icon-sm.success:hover {

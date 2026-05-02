@@ -42,7 +42,7 @@ export function EventsPage() {
               <AnimatedCard key={event.id} index={index}>
                 <BentoCard>
                   <h3>{event.title}</h3>
-                  <div>
+                  <div className="event-tags-row">
                     <span className="event-status-tag"><StatusIcon status={event.status} />{event.status}</span>
                     <span className="event-date-tag">
                       <CalendarIcon />
@@ -77,7 +77,7 @@ export function EventsPage() {
               <AnimatedCard key={event.id} index={index}>
                 <BentoCard>
                   <h3>{event.title}</h3>
-                  <div>
+                  <div className="event-tags-row">
                     <span className="event-status-tag"><StatusIcon status={event.status} />{event.status}</span>
                     <span className="event-date-tag">
                       <CalendarIcon />
