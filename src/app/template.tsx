@@ -2,11 +2,10 @@
 
 import { useState, useEffect } from 'react';
 
-export function PageLoader() {
+function PageLoader() {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
-    // Ocultar rápido cuando React hydra
     const timer = setTimeout(() => setShow(false), 600);
     return () => clearTimeout(timer);
   }, []);
@@ -29,5 +28,14 @@ export function PageLoader() {
         style={{ width: 60, height: 60, opacity: 0.8 }}
       />
     </div>
+  );
+}
+
+export default function Template({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <PageLoader />
+      {children}
+    </>
   );
 }
