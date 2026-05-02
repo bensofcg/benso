@@ -6,11 +6,19 @@ export function PageLoader() {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShow(false);
-    }, 1200);
-    
-    return () => clearTimeout(timer);
+    const hideLoader = async () => {
+      try {
+        // Esperar a que las fuentes estén listas
+        await document.fonts.ready;
+        // Un poco más para el grainient/CSS crítico
+        setTimeout(() => setShow(false), 300);
+      } catch {
+        // Fallback si algo falla
+        setTimeout(() => setShow(false), 1500);
+      }
+    };
+
+    hideLoader();
   }, []);
 
   if (!show) return null;
