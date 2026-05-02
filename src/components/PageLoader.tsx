@@ -25,8 +25,20 @@ export function PageLoader() {
       <img 
         src="/benso/assets/logos/Isotipo Benso Oscuro.svg" 
         alt="" 
-        style={{ width: 60, height: 60, opacity: 0.8 }}
+        style={{ 
+          width: 70, 
+          height: 70, 
+          opacity: 0.7,
+          transform: 'scale(0.95)',
+          animation: 'pulse 1.5s ease-in-out infinite'
+        }} 
       />
+      <style>{`
+        @keyframes pulse {
+          0%, 100% { opacity: 0.7; transform: scale(0.95); }
+          50% { opacity: 1; transform: scale(1); }
+        }
+      `}</style>
     </div>
   );
 }
