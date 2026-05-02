@@ -25,11 +25,6 @@ export function PageLoader() {
             className="page-loader-benso-logo"
           />
         </div>
-        <div className="page-loader-dots">
-          <span>.</span>
-          <span>.</span>
-          <span>.</span>
-        </div>
       </div>
     </div>
   );
