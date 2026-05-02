@@ -6,19 +6,18 @@ export function PageLoader() {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
-    const hideLoader = async () => {
-      try {
-        // Esperar a que las fuentes estén listas
-        await document.fonts.ready;
-        // Un poco más para el grainient/CSS crítico
-        setTimeout(() => setShow(false), 300);
-      } catch {
-        // Fallback si algo falla
-        setTimeout(() => setShow(false), 1500);
+    // Ocultar rápidamente cuando el DOM esté listo
+    if (document.readyState === 'complete') {
+      setShow(false);
+    } else {
+      const hide = () => setShow(false);
+      if (document.readyState === 'interactive') {
+        hide();
+      } else {
+        window.addEventListener('DOMContentLoaded', hide);
+        return () => window.removeEventListener('DOMContentLoaded', hide);
       }
-    };
-
-    hideLoader();
+    }
   }, []);
 
   if (!show) return null;
