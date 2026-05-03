@@ -167,15 +167,15 @@ textarea:focus-visible {
     --primary: #00419d;           /* Color principal - logotipo y elementos primarios */
     --secondary: #002c6a;          /* Eventos de impacto social y alto impacto */
     --accent: #0056d0;             /* Tono vibrante promocional */
-    --bg-light: #f0f1f4;         /* Fondos y espacios de soporte - tono más claro */
-    --bg-main: #f0f1f4;            /* Fondo principal - más blanco que antes */
+    --bg-light: #e6e6e6;           /* Fondos y espacios de soporte (oficial) */
+    --bg-main: #e6e6e6;            /* Fondo principal (oficial) */
     --white: #ffffff;              /* Blanco para texto sobre fondos oscuros */
     --dark: #002c6a;              /* Color oscuro para texto (usando secondary) */
-    --light-gray: #f0f1f4;        /* Alias para compatibilidad con bg-light */
-    /* Glassmorphism colors - cards más blancas/contrastadas */
-    --glass-bg: rgba(255, 255, 255, 0.95);   /* Cards casi totalmente blancas */
-    --glass-border: rgba(0, 65, 157, 0.06);  /* Borde muy sutil */
-    --glass-shadow: 0 2px 16px rgba(0, 44, 106, 0.05); /* Sombra mínima */
+    --light-gray: #e6e6e6;        /* Alias para compatibilidad con bg-light */
+    /* Card colors - blanco con borde azul sutil */
+    --card-bg: #ffffff;           /* Cards en blanco puro */
+    --card-border: rgba(0, 65, 157, 0.1);  /* Borde azul sutil (10% de #00419d) */
+    --card-shadow: 0 4px 20px rgba(0, 44, 106, 0.12); /* Sombra */
     --whatsapp: #25D366;
     --whatsapp-hover: #1ebe5d;
     --font-main: 'TT Commons Pro', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -752,14 +752,12 @@ nav ul li a.active::after {
 }
 
 .bento-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: var(--card-bg);
     border-radius: var(--radius);
     padding: 2rem;
-    box-shadow: var(--glass-shadow);
+    box-shadow: var(--card-shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--card-border);
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -768,9 +766,8 @@ nav ul li a.active::after {
 
 .bento-card:hover {
     transform: translateY(-10px);
-    box-shadow: var(--glass-shadow);
-    border-color: var(--accent);
-    background: rgba(255, 255, 255, 0.85);
+    box-shadow: var(--card-shadow);
+    border-color: rgba(0, 65, 157, 0.2);
 }
 
 .service-card {
@@ -793,10 +790,10 @@ nav ul li a.active::after {
 .contact-form-card,
 .contact-form-card.bento-card {
     cursor: default;
-    background: var(--glass-bg);
+    background: var(--card-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--card-border);
 }
 
 .contact-form-card:hover,
@@ -1379,11 +1376,9 @@ section.alt-border {
     position: relative;
     padding: 1.5rem;
     text-align: left;
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--card-shadow);
 }
 
 .testimonial-header {
@@ -1429,18 +1424,18 @@ section.alt-border {
 }
 
 .contact-form {
-    background: var(--glass-bg);
+    background: var(--card-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     padding: 2.5rem;
     border-radius: var(--radius);
     box-shadow: var(--glass-shadow);
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--card-border);
 }
 
 /* Always clear, not just on hover */
 .contact-form:hover {
-    background: var(--glass-bg);
+    background: var(--card-bg);
 }
 
 .form-group {
@@ -1459,7 +1454,7 @@ section.alt-border {
 .form-group select {
     width: 100%;
     padding: 1rem;
-    border: 2px solid var(--glass-border);
+    border: 2px solid var(--card-border);
     border-radius: 8px;
     font-family: inherit;
     font-size: 1rem;
@@ -1541,14 +1536,14 @@ section.alt-border {
 }
 
 .gallery-item {
-    background: var(--glass-bg);
+    background: var(--card-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: var(--radius);
     overflow: hidden;
     box-shadow: var(--glass-shadow);
     transition: var(--transition);
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--card-border);
 }
 
 .gallery-item:hover {
@@ -1602,7 +1597,7 @@ section.alt-border {
    Horizontal Card Layout
 =================================== */
 .bento-card.horizontal-card {
-    background: var(--glass-bg);
+    background: var(--card-bg);
     flex-direction: row;
     align-items: center;
 }
@@ -1880,13 +1875,13 @@ section.alt-border {
 .timeline-content {
     flex: 1;
     margin-left: 2rem;
-    background: var(--glass-bg);
+    background: var(--card-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: 10px;
     padding: 1rem 1.25rem;
     box-shadow: var(--glass-shadow);
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--card-border);
 }
 
 .timeline-content h4 {
@@ -2864,12 +2859,12 @@ footer {
 .testimonial-card-carousel {
     position: relative;
     padding: 1.25rem 1.5rem;
-    background: var(--glass-bg);
+    background: var(--card-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: var(--radius);
     box-shadow: var(--glass-shadow);
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--card-border);
     text-align: left;
     max-width: 320px;
 }
@@ -2886,7 +2881,7 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    border-top: 2px solid var(--glass-border);
+    border-top: 2px solid var(--card-border);
     padding-top: 1rem;
 }
 
@@ -3594,14 +3589,14 @@ footer {
 }
 
 .faq-item {
-    background: var(--glass-bg);
+    background: var(--card-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: var(--radius);
     margin-bottom: 1rem;
     overflow: hidden;
     box-shadow: var(--glass-shadow);
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--card-border);
 }
 
 .faq-question {
