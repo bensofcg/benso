@@ -54,12 +54,12 @@ export default function TestimonialsLoop({
         
         .testimonials-loop-container::before {
           left: 0;
-          background: linear-gradient(to right, white, transparent);
+          background: linear-gradient(to right, var(--bg-light, #f0f1f4), transparent);
         }
         
         .testimonials-loop-container::after {
           right: 0;
-          background: linear-gradient(to left, white, transparent);
+          background: linear-gradient(to left, var(--bg-light, #f0f1f4), transparent);
         }
 
         .testimonials-loop-track {
@@ -125,6 +125,44 @@ export default function TestimonialsLoop({
           line-height: 1.5;
           color: #333;
           margin: 0;
+        }
+
+        /* Responsive: móvil */
+        @media (max-width: 768px) {
+          .testimonial-card-loop {
+            width: 280px;
+            padding: 1rem;
+            margin-right: 1rem;
+          }
+          
+          .testimonial-card-loop .testimonial-name {
+            font-size: 1rem;
+          }
+          
+          .testimonial-card-loop .testimonial-text {
+            font-size: 0.85rem;
+            line-height: 1.4;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .testimonial-card-loop {
+            width: 240px;
+            padding: 0.85rem;
+            margin-right: 0.75rem;
+          }
+          
+          .testimonial-card-loop .testimonial-name {
+            font-size: 0.95rem;
+          }
+          
+          .testimonial-card-loop .testimonial-sector {
+            font-size: 0.75rem;
+          }
+          
+          .testimonial-card-loop .testimonial-text {
+            font-size: 0.8rem;
+          }
         }
       `}</style>
       

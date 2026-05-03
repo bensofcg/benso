@@ -1,6 +1,11 @@
 /* ===================================
    BENSO - Global Styles & Bento UI
-   Paleta: #002c6a, #00419d, #0056d0, #ffffff, #e6e6e6, #001737
+   Paleta oficial:
+   - #00419d: Color principal (logotipo, elementos primarios)
+   - #0056d0: Tono vibrante promocional
+   - #002c6a: Eventos de alto impacto y formalidad
+   - #e6e6e6: Fondos y espacios de soporte
+   - #ffffff: Solo para texto sobre fondos oscuros
 =================================== */
 
 /* Font Faces */
@@ -152,12 +157,25 @@ textarea:focus-visible {
 }
 
 :root {
-    --primary: #002c6a;
-    --secondary: #00419d;
-    --accent: #0056d0;
-    --white: #ffffff;
-    --light-gray: #e6e6e6;
-    --dark: #001737;
+    /* Paleta oficial Benso - según especificación */
+    /* 
+       00419d - Color principal, para el logotipo y elementos primarios
+       0056d0 - Tono vibrante para llamar la atención, de uso promocional
+       002c6a - Eventos de impacto social y aplicaciones de alto impacto y formalidad
+       e6e6e6 - Fondos y espacios de soporte para todos los diseños
+    */
+    --primary: #00419d;           /* Color principal - logotipo y elementos primarios */
+    --secondary: #002c6a;          /* Eventos de impacto social y alto impacto */
+    --accent: #0056d0;             /* Tono vibrante promocional */
+    --bg-light: #f0f1f4;         /* Fondos y espacios de soporte - tono más claro */
+    --bg-main: #f0f1f4;            /* Fondo principal - más blanco que antes */
+    --white: #ffffff;              /* Blanco para texto sobre fondos oscuros */
+    --dark: #002c6a;              /* Color oscuro para texto (usando secondary) */
+    --light-gray: #f0f1f4;        /* Alias para compatibilidad con bg-light */
+    /* Glassmorphism colors - cards más blancas/contrastadas */
+    --glass-bg: rgba(255, 255, 255, 0.95);   /* Cards casi totalmente blancas */
+    --glass-border: rgba(0, 65, 157, 0.06);  /* Borde muy sutil */
+    --glass-shadow: 0 2px 16px rgba(0, 44, 106, 0.05); /* Sombra mínima */
     --whatsapp: #25D366;
     --whatsapp-hover: #1ebe5d;
     --font-main: 'TT Commons Pro', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -177,7 +195,7 @@ body {
     font-family: var(--font-main);
     line-height: 1.6;
     color: var(--dark);
-    background-color: rgba(255, 255, 255, 0.92);
+    background-color: var(--bg-main);
     overflow-x: hidden;
     position: relative;
     max-width: 100vw;
@@ -191,6 +209,8 @@ html {
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     font-weight: 700;
+    font-variant-numeric: lining-nums;
+    -webkit-font-variant-numeric: lining-nums;
 }
 
 h1 { font-weight: 700; }
@@ -234,7 +254,10 @@ img {
 .top-bar {
     position: relative;
     z-index: 1001;
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(0, 65, 157, 0.06);
 }
 
 header {
@@ -353,7 +376,7 @@ nav ul li a.active::after {
 .menu-toggle span {
     width: 25px;
     height: 3px;
-    background: var(--white);
+    background: var(--bg-light);
     border-radius: 2px;
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
@@ -483,7 +506,7 @@ nav ul li a.active::after {
 }
 
 .hero-cta {
-    background: var(--white);
+    background: var(--bg-light);
     color: var(--accent);
     padding: 0.8rem 2rem;
     border-radius: 50px;
@@ -512,7 +535,7 @@ nav ul li a.active::after {
 }
 
 .hero-cta-outline:hover {
-    background: var(--white);
+    background: var(--bg-light);
     color: var(--accent);
 }
 
@@ -545,7 +568,7 @@ nav ul li a.active::after {
 }
 
 .hero-cta-outline:hover {
-    background: var(--white);
+    background: var(--bg-light);
     color: var(--accent);
 }
 
@@ -729,12 +752,14 @@ nav ul li a.active::after {
 }
 
 .bento-card {
-    background: var(--white);
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: var(--radius);
     padding: 2rem;
-    box-shadow: 0 2px 12px rgba(0, 44, 106, 0.08);
+    box-shadow: var(--glass-shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid var(--light-gray);
+    border: 1px solid var(--glass-border);
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -743,8 +768,9 @@ nav ul li a.active::after {
 
 .bento-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 44, 106, 0.2);
-    border-color: rgba(0, 86, 208, 0.3);
+    box-shadow: var(--glass-shadow);
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.85);
 }
 
 .service-card {
@@ -754,7 +780,7 @@ nav ul li a.active::after {
 .bento-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 32px rgba(0, 44, 106, 0.15);
-    border-color: rgba(0, 86, 208, 0.3);
+    border-color: var(--accent);
 }
 
 /* Non-interactive cards: no hover effect */
@@ -767,12 +793,16 @@ nav ul li a.active::after {
 .contact-form-card,
 .contact-form-card.bento-card {
     cursor: default;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
 }
 
 .contact-form-card:hover,
 .contact-form-card.bento-card:hover {
     transform: none;
-    box-shadow: var(--shadow);
+    box-shadow: var(--glass-shadow);
 }
 
 .bento-card.large {
@@ -801,6 +831,7 @@ nav ul li a.active::after {
     font-weight: 700;
     color: var(--primary);
     display: block;
+    font-family: var(--font-heading);
 }
 
 .bento-card .card-actions {
@@ -869,11 +900,11 @@ section {
 }
 
 section.alt-bg {
-    background: #f8f9fc;
+    background: var(--bg-main);
 }
 
 section.alt-border {
-    background: linear-gradient(to bottom, #ffffff 0%, #f8f9fc 100%);
+    background: linear-gradient(to bottom, var(--white) 0%, var(--bg-main) 100%);
 }
 
 /* Centered bento grid */
@@ -1337,7 +1368,7 @@ section.alt-border {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-background: var(--white);
+    background: var(--bg-light);
     padding: 1rem 0;
 }
 
@@ -1348,6 +1379,11 @@ background: var(--white);
     position: relative;
     padding: 1.5rem;
     text-align: left;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
 }
 
 .testimonial-header {
@@ -1393,10 +1429,18 @@ background: var(--white);
 }
 
 .contact-form {
-    background: var(--white);
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     padding: 2.5rem;
     border-radius: var(--radius);
-    box-shadow: var(--shadow);
+    box-shadow: var(--glass-shadow);
+    border: 1px solid var(--glass-border);
+}
+
+/* Always clear, not just on hover */
+.contact-form:hover {
+    background: var(--glass-bg);
 }
 
 .form-group {
@@ -1415,12 +1459,12 @@ background: var(--white);
 .form-group select {
     width: 100%;
     padding: 1rem;
-    border: 2px solid var(--light-gray);
+    border: 2px solid var(--glass-border);
     border-radius: 8px;
     font-family: inherit;
     font-size: 1rem;
     transition: var(--transition);
-    background-color: var(--white);
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
 .form-group input:focus,
@@ -1497,11 +1541,14 @@ background: var(--white);
 }
 
 .gallery-item {
-    background: var(--white);
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: var(--radius);
     overflow: hidden;
-    box-shadow: var(--shadow);
+    box-shadow: var(--glass-shadow);
     transition: var(--transition);
+    border: 1px solid var(--glass-border);
 }
 
 .gallery-item:hover {
@@ -1555,6 +1602,7 @@ background: var(--white);
    Horizontal Card Layout
 =================================== */
 .bento-card.horizontal-card {
+    background: var(--glass-bg);
     flex-direction: row;
     align-items: center;
 }
@@ -1581,6 +1629,7 @@ background: var(--white);
     font-weight: 700;
     color: var(--primary);
     display: block;
+    font-family: var(--font-heading);
 }
 
 /* ===================================
@@ -1633,7 +1682,7 @@ background: var(--white);
     font-size: 1rem;
     font-family: var(--font-main);
     color: var(--dark);
-    background: var(--white);
+    background: var(--bg-light);
     transition: border-color 0.2s ease;
 }
 
@@ -1658,7 +1707,7 @@ background: var(--white);
     font-size: 1rem;
     font-family: var(--font-main);
     color: var(--dark);
-    background: var(--white);
+    background: var(--bg-light);
     cursor: pointer;
     transition: border-color 0.2s ease;
     appearance: none;
@@ -1831,11 +1880,13 @@ background: var(--white);
 .timeline-content {
     flex: 1;
     margin-left: 2rem;
-    background: var(--white);
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: 10px;
     padding: 1rem 1.25rem;
-    box-shadow: 0 1px 6px rgba(0, 44, 106, 0.06);
-    border: 1px solid rgba(0, 86, 208, 0.08);
+    box-shadow: var(--glass-shadow);
+    border: 1px solid var(--glass-border);
 }
 
 .timeline-content h4 {
@@ -2059,7 +2110,7 @@ background: var(--white);
    Promo Banner
 =================================== */
 .promo-banner {
-    background: var(--white);
+    background: var(--bg-light);
     color: var(--dark);
     display: flex;
     align-items: center;
@@ -2077,7 +2128,7 @@ background: var(--white);
 }
 
 .promo-banner:hover {
-    background: var(--white);
+    background: var(--bg-light);
     opacity: 1;
 }
 
@@ -2207,7 +2258,7 @@ background: var(--white);
     width: 380px;
     max-width: 90vw;
     height: 100vh;
-    background: var(--white);
+    background: var(--bg-light);
     box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
     z-index: 1101;
     display: flex;
@@ -2301,7 +2352,7 @@ background: var(--white);
     height: 28px;
     border-radius: 50%;
     border: 1px solid var(--light-gray);
-    background: var(--white);
+    background: var(--bg-light);
     cursor: pointer;
     font-size: 1rem;
     display: flex;
@@ -2539,24 +2590,7 @@ footer {
     color: #cccccc;
 }
 
-.social-links {
-    display: flex;
-    gap: 0.75rem;
-    margin-top: 0.75rem;
-}
 
-.social-icon {
-    width: 22px;
-    height: 22px;
-    fill: #b0b0b0;
-    opacity: 0.9;
-    transition: all 0.2s;
-}
-
-.social-icon:hover {
-    opacity: 1;
-    fill: #cccccc;
-}
 
 .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -2572,34 +2606,192 @@ footer {
     flex-wrap: wrap;
 }
 
-.footer-logo {
-    height: 40px;
-    width: auto;
-    filter: brightness(0) invert(1);
-}
 
-.footer-logo-top {
-    height: 28px;
-    width: auto;
-    margin-bottom: 0.5rem;
-    filter: brightness(0) invert(1);
-}
-
-.footer-logo-group {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.footer-isotipo {
-    height: 28px;
-    width: auto;
-    filter: brightness(0) invert(1);
-}
 
 .footer-year {
     color: #999999;
     font-size: 0.85rem;
+}
+
+/* ===================================
+   Footer Responsive para Móvil
+=================================== */
+@media (max-width: 768px) {
+    footer {
+        padding: 2.5rem 1rem 1.5rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .footer-brand {
+        text-align: left;
+        align-items: flex-start;
+    }
+    
+    .footer-brand img {
+        height: 24px;
+        margin-bottom: 0.5rem;
+    }
+    
+    .footer-brand p {
+        text-align: left;
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+    
+    .footer-right-blocks {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-left: 0;
+        max-width: 100%;
+    }
+    
+    .footer-section {
+        text-align: left;
+    }
+    
+    .footer-section h4 {
+        font-size: 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .footer-section p,
+    .footer-section ul li a {
+        font-size: 0.85rem;
+        line-height: 1.6;
+    }
+    
+    .footer-links-block ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem 1.25rem;
+    }
+    
+    .footer-links-block ul li {
+        margin-bottom: 0;
+    }
+    
+    .footer-contact-details {
+        gap: 0.5rem;
+    }
+    
+    .footer-contact-item {
+        font-size: 0.85rem;
+    }
+    
+    .footer-contact-item svg {
+        width: 14px;
+        height: 14px;
+    }
+    
+.social-links {
+        margin-top: 0.5rem;
+    }
+    
+.social-icon {
+        width: 28px;
+        height: 28px;
+    }
+    
+.footer-bottom-content {
+        justify-content: center;
+    }
+    
+    .footer-isotipo {
+        height: 24px;
+    }
+    
+    .footer-year {
+        font-size: 0.8rem;
+    }
+}
+
+/* ===================================
+   Footer Responsive para Móvil
+=================================== */
+@media (max-width: 768px) {
+    footer {
+        padding: 2rem 0 1rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+        text-align: left;
+    }
+    
+    .footer-brand {
+        text-align: left;
+        align-items: flex-start;
+        max-width: 100%;
+    }
+    
+    .footer-brand p {
+        text-align: left;
+        font-size: 0.9rem;
+    }
+    
+    .footer-right-blocks {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: flex-start;
+        width: 100%;
+        margin-left: 0;
+        max-width: 100%;
+    }
+    
+    .footer-section {
+        text-align: left;
+        align-items: flex-start;
+        width: 100%;
+    }
+    
+    .footer-section h4 {
+        text-align: left;
+    }
+    
+    .footer-section p,
+    .footer-section ul li a {
+        text-align: left;
+        font-size: 0.9rem;
+    }
+    
+    .footer-links-block ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 0.5rem 1rem;
+    }
+    
+    .footer-links-block ul li {
+        margin-bottom: 0;
+    }
+    
+    .footer-contact-details {
+        text-align: left;
+        align-items: flex-start;
+    }
+    
+    .footer-contact-item {
+        justify-content: flex-start;
+        font-size: 0.9rem;
+    }
+    
+    .social-links {
+        justify-content: flex-start;
+    }
+    
+    /* Footer bottom: logo + año CENTRADO */
+    .footer-bottom-content {
+        justify-content: center;
+        text-align: center;
+    }
 }
 
 /* ===================================
@@ -2672,10 +2864,12 @@ footer {
 .testimonial-card-carousel {
     position: relative;
     padding: 1.25rem 1.5rem;
-    background: var(--white);
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: var(--radius);
-    box-shadow: 0 2px 12px rgba(0, 44, 106, 0.08);
-    border: 1px solid var(--light-gray);
+    box-shadow: var(--glass-shadow);
+    border: 1px solid var(--glass-border);
     text-align: left;
     max-width: 320px;
 }
@@ -2685,13 +2879,14 @@ footer {
     line-height: 1.5;
     margin-bottom: 0.75rem;
     color: var(--dark);
+    opacity: 0.9;
 }
 
 .testimonial-card-carousel .testimonial-author {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    border-top: 2px solid var(--light-gray);
+    border-top: 2px solid var(--glass-border);
     padding-top: 1rem;
 }
 
@@ -2745,7 +2940,7 @@ footer {
     gap: 1.5rem;
     align-items: center;
     padding: 1.5rem;
-    background: var(--white);
+    background: var(--bg-light);
     border-radius: var(--radius);
     box-shadow: 0 2px 12px rgba(0, 44, 106, 0.08);
     border: 1px solid var(--light-gray);
@@ -2767,7 +2962,7 @@ footer {
    Contact Page
 =================================== */
 .contact-form-card {
-    background: var(--white);
+    background: var(--bg-light);
     border-radius: var(--radius);
     padding: 2rem;
     box-shadow: var(--shadow);
@@ -3399,19 +3594,36 @@ footer {
 }
 
 .faq-item {
-    background: var(--white);
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: var(--radius);
     margin-bottom: 1rem;
     overflow: hidden;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--light-gray);
+    box-shadow: var(--glass-shadow);
+    border: 1px solid var(--glass-border);
 }
 
 .faq-question {
     width: 100%;
     text-align: left;
     padding: 1.5rem;
-    background: var(--white);
+    background: transparent;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-question {
+    width: 100%;
+    text-align: left;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.9);
     border: none;
     font-size: 1.1rem;
     font-weight: 600;
@@ -3461,7 +3673,7 @@ footer {
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--white);
+    background: var(--bg-light);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3682,7 +3894,7 @@ footer {
 }
 
 .login-card {
-    background: var(--white);
+    background: var(--bg-light);
     padding: 2.5rem;
     border-radius: 16px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
@@ -3825,7 +4037,7 @@ footer {
 /* Admin Navigation */
 .admin-nav {
     display: flex;
-    background: var(--white);
+    background: var(--bg-light);
     border-bottom: 1px solid var(--light-gray);
     overflow-x: auto;
     padding: 0 0.5rem;
@@ -3876,7 +4088,7 @@ footer {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 1.5rem;
-    background: var(--white);
+    background: var(--bg-light);
     border-bottom: 1px solid var(--light-gray);
     flex-wrap: wrap;
     gap: 1rem;
@@ -3936,7 +4148,7 @@ footer {
 
 /* Data Table */
 .table-container {
-    background: var(--white);
+    background: var(--bg-light);
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     overflow-x: auto;

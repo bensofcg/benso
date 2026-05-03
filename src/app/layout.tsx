@@ -19,7 +19,11 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
-        <link rel="preconnect" href="/benso" />
+        {/* Preconnects para recursos externos */}
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+        
+        {/* Preload fuentes críticas */}
         <link rel="preload" href="/benso/Cocogoose_trial.otf" as="font" type="font/otf" crossOrigin="anonymous" />
         <link rel="preload" href="/benso/fonnts.com-TT-Commons-Bold.otf" as="font" type="font/otf" crossOrigin="anonymous" />
         <link rel="preload" href="/benso/fonnts.com-TT-Commons-Regular.otf" as="font" type="font/otf" crossOrigin="anonymous" />

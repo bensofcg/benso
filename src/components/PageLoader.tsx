@@ -1,12 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 export function PageLoader() {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setShow(false), 800);
+    const timer = setTimeout(() => setShow(false), 1200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -20,32 +21,28 @@ export function PageLoader() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      zIndex: 9999,
+      zIndex: 99999,
     }}>
-      <img 
-        src="/benso/assets/logos/Isotipo Benso Oscuro.svg" 
-        alt="" 
-        style={{ 
-          width: 100, 
-          height: 100,
-          filter: 'drop-shadow(0 0 8px rgba(0, 44, 106, 0.3))'
-        }} 
-      />
+      <div style={{
+        animation: 'fadeInOut 1s ease-in-out infinite',
+      }}>
+        <Image 
+          src="/benso/assets/logos/Isotipo Benso Oscuro.svg"
+          alt="BENSO"
+          width={80}
+          height={53}
+          style={{
+            objectFit: 'contain',
+            display: 'block',
+          }}
+          unoptimized
+        />
+      </div>
+      
       <style>{`
-        img {
-          animation: pulse-glow 1.5s ease-in-out infinite;
-        }
-        @keyframes pulse-glow {
-          0%, 100% { 
-            opacity: 0.6; 
-            transform: scale(0.88); 
-            filter: drop-shadow(0 0 4px rgba(0, 44, 106, 0.2));
-          }
-          50% { 
-            opacity: 1; 
-            transform: scale(1); 
-            filter: drop-shadow(0 0 16px rgba(0, 44, 106, 0.5));
-          }
+        @keyframes fadeInOut {
+          0%, 100% { opacity: 0.5; }
+          50% { opacity: 1; }
         }
       `}</style>
     </div>
