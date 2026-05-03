@@ -169,9 +169,16 @@ textarea:focus-visible {
     --accent: #0056d0;             /* Tono vibrante promocional */
     --bg-light: #e6e6e6;           /* Fondos y espacios de soporte (oficial) */
     --bg-main: #e6e6e6;            /* Fondo principal (oficial) */
-    --white: #ffffff;              /* Blanco para texto sobre fondos oscuros */
-    --dark: #002c6a;              /* Color oscuro para texto (usando secondary) */
     --light-gray: #e6e6e6;        /* Alias para compatibilidad con bg-light */
+    /* Basic colors */
+    --white: #ffffff;              /* Color blanco puro */
+    --dark: #002c6a;               /* Color oscuro para texto (oficial) */
+    --text-muted: #666666;         /* Texto secundario muted */
+    --text-light: #666666;         /* Texto claro para placeholders */
+    --text-primary: #333333;       /* Texto primario */
+    --bg-primary: #ffffff;         /* Fondo primario para inputs */
+    --border-color: #dddddd;       /* Color de borde para inputs */
+    --glass-shadow: 0 8px 32px rgba(0, 44, 106, 0.12);  /* Sombra */
     /* Card colors - blanco con borde azul sutil */
     --card-bg: #ffffff;           /* Cards en blanco puro */
     --card-border: rgba(0, 65, 157, 0.1);  /* Borde azul sutil (10% de #00419d) */
