@@ -181,7 +181,7 @@ textarea:focus-visible {
     --glass-shadow: 0 8px 32px rgba(0, 44, 106, 0.12);  /* Sombra */
     /* Card colors - blanco con borde azul sutil */
     --card-bg: #ffffff;           /* Cards en blanco puro */
-    --card-border: rgba(0, 65, 157, 0.1);  /* Borde azul sutil (10% de #00419d) */
+    --card-border: rgba(0, 65, 157, 0.2);  /* Borde azul sutil (20% de #00419d) */
     --card-shadow: 0 4px 20px rgba(0, 44, 106, 0.12); /* Sombra */
     --whatsapp: #25D366;
     --whatsapp-hover: #1ebe5d;
@@ -772,21 +772,13 @@ nav ul li a.active::after {
 }
 
 .bento-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 32px rgba(0, 44, 106, 0.18);
-    border-color: rgba(0, 65, 157, 0.2);
+    transform: translateY(-8px) !important;
+    box-shadow: 0 12px 32px rgba(0, 44, 106, 0.18) !important;
+    border-color: rgba(0, 65, 157, 0.2) !important;
 }
 
 .service-card {
     position: relative;
-}
-
-/* Interactive cards: hover elevation + blue border */
-.testimonial-card.bento-card:hover,
-.horizontal-card.bento-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 28px rgba(0, 44, 106, 0.15);
-    border-color: rgba(0, 65, 157, 0.18);
 }
 
 .contact-form-card,
@@ -1456,12 +1448,12 @@ section.alt-border {
 .form-group select {
     width: 100%;
     padding: 1rem;
-    border: 2px solid rgba(0, 65, 157, 0.15);
+    border: 2px solid var(--card-border);
     border-radius: 8px;
     font-family: inherit;
     font-size: 1rem;
     transition: all 0.2s ease;
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: #fff;
 }
 
 .form-group input:focus,
@@ -1603,13 +1595,9 @@ section.alt-border {
     background: var(--card-bg);
     flex-direction: row;
     align-items: center;
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-.bento-card.horizontal-card:hover {
-    box-shadow: 0 4px 16px rgba(0, 44, 106, 0.1);
-    outline: 2px solid rgba(0, 65, 157, 0.12);
-    outline-offset: 2px;
+    outline: 1px solid rgba(0, 65, 157, 0.1);
+    outline-offset: -1px;
+    transition: box-shadow 0.3s ease;
 }
 
 .bento-card.horizontal-card .icon-svg {
