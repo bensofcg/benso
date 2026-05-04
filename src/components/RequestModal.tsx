@@ -321,12 +321,13 @@ export function RequestModal({ item, isOpen, onClose }: RequestModalProps) {
         .form-group input,
         .form-group textarea {
           width: 100%;
-          padding: 0.75rem;
-          border: 2px solid #e6e6e6;
+          padding: 1rem;
+          border: 2px solid var(--card-border);
           border-radius: 8px;
           font-size: 1rem;
           transition: border-color 0.2s;
           font-family: inherit;
+          background-color: rgba(255, 255, 255, 0.9);
         }
 
         .form-group input:focus,
