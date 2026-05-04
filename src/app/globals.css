@@ -167,9 +167,9 @@ textarea:focus-visible {
     --primary: #00419d;           /* Color principal - logotipo y elementos primarios */
     --secondary: #002c6a;          /* Eventos de impacto social y alto impacto */
     --accent: #0056d0;             /* Tono vibrante promocional */
-    --bg-light: #e6e6e6;           /* Fondos y espacios de soporte (oficial) */
-    --bg-main: #e6e6e6;            /* Fondo principal (oficial) */
-    --light-gray: #e6e6e6;        /* Alias para compatibilidad con bg-light */
+    --bg-light: #ffffff;           /* Fondo (mismo que cards) */
+    --bg-main: #ffffff;            /* Fondo principal */
+    --light-gray: #ffffff;        /* Gris claro (mismo que bg) */
     /* Basic colors */
     --white: #ffffff;              /* Color blanco puro */
     --dark: #002c6a;               /* Color oscuro para texto (oficial) */
@@ -2520,7 +2520,7 @@ footer {
 }
 
 .footer-section p {
-    color: #b0b0b0;
+    color: #c8c8c8;
 }
 
 .footer-section h4 {
@@ -2534,7 +2534,7 @@ footer {
 
 .footer-section p,
 .footer-section ul li a {
-    color: #b0b0b0;
+    color: #c8c8c8;
     font-size: 0.95rem;
     line-height: 1.6;
 }
@@ -2550,17 +2550,17 @@ footer {
 }
 
 .footer-section ul li a {
-    color: #b0b0b0;
+    color: #c8c8c8;
     font-size: 0.95rem;
     transition: color 0.2s;
 }
 
 .footer-section ul li a:hover {
-    color: #cccccc;
+    color: #ffffff;
 }
 
 .footer-section ul li a:hover {
-    color: #cccccc;
+    color: #ffffff;
 }
 
 .footer-section ul li {
@@ -2572,7 +2572,7 @@ footer {
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 0.5rem;
-    color: #b0b0b0;
+    color: #c8c8c8;
     font-size: 0.95rem;
 }
 
@@ -2580,11 +2580,11 @@ footer {
     width: 16px;
     height: 16px;
     flex-shrink: 0;
-    fill: #b0b0b0;
+    fill: #c8c8c8;
 }
 
 .footer-contact-item a {
-    color: #b0b0b0;
+    color: #c8c8c8;
     transition: color 0.2s;
 }
 
@@ -2695,9 +2695,9 @@ footer {
         margin-top: 0.5rem;
     }
     
-.social-icon {
-        width: 28px;
-        height: 28px;
+    .social-icon {
+        width: 22px;
+        height: 22px;
     }
     
 .footer-bottom-content {
@@ -2705,7 +2705,7 @@ footer {
     }
     
     .footer-isotipo {
-        height: 24px;
+        height: 28px;
     }
     
     .footer-year {
@@ -3818,7 +3818,7 @@ footer {
 
 .logo-loop-container .logo-loop-item svg,
 .logo-loop-container .logo-loop-item img {
-    height: 40px;
+    height: 72px;
     width: auto;
     color: var(--primary);
 }

@@ -54,7 +54,7 @@ export default function TestimonialsLoop({
         
         .testimonials-loop-container::before {
           left: 0;
-          background: linear-gradient(to right, var(--bg-light, #f0f1f4), transparent);
+          background: linear-gradient(to right, white, transparent);
         }
         
         .testimonials-loop-container::after {

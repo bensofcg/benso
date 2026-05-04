@@ -203,16 +203,16 @@ export function Footer() {
         }
         
         .social-icon {
-          width: 28px;
-          height: 28px;
-          fill: #b0b0b0;
+          width: 22px;
+          height: 22px;
+          fill: #c8c8c8;
           opacity: 0.9;
           transition: all 0.2s;
         }
         
         .social-icon:hover {
           opacity: 1;
-          fill: #cccccc;
+          fill: #ffffff;
         }
         
         .footer-bottom {
@@ -230,7 +230,7 @@ export function Footer() {
         }
         
 .footer-logo-top {
-          height: 20px;
+          height: 24px;
           width: auto;
           margin-bottom: 0.5rem;
           filter: brightness(0) invert(1);
@@ -243,7 +243,7 @@ export function Footer() {
         }
         
         .footer-isotipo {
-          height: 24px;
+          height: 28px;
           width: auto;
           filter: brightness(0) invert(1);
         }

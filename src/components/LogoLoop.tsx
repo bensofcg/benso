@@ -40,7 +40,6 @@ export default function LogoLoop({
           display: flex;
           animation: logoScroll${direction === 'left' ? 'Left' : 'Right'} ${duration}s linear infinite;
           will-change: transform;
-          transform: translate3d(0, 0, 0);
         }
         .logo-loop-track:hover {
           animation-play-state: paused;
@@ -59,17 +58,17 @@ export default function LogoLoop({
           align-items: center;
           justify-content: center;
           padding: 0 2.5rem;
-          color: var(--primary);
-          opacity: 0.7;
-          transition: opacity 0.3s;
-          backface-visibility: hidden;
         }
-        .logo-loop-item:hover {
-          opacity: 1;
-        }
-        .logo-loop-item svg {
-          height: 56px;
+        .logo-loop-item img {
+          height: 72px;
           width: auto;
+          opacity: 0.85;
+          transition: opacity 0.3s ease;
+          filter: grayscale(100%) sepia(100%) hue-rotate(180deg) saturate(600%) brightness(0.7);
+        }
+        .logo-loop-item:hover img {
+          opacity: 1;
+          filter: grayscale(100%) sepia(100%) hue-rotate(180deg) saturate(500%) brightness(0.8);
         }
       `}</style>
       <div className="logo-loop-track">

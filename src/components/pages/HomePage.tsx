@@ -118,12 +118,11 @@ export function HomePage() {
         </div>
 <LogoLoop
             logos={[
-              { node: <svg width="100" height="40" viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="12" fill="none" stroke="currentColor" strokeWidth="2"/><circle cx="20" cy="20" r="5" fill="currentColor"/></svg> },
-              { node: <svg width="100" height="40" viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="8" width="24" height="24" rx="4" fill="none" stroke="currentColor" strokeWidth="2"/><path d="M14 14h12v12H14z" fill="currentColor"/></svg> },
-              { node: <svg width="100" height="40" viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg"><polygon points="20,6 30,26 10,26" fill="none" stroke="currentColor" strokeWidth="2"/><polygon points="20,14 26,24 14,24" fill="currentColor"/></svg> },
-              { node: <svg width="100" height="40" viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg"><path d="M10 20 Q20 6 30 20 T50 20" fill="none" stroke="currentColor" strokeWidth="2"/><circle cx="30" cy="20" r="4" fill="currentColor"/></svg> },
-              { node: <svg width="100" height="40" viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="12" fill="none" stroke="currentColor" strokeWidth="2"/><line x1="10" y1="20" x2="30" y2="20" stroke="currentColor" strokeWidth="2"/><line x1="20" y1="10" x2="20" y2="30" stroke="currentColor" strokeWidth="2"/></svg> },
-              { node: <svg width="100" height="40" viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg"><path d="M8 28 L20 8 L32 28 Z" fill="none" stroke="currentColor" strokeWidth="2"/><path d="M14 22 L20 14 L26 22" fill="currentColor"/></svg> },
+              { node: <img src="/benso/assets/logos/MARAYOSVA (1).svg" alt="MARAYOSVA" /> },
+              { node: <img src="/benso/assets/logos/Info Impress.svg" alt="Info Impress" /> },
+              { node: <img src="/benso/assets/logos/Divas'Store.svg" alt="Divas Store" /> },
+              { node: <img src="/benso/assets/logos/Estilo Natural3.svg" alt="Estilo Natural" /> },
+              { node: <img src="/benso/assets/logos/AfroDiSiAcá .svg" alt="AfroDiSiAcá" /> },
             ]}
             direction="left"
             speed={50}
