@@ -772,21 +772,21 @@ nav ul li a.active::after {
 }
 
 .bento-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--card-shadow);
-    border-color: rgba(0, 65, 157, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(0, 44, 106, 0.18);
+    border-color: rgba(0, 65, 157, 0.2);
 }
 
 .service-card {
     position: relative;
 }
 
-/* Interactive cards: hover elevation + subtle blue border */
+/* Interactive cards: hover elevation + blue border */
 .testimonial-card.bento-card:hover,
 .horizontal-card.bento-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 44, 106, 0.12);
-    border-color: rgba(0, 65, 157, 0.15);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0, 44, 106, 0.15);
+    border-color: rgba(0, 65, 157, 0.18);
 }
 
 .contact-form-card,
@@ -1456,12 +1456,12 @@ section.alt-border {
 .form-group select {
     width: 100%;
     padding: 1rem;
-    border: 2px solid var(--card-border);
+    border: 2px solid rgba(0, 65, 157, 0.15);
     border-radius: 8px;
     font-family: inherit;
     font-size: 1rem;
-    transition: var(--transition);
-    background-color: rgba(255, 255, 255, 0.9);
+    transition: all 0.2s ease;
+    background-color: rgba(255, 255, 255, 0.95);
 }
 
 .form-group input:focus,
@@ -1469,6 +1469,7 @@ section.alt-border {
 .form-group select:focus {
     outline: none;
     border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0, 86, 208, 0.15);
 }
 
 .form-group textarea {
@@ -1596,12 +1597,19 @@ section.alt-border {
 }
 
 /* ===================================
-   Horizontal Card Layout
+    Horizontal Card Layout
 =================================== */
 .bento-card.horizontal-card {
     background: var(--card-bg);
     flex-direction: row;
     align-items: center;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.bento-card.horizontal-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 44, 106, 0.1);
+    outline: 2px solid rgba(0, 65, 157, 0.12);
+    outline-offset: 2px;
 }
 
 .bento-card.horizontal-card .icon-svg {
