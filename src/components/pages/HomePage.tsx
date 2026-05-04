@@ -145,7 +145,7 @@ export function HomePage() {
           <div className="bento-grid bento-grid-center">
             {servicios.slice(0, 3).map((service, index) => (
               <AnimatedCard key={service.id} index={index}>
-                <BentoCard className="service-card">
+                <BentoCard className="interactive-card service-card">
                   <div className="service-card-header">
                     <Icon name={service.icon} />
                     <h3>{service.title}</h3>
@@ -185,7 +185,7 @@ export function HomePage() {
           <div className="bento-grid bento-grid-center">
             {featuredProducts.map((product, index) => (
               <AnimatedCard key={product.id} index={index}>
-                <BentoCard className={`service-card${product.popular ? ' popular-card' : ''}`}>
+                <BentoCard className="interactive-card service-card">
                   {product.popular && <span className="popular-badge">Más popular</span>}
                   <div className="product-image-container">
                     <img src={getProductImage(product.category, product.image)} alt={product.title} loading="lazy" />
@@ -226,7 +226,7 @@ export function HomePage() {
           <div className="bento-grid">
             {upcomingEvents.map((event, index) => (
               <AnimatedCard key={event.id} index={index}>
-                <BentoCard>
+                <BentoCard className="interactive-card">
                   <h3>{event.title}</h3>
                   <div className="event-tags-row">
                     <span className="event-status-tag"><StatusIcon status={event.status} />{event.status}</span>

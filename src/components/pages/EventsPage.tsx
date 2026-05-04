@@ -40,7 +40,7 @@ export function EventsPage() {
           <div className="bento-grid">
             {currentEvents.map((event, index) => (
               <AnimatedCard key={event.id} index={index}>
-                <BentoCard>
+                <BentoCard className="interactive-card">
                   <h3>{event.title}</h3>
                   <div className="event-tags-row">
                     <span className="event-status-tag"><StatusIcon status={event.status} />{event.status}</span>
@@ -75,7 +75,7 @@ export function EventsPage() {
           <div className="bento-grid">
             {upcomingEvents.map((event, index) => (
               <AnimatedCard key={event.id} index={index}>
-                <BentoCard>
+                <BentoCard className="interactive-card">
                   <h3>{event.title}</h3>
                   <div className="event-tags-row">
                     <span className="event-status-tag"><StatusIcon status={event.status} />{event.status}</span>

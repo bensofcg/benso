@@ -154,6 +154,13 @@ textarea:focus-visible {
         transform: none !important;
         transition: none !important;
     }
+
+    /* Preserve card hover lift for accessibility */
+    .interactive-card:hover {
+        transform: translateY(-6px) !important;
+        box-shadow: 0 12px 24px rgba(0, 44, 106, 0.15) !important;
+        transition: transform 0.5s ease, box-shadow 0.5s ease !important;
+    }
 }
 
 :root {
@@ -763,7 +770,6 @@ nav ul li a.active::after {
     border-radius: var(--radius);
     padding: 2rem;
     box-shadow: 0 2px 8px rgba(0, 44, 106, 0.08);
-    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     border: 1px solid var(--card-border);
     display: flex;
     flex-direction: column;
@@ -771,11 +777,15 @@ nav ul li a.active::after {
     gap: 1rem;
 }
 
-.bento-card:hover {
-    transform: translateY(-8px) !important;
-    box-shadow: 0 12px 32px rgba(0, 44, 106, 0.18) !important;
-    border-color: rgba(0, 65, 157, 0.25) !important;
-    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+/* Interactive cards - products, services, events - these DO have hover */
+.interactive-card {
+    transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease;
+}
+
+.interactive-card:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 12px 24px rgba(0, 44, 106, 0.15) !important;
+    border-color: rgba(0, 65, 157, 0.3) !important;
 }
 
 .service-card {
@@ -789,12 +799,13 @@ nav ul li a.active::after {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--card-border);
+    box-shadow: 0 2px 8px rgba(0, 44, 106, 0.08);
 }
 
 .contact-form-card:hover,
 .contact-form-card.bento-card:hover {
     transform: none;
-    box-shadow: var(--glass-shadow);
+    box-shadow: 0 2px 8px rgba(0, 44, 106, 0.08);
 }
 
 .bento-card.large {
@@ -1089,7 +1100,7 @@ section.alt-border {
     border-radius: var(--radius);
     padding: 2.5rem;
     text-align: center;
-    transition: var(--transition);
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .mvv-card:hover {
@@ -1596,8 +1607,8 @@ section.alt-border {
     background: var(--card-bg);
     flex-direction: row;
     align-items: center;
-    outline: 1px solid rgba(0, 65, 157, 0.1);
-    outline-offset: -1px;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 2px 8px rgba(0, 44, 106, 0.08);
     transition: box-shadow 0.3s ease;
 }
 
@@ -1947,7 +1958,18 @@ section.alt-border {
 .bento-grid .bento-card,
 .bento-grid-center .bento-card {
     opacity: 0;
-    animation: fadeIn 0.4s ease forwards;
+    animation: fadeInSlideUp 0.4s ease forwards;
+}
+
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .reveal-section.has-item-reveal .bento-grid .bento-card,
@@ -2003,7 +2025,7 @@ section.alt-border {
 }
 
 .reveal-section.reveal-disabled,
-.reveal-section.reveal-disabled * {
+.reveal-section.reveal-disabled *:not(.bento-card):not(.bento-card *) {
     opacity: 1 !important;
     transform: none !important;
     animation: none !important;
@@ -3596,7 +3618,7 @@ footer {
     border-radius: var(--radius);
     margin-bottom: 1rem;
     overflow: hidden;
-    box-shadow: var(--glass-shadow);
+    box-shadow: 0 2px 8px rgba(0, 44, 106, 0.08);
     border: 1px solid var(--card-border);
 }
 

@@ -110,7 +110,7 @@ export function ProductsPage() {
             {filteredProducts.map((product) => (
               <div key={`${activeFilter}-${product.id}`}>
                 <BentoCard 
-                  className={`service-card${product.popular ? ' popular-card' : ''}`}
+                  className={`interactive-card service-card${product.popular ? ' popular-card' : ''}`}
                   dataCategory={product.category}
                 >
                   {product.popular && <span className="popular-badge">Más popular</span>}
