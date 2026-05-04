@@ -762,8 +762,8 @@ nav ul li a.active::after {
     background: var(--card-bg);
     border-radius: var(--radius);
     padding: 2rem;
-    box-shadow: var(--card-shadow);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 44, 106, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     border: 1px solid var(--card-border);
     display: flex;
     flex-direction: column;
@@ -774,7 +774,7 @@ nav ul li a.active::after {
 .bento-card:hover {
     transform: translateY(-8px) !important;
     box-shadow: 0 12px 32px rgba(0, 44, 106, 0.18) !important;
-    border-color: rgba(0, 65, 157, 0.2) !important;
+    border-color: rgba(0, 65, 157, 0.25) !important;
 }
 
 .service-card {
@@ -2965,18 +2965,20 @@ footer {
 .contact-form-card textarea {
     width: 100%;
     padding: 0.75rem 1rem;
-    border: 2px solid var(--light-gray);
+    border: 2px solid var(--card-border);
     border-radius: 8px;
     font-size: 1rem;
     font-family: var(--font-main);
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
     margin-bottom: 1rem;
+    background-color: #fff;
 }
 
 .contact-form-card input:focus,
 .contact-form-card textarea:focus {
     outline: none;
     border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0, 86, 208, 0.15);
 }
 
 .contact-form-card textarea {
