@@ -61,8 +61,8 @@ export function Header() {
     if (isHomePage) {
       e.preventDefault();
       scrollToTop();
-      closeMenu();
     }
+    closeMenu();
   };
 
   const headerClass = isHomePage 

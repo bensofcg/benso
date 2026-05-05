@@ -124,7 +124,7 @@ export function ContactPage() {
             Tu solicitud de cita ha sido recibida correctamente.
           </p>
           <div className="modal-note">
-            ⏱️ Te contactaremos en un plazo de <strong>24-48 horas</strong> para confirmar la fecha y hora.
+            Te contactaremos en un plazo de <strong>24-48 horas</strong> para confirmar la fecha y hora.
           </div>
           <button 
             className="btn-modal"

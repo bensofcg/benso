@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { CheckCircle2, Clipboard, AlertCircle, CreditCard, Clock } from 'lucide-react';
+import { CheckCircle2, Clipboard, AlertCircle, CreditCard } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 
 export function CheckoutModal() {
@@ -84,7 +84,7 @@ export function CheckoutModal() {
               <strong>No es un pago inmediato</strong> - el pago se coordinará manualmente una vez que confirmemos los detalles de tu pedido.
             </p>
             <p className="success-note">
-              <Clock size={16} aria-hidden="true" /> Te contactaremos en un plazo de <strong>24-48 horas</strong> para confirmar la disponibilidad y acordar el pago.
+              Te contactaremos en un plazo de <strong>24-48 horas</strong> para confirmar la disponibilidad y acordar el pago.
             </p>
             <div className="success-actions">
               <button className="btn-primary" onClick={handleClose}>
@@ -259,12 +259,15 @@ export function CheckoutModal() {
         .checkout-header h2 {
           color: var(--primary);
           font-size: 1.5rem;
+          font-weight: 600;
           margin: 0 0 0.25rem;
+          font-family: var(--font-main);
         }
 
         .checkout-subtitle {
           color: #666;
           font-size: 0.9rem;
+          font-family: var(--font-main);
           margin: 0;
         }
 
@@ -280,43 +283,20 @@ export function CheckoutModal() {
           font-size: 1rem;
           color: var(--primary);
           margin: 0 0 1rem;
+          font-family: var(--font-main);
+          font-weight: 600;
           padding-bottom: 0.5rem;
           border-bottom: 2px solid var(--light-gray);
         }
 
-        .form-group {
-          margin-bottom: 1rem;
-        }
-
         .form-group label {
-          display: block;
-          margin-bottom: 0.5rem;
-          font-weight: 600;
-          font-size: 0.9rem;
-          color: #333;
+          font-family: var(--font-main);
         }
 
         .form-group input,
         .form-group textarea {
-          width: 100%;
-          padding: 1rem;
-          border: 2px solid var(--card-border);
-          border-radius: 8px;
-          font-size: 1rem;
-          transition: border-color 0.2s;
-          font-family: inherit;
-          background-color: rgba(255, 255, 255, 0.9);
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-          outline: none;
-          border-color: var(--accent);
-        }
-
-        .form-group textarea {
-          resize: vertical;
-          min-height: 80px;
+          font-family: var(--font-main);
+          background-color: var(--white);
         }
 
         .order-items {
@@ -392,18 +372,18 @@ export function CheckoutModal() {
           border: none;
           border-radius: 8px;
           font-size: 1.1rem;
-          font-weight: 700;
+          font-weight: 600;
+          font-family: var(--font-main);
           cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
           gap: 0.5rem;
-          transition: all 0.2s;
+          transition: var(--transition);
         }
 
         .btn-submit:hover:not(:disabled) {
           background: var(--secondary);
-          transform: translateY(-2px);
         }
 
         .btn-submit:disabled {
@@ -431,10 +411,10 @@ export function CheckoutModal() {
         }
 
         .success-icon {
-          width: 80px;
-          height: 80px;
+          width: 72px;
+          height: 72px;
           margin: 0 auto 1.5rem;
-          background: var(--primary);
+          background: #4CAF50;
           border-radius: 50%;
           display: flex;
           align-items: center;
@@ -442,15 +422,16 @@ export function CheckoutModal() {
         }
 
         .success-icon svg {
-          width: 40px;
-          height: 40px;
+          width: 36px;
+          height: 36px;
           color: white;
         }
 
         .checkout-success h2 {
           color: var(--primary);
-          font-size: 1.75rem;
+          font-size: 1.5rem;
           margin: 0 0 0.5rem;
+          font-weight: 600;
         }
 
         .order-number {
@@ -461,9 +442,15 @@ export function CheckoutModal() {
         }
 
         .success-message {
-          color: #666;
+          font-size: 0.95rem;
+          color: #444;
           line-height: 1.6;
-          margin: 0 0 2rem;
+          margin: 0 0 0.75rem;
+          font-family: var(--font-main);
+        }
+
+        .success-message strong {
+          color: var(--primary);
         }
 
         .success-actions {
@@ -480,8 +467,9 @@ export function CheckoutModal() {
           border-radius: 8px;
           font-size: 1rem;
           font-weight: 600;
+          font-family: var(--font-main);
           cursor: pointer;
-          transition: all 0.2s;
+          transition: var(--transition);
         }
 
         .btn-primary:hover {
@@ -493,7 +481,7 @@ export function CheckoutModal() {
           flex-direction: column;
           align-items: center;
           gap: 0.5rem;
-          background: #f8f8f8;
+          background: var(--light);
           padding: 1rem 1.5rem;
           border-radius: 12px;
           margin: 1rem 0;
@@ -502,13 +490,15 @@ export function CheckoutModal() {
         .order-label {
           font-size: 0.85rem;
           color: #666;
+          font-family: var(--font-main);
         }
 
         .order-id-box .order-number {
-          font-size: 2rem;
-          font-weight: 800;
+          font-size: 1.75rem;
+          font-weight: 700;
           color: var(--primary);
           margin: 0;
+          font-family: var(--font-main);
         }
 
         .copy-btn {
@@ -550,9 +540,7 @@ export function CheckoutModal() {
           border-radius: 8px;
           font-size: 0.9rem;
           font-weight: 600;
-          display: inline-flex;
-          align-items: center;
-          gap: 0.4rem;
+          margin-bottom: 1.5rem;
         }
 
         .success-note strong {

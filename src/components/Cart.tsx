@@ -2,9 +2,16 @@
 
 import { useCart } from '@/hooks/useCart';
 import { CheckoutModal } from './CheckoutModal';
+import { ShoppingCart, X, Plus, Minus, Trash2, ArrowRight, Check } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 
 export function Cart() {
   const { items, removeItem, updateQuantity, totalItems, totalPrice, isOpen, setIsOpen, setIsCheckoutOpen } = useCart();
+  const prevItemsRef = useRef(items.length);
+  const prevTotalRef = useRef(totalItems);
+  const lastAddedRef = useRef<string | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   const formatPrice = (price: number) => {
     return price.toLocaleString('es', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -15,6 +22,41 @@ export function Cart() {
     setIsCheckoutOpen(true);
   };
 
+  // Track cart changes and show toast when item is added
+  useEffect(() => {
+    setIsMounted(true);
+    
+    // Skip notification on first mount (page load with existing items)
+    if (totalItems === 0 || prevTotalRef.current === 0) {
+      prevTotalRef.current = totalItems;
+      prevItemsRef.current = items.length;
+      return;
+    }
+    
+    // Check if totalItems increased (new item added)
+    if (totalItems > prevTotalRef.current && totalItems > 0) {
+      // Find the newly added item (one that wasn't in previous state)
+      const prevTitles = prevItemsRef.current > 0 
+        ? items.slice(0, prevItemsRef.current).map(i => i.title)
+        : [];
+      const newItem = items.find(i => !prevTitles.includes(i.title));
+      
+      if (newItem && lastAddedRef.current !== newItem.title) {
+        lastAddedRef.current = newItem.title;
+        toast.custom((t) => (
+          <div
+            className={`cart-toast ${t.visible ? 'show' : 'hide'}`}
+          >
+            <Check size={16} />
+            <span>"{newItem.title}" añadido</span>
+          </div>
+        ), { duration: 2500 });
+      }
+    }
+    prevTotalRef.current = totalItems;
+    prevItemsRef.current = items.length;
+  }, [items, totalItems]);
+
   return (
     <>
       {totalItems > 0 && (
@@ -23,10 +65,7 @@ export function Cart() {
           onClick={() => setIsOpen(true)}
           aria-label="Abrir carrito"
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-          </svg>
+          <ShoppingCart size={22} />
           <span className="cart-fab-badge">{totalItems}</span>
         </button>
       )}
@@ -44,20 +83,18 @@ export function Cart() {
         aria-label="Carrito de compras"
       >
         <div className="cart-panel-header">
-          <h3>Carrito ({totalItems})</h3>
+          <h3>Tu carrito</h3>
           <button className="cart-panel-close" onClick={() => setIsOpen(false)} aria-label="Cerrar carrito">
-            ×
+            <X size={20} />
           </button>
         </div>
 
         <div className="cart-panel-body">
           {items.length === 0 ? (
             <div className="cart-empty">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
-                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-              </svg>
-              <p>Tu carrito está vacío</p>
+              <ShoppingCart size={48} strokeWidth={1.5} />
+              <p>Carrito vacío</p>
+              <span className="cart-empty-hint">Explora nuestros productos y agrega lo que necesites</span>
               <button 
                 className="btn-browse"
                 onClick={() => setIsOpen(false)}
@@ -70,16 +107,33 @@ export function Cart() {
               <div key={item.title} className="cart-item">
                 <div className="cart-item-info">
                   <h4>{item.title}</h4>
-                  <span>{item.price} CUP</span>
-                  <div className="cart-item-qty">
-                    <button onClick={() => updateQuantity(item.title, item.quantity - 1)} aria-label="Reducir cantidad">-</button>
-                    <span>{item.quantity}</span>
-                    <button onClick={() => updateQuantity(item.title, item.quantity + 1)} aria-label="Aumentar cantidad">+</button>
-                  </div>
+                  <span className="cart-item-price">{item.price} CUP</span>
                 </div>
-                <button className="cart-item-remove" onClick={() => removeItem(item.title)} aria-label={`Eliminar ${item.title}`}>
-                  ×
-                </button>
+                <div className="cart-item-actions">
+                  <div className="cart-item-qty">
+                    <button 
+                      onClick={() => updateQuantity(item.title, item.quantity - 1)} 
+                      disabled={item.quantity <= 1}
+                      aria-label="Reducir cantidad"
+                    >
+                      <Minus size={14} />
+                    </button>
+                    <span>{item.quantity}</span>
+                    <button 
+                      onClick={() => updateQuantity(item.title, item.quantity + 1)}
+                      aria-label="Aumentar cantidad"
+                    >
+                      <Plus size={14} />
+                    </button>
+                  </div>
+                  <button 
+                    className="cart-item-remove" 
+                    onClick={() => removeItem(item.title)} 
+                    aria-label={`Eliminar ${item.title}`}
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                </div>
               </div>
             ))
           )}
@@ -87,24 +141,16 @@ export function Cart() {
 
         {items.length > 0 && (
           <div className="cart-panel-footer">
-            <div className="cart-summary">
-              <div className="cart-line">
-                <span>Artículos:</span>
-                <span>{totalItems}</span>
-              </div>
-              <div className="cart-total">
-                <span>Total:</span>
-                <span className="cart-total-amount">{formatPrice(totalPrice)} CUP</span>
-              </div>
+            <div className="cart-total">
+              <span>Total</span>
+              <span className="cart-total-amount">{formatPrice(totalPrice)} CUP</span>
             </div>
             <button
               className="cart-checkout-btn"
               onClick={handleCheckout}
             >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-              Finalizar pedido
+              Continuar
+              <ArrowRight size={18} />
             </button>
           </div>
         )}
@@ -115,32 +161,44 @@ export function Cart() {
       <style jsx>{`
         .cart-empty {
           text-align: center;
-          padding: 2rem 1rem;
+          padding: 3rem 1.5rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
         
         .cart-empty svg {
-          width: 64px;
-          height: 64px;
+          color: var(--light-gray);
           margin-bottom: 1rem;
-          opacity: 0.4;
-          color: var(--primary);
         }
         
         .cart-empty p {
           color: var(--dark);
-          opacity: 0.6;
-          margin: 0 0 1rem;
+          font-size: 1.1rem;
+          font-weight: 500;
+          font-family: var(--font-main);
+          margin: 0 0 0.5rem;
+        }
+        
+        .cart-empty-hint {
+          color: var(--dark);
+          opacity: 0.5;
+          font-size: 0.9rem;
+          font-family: var(--font-main);
+          margin-bottom: 1.5rem;
         }
         
         .btn-browse {
           background: transparent;
           color: var(--primary);
-          border: 2px solid var(--primary);
-          padding: 0.6rem 1.5rem;
-          border-radius: 8px;
+          border: 1.5px solid var(--primary);
+          padding: 0.65rem 1.5rem;
+          border-radius: 6px;
           font-weight: 600;
+          font-family: var(--font-main);
+          font-size: 0.9rem;
           cursor: pointer;
-          transition: all 0.2s;
+          transition: var(--transition);
         }
         
         .btn-browse:hover {
@@ -148,31 +206,141 @@ export function Cart() {
           color: white;
         }
         
+        .cart-item {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          padding: 1rem 0;
+          border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .cart-item:last-child {
+          border-bottom: none;
+        }
+        
+        .cart-item-info h4 {
+          color: var(--primary);
+          font-size: 0.95rem;
+          font-weight: 600;
+          font-family: var(--font-main);
+        }
+        
+        .cart-item-price {
+          color: var(--accent);
+          font-weight: 400;
+          font-size: 0.85rem;
+          font-family: var(--font-main);
+        }
+        
+        .cart-item-actions {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        
+        .cart-item-qty {
+          display: flex;
+          align-items: center;
+          gap: 0.25rem;
+          background: var(--light);
+          border-radius: 6px;
+          padding: 0.15rem;
+        }
+        
+        .cart-item-qty button {
+          width: 28px;
+          height: 28px;
+          border-radius: 4px;
+          border: none;
+          background: transparent;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0;
+          transition: var(--transition);
+          color: var(--dark);
+        }
+        
+        .cart-item-qty button:disabled {
+          opacity: 0.3;
+          cursor: not-allowed;
+        }
+        
+        .cart-item-qty button:not(:disabled):hover {
+          background: var(--primary);
+          color: white;
+        }
+        
+        .cart-item-qty span {
+          font-weight: 600;
+          min-width: 2rem;
+          text-align: center;
+          font-size: 0.9rem;
+          color: var(--dark);
+        }
+        
+        .cart-item-remove {
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 0.35rem;
+          border-radius: 4px;
+          transition: var(--transition);
+          color: var(--dark);
+          opacity: 0.5;
+        }
+        
+        .cart-item-remove:hover {
+          opacity: 1;
+          color: #e53935;
+          background: rgba(229, 57, 53, 0.1);
+        }
+        
+        .cart-total {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0.5rem 0 1rem;
+          border-top: 1px solid var(--light-gray);
+          margin-top: 0.5rem;
+        }
+        
+        .cart-total span:first-child {
+          color: var(--dark);
+          font-weight: 600;
+          font-size: 0.95rem;
+          font-family: var(--font-main);
+        }
+        
+        .cart-total-amount {
+          font-weight: 700;
+          font-size: 1.25rem;
+          color: var(--primary);
+          font-family: var(--font-main);
+        }
+        
         .cart-checkout-btn {
           width: 100%;
-          padding: 1rem;
+          padding: 0.9rem;
           background: var(--primary);
           color: white;
           border: none;
-          border-radius: 8px;
-          font-size: 1rem;
-          font-weight: 700;
+          border-radius: 6px;
+          font-size: 0.95rem;
+          font-weight: 600;
+          font-family: var(--font-main);
           cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
           gap: 0.5rem;
-          transition: all 0.2s;
+          transition: var(--transition);
         }
         
         .cart-checkout-btn:hover {
           background: var(--secondary);
-          transform: translateY(-2px);
-        }
-        
-        .cart-checkout-btn svg {
-          width: 20px;
-          height: 20px;
+          transform: translateY(-1px);
         }
       `}</style>
     </>
