@@ -117,10 +117,16 @@ export function ServicesPage() {
         <div className="container section-cta">
           <h2>¿Listo para transformar tu negocio?</h2>
           <p>Agenda una cita y descubre cómo podemos ayudarte a alcanzar tus metas.</p>
-          <a href="/contacto" className="cta-button">
+          <button
+            className="cta-button"
+            onClick={() => {
+              setRequestItem({ title: 'Cita de consulta', price: '', priceNum: 0, whatsappLink: '', type: 'servicio' });
+              setIsRequestOpen(true);
+            }}
+          >
             <Calendar size={18} />
             <ShinyText text="Agendar cita" speed={3.5} />
-          </a>
+          </button>
         </div>
       </ScrollReveal>
 

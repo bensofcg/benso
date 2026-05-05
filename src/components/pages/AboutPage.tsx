@@ -1,7 +1,16 @@
 'use client';
 
+import { useState } from 'react';
 import { Calendar } from 'lucide-react';
-import { BentoCard, Icon, ScrollReveal, AnimatedCard, ShinyText } from '@/components';
+import { BentoCard, Icon, ScrollReveal, AnimatedCard, ShinyText, RequestModal } from '@/components';
+
+interface RequestItem {
+  title: string;
+  price: string;
+  priceNum: number;
+  whatsappLink: string;
+  type: 'servicio' | 'producto' | 'evento';
+}
 
 const values = [
   { title: 'Ética', icon: 'star' },
@@ -22,6 +31,9 @@ const whitePStyle = { color: 'var(--white)', textShadow: '0 1px 2px rgba(0,0,0,0
 const whiteIconStyle = { color: 'var(--white)', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))' };
 
 export function AboutPage() {
+  const [requestItem, setRequestItem] = useState<RequestItem | null>(null);
+  const [isRequestOpen, setIsRequestOpen] = useState(false);
+
   return (
     <>
       <ScrollReveal>
@@ -125,12 +137,24 @@ export function AboutPage() {
         <div className="container section-cta">
           <h2>¿Listo para transformar tu negocio?</h2>
           <p>Agenda una cita y descubre cómo podemos ayudarte a alcanzar tus metas.</p>
-          <a href="/contacto" className="cta-button">
+          <button
+            className="cta-button"
+            onClick={() => {
+              setRequestItem({ title: 'Cita de consulta', price: '', priceNum: 0, whatsappLink: '', type: 'servicio' });
+              setIsRequestOpen(true);
+            }}
+          >
             <Calendar size={18} />
             <ShinyText text="Agendar cita" speed={3.5} />
-          </a>
+          </button>
         </div>
       </ScrollReveal>
+
+      <RequestModal
+        item={requestItem}
+        isOpen={isRequestOpen}
+        onClose={() => setIsRequestOpen(false)}
+      />
     </>
   );
 }
