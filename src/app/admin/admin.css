@@ -1,0 +1,803 @@
+/* ===================================
+   Admin Panel Styles
+   Design: Benso Admin Overhaul
+   Uses globals.css design tokens
+=================================== */
+
+/* ---------- Container ---------- */
+.admin-container {
+  min-height: 100vh;
+  background: var(--bg-main, #ffffff);
+}
+
+/* ---------- Login Screen ---------- */
+.login-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+}
+
+.login-card {
+  background: var(--white);
+  padding: 3rem;
+  border-radius: var(--radius);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-logo {
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-logo-svg {
+  height: 48px;
+  width: auto;
+}
+
+.login-card h1 {
+  color: var(--primary);
+  margin: 0 0 0.25rem;
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  letter-spacing: 2px;
+}
+
+.login-subtitle {
+  color: var(--text-muted) !important;
+  margin: 0 0 2rem !important;
+  font-size: 0.95rem;
+}
+
+/* Password field with toggle */
+.password-field {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.password-field input {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-family: var(--font-main);
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.password-field input:focus {
+  outline: none;
+  border-color: var(--border-color);
+}
+
+.password-toggle {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.password-toggle:hover {
+  color: #666;
+}
+
+.login-card p {
+  color: var(--text-muted);
+  margin: 0 0 2rem;
+}
+
+.admin-container .btn-primary {
+  width: 100%;
+  padding: 1rem;
+  background: var(--dark);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-main);
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+.admin-container .btn-primary:hover {
+  background: var(--primary);
+}
+
+/* ---------- Header ---------- */
+.admin-header {
+  background: var(--dark);
+  color: var(--white);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.admin-logo-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--white);
+}
+
+.admin-logo-img {
+  height: 28px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+.admin-logo-label {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--white);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.header-right {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.5);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.btn-outline:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.8);
+}
+
+/* ---------- Navigation ---------- */
+.admin-nav {
+  background: var(--dark);
+  padding: 0 2rem;
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.admin-nav::-webkit-scrollbar {
+  height: 4px;
+}
+
+.admin-nav::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 2px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(255,255,255,0.7);
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+  position: relative;
+  transition: color 0.3s ease;
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+}
+
+.nav-item:hover {
+  color: var(--white);
+}
+
+.nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.85);
+  transition: width 0.3s ease, left 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-item:hover::after {
+  width: 60%;
+  left: 50%;
+}
+
+.nav-item.active {
+  color: var(--white);
+}
+
+.nav-item.active::after {
+  width: 60%;
+  left: 50%;
+}
+
+.nav-item .badge {
+  background: rgba(255,255,255,0.15);
+  padding: 0.15rem 0.5rem;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.85);
+  transition: background 0.3s;
+}
+
+.nav-item.active .badge {
+  background: rgba(255,255,255,0.25);
+  color: var(--white);
+}
+
+/* ---------- Toolbar ---------- */
+.admin-toolbar {
+  padding: 1rem 2rem;
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+  background: var(--white);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.results-count {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-family: var(--font-main);
+}
+
+/* Toolbar buttons */
+.btn-add {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  background: var(--dark);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  font-family: var(--font-main);
+  transition: background 0.2s;
+}
+
+.btn-add:hover {
+  background: var(--primary);
+}
+
+.filter-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: var(--font-main);
+}
+
+.filter-toggle input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* ---------- Main Content ---------- */
+.admin-main {
+  padding: 1.5rem 2rem;
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--dark);
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- Table Container ---------- */
+.table-container {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.data-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.data-table thead th {
+  background: var(--primary);
+  padding: 0.75rem 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--white);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: var(--font-main);
+  position: relative;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.data-table thead th .th-content {
+  display: inline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.data-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #f0f0f0;
+  font-family: var(--font-main);
+  font-size: 0.88rem;
+  color: #444;
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+.data-table tbody tr:hover {
+  background: #f5f8ff;
+}
+
+/* Column resize handle */
+.col-resize-handle {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  cursor: col-resize;
+  background: transparent;
+  z-index: 2;
+}
+
+.col-resize-handle:hover,
+.col-resize-handle.resizing {
+  background: rgba(255,255,255,0.3);
+}
+
+.col-resize-handle::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(255,255,255,0.2);
+  transition: background 0.2s;
+}
+
+.col-resize-handle:hover::after,
+.col-resize-handle.resizing::after {
+  background: rgba(255,255,255,0.6);
+}
+
+/* ---------- Cell Styles ---------- */
+.id-cell {
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.name-cell {
+  font-weight: 500;
+  color: #333;
+}
+
+.contact-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.82rem;
+  color: #555;
+}
+
+.contact-cell span {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.items-cell {
+  font-size: 0.82rem;
+  color: #555;
+}
+
+.items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.items-list .more {
+  color: #666;
+  font-weight: 500;
+}
+
+.price-cell {
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+}
+
+.date-cell {
+  font-size: 0.82rem;
+  color: #777;
+  white-space: nowrap;
+}
+
+.messaje-cell {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.desc-cell {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.expand-toggle {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.2rem 0 0;
+  font-family: var(--font-main);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 0.2s;
+}
+
+.expand-toggle:hover {
+  color: #333;
+  text-decoration: underline;
+}
+
+/* ---------- Status Styles ---------- */
+.status-select {
+  padding: 0.4rem 0.75rem;
+  border-radius: 20px;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-main);
+}
+
+.status-select.pendiente {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.status-select.confirmado {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.status-select.completado {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.status-badge.En\ Curso {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.status-badge.Proximamente {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+
+/* ---------- Action Buttons ---------- */
+.actions-cell {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-icon-sm {
+  background: #f0f0f0;
+  border: none;
+  padding: 0.4rem;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: background 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon-sm:hover {
+  background: #e6e6e6;
+}
+
+.btn-icon-sm.success {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.btn-icon-sm.danger {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.btn-icon-sm.warning {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+/* ---------- Edit Mode Inputs ---------- */
+.edit-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid var(--primary);
+  border-radius: 6px;
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+}
+
+.edit-textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid var(--primary);
+  border-radius: 6px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 0.85rem;
+}
+
+.edit-select {
+  padding: 0.4rem 0.75rem;
+  border: 2px solid var(--primary);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  background: white;
+  font-family: var(--font-main);
+}
+
+.edit-checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.price-input {
+  min-width: 120px;
+}
+
+.price-display {
+  font-weight: 600;
+  color: #333;
+}
+
+.price-type-badge {
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.price-type-badge.desde {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.popular-check {
+  color: #ffb300;
+  font-size: 1.1rem;
+}
+
+/* ---------- Create Modal ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: var(--white);
+  border-radius: var(--radius);
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 1.5rem 0;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: var(--dark);
+  font-family: var(--font-heading);
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 0.25rem;
+  line-height: 1;
+}
+
+.modal-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.modal-body label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #333;
+  font-family: var(--font-main);
+}
+
+.modal-body input,
+.modal-body textarea,
+.modal-body select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: var(--font-main);
+  transition: border-color 0.2s;
+}
+
+.modal-body input:focus,
+.modal-body textarea:focus,
+.modal-body select:focus {
+  outline: none;
+  border-color: var(--dark);
+}
+
+.modal-body textarea {
+  resize: vertical;
+  font-family: inherit;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 0 1.5rem 1.5rem;
+}
+
+.btn-cancel {
+  padding: 0.75rem 1.5rem;
+  background: #f0f0f0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.btn-cancel:hover {
+  background: #e0e0e0;
+}
+
+/* ---------- Miscellaneous ---------- */
+.inactive-row {
+  opacity: 0.4;
+  transition: opacity 0.2s;
+}
+
+.inactive-row:hover {
+  opacity: 0.7;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: auto;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .data-table {
+    font-size: 0.85rem;
+  }
+  .data-table th,
+  .data-table td {
+    padding: 0.75rem 0.5rem;
+  }
+  .edit-input,
+  .edit-select {
+    font-size: 0.8rem;
+    padding: 0.4rem;
+  }
+}

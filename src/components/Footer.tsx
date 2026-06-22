@@ -76,14 +76,6 @@ export function Footer() {
         <div className="footer-bottom">
           <div className="footer-bottom-content">
             <div className="footer-logo-group">
-              <Image 
-                src="/benso/assets/logos/Isotipo Benso Claro.svg" 
-                alt="BENSO" 
-                className="footer-isotipo"
-                width={28}
-                height={28}
-                unoptimized
-              />
               <p className="footer-year">&copy; {currentYear}</p>
             </div>
           </div>
@@ -132,7 +124,7 @@ export function Footer() {
         }
         
         .footer-section p {
-          color: #b0b0b0;
+          color: #cccccc;
         }
         
         .footer-section h4 {
@@ -142,6 +134,10 @@ export function Footer() {
           font-weight: 600;
           text-transform: uppercase;
           letter-spacing: 0.1em;
+          text-decoration: underline;
+          text-decoration-style: dashed;
+          text-underline-offset: 4px;
+          text-decoration-color: rgba(255, 255, 255, 0.5);
         }
         
         .footer-section ul {
@@ -155,13 +151,13 @@ export function Footer() {
         }
         
         .footer-section ul li a {
-          color: #b0b0b0;
+          color: #d0d0d0;
           font-size: 0.95rem;
           transition: color 0.2s;
         }
         
         .footer-section ul li a:hover {
-          color: #cccccc;
+          color: #ffffff;
         }
         
         .footer-contact-details {
@@ -173,7 +169,7 @@ export function Footer() {
           align-items: center;
           gap: 0.5rem;
           margin-bottom: 0.5rem;
-          color: #b0b0b0;
+          color: #cccccc;
           font-size: 0.8rem;
         }
 
@@ -181,16 +177,16 @@ export function Footer() {
           width: 12px;
           height: 12px;
           flex-shrink: 0;
-          fill: #b0b0b0;
+          fill: #cccccc;
         }
 
         .footer-contact-item a {
-          color: #b0b0b0;
+          color: #cccccc;
           transition: color 0.2s;
         }
 
         .footer-contact-item a:hover {
-          color: #cccccc;
+          color: #ffffff;
         }
 
         .footer-social-title {
@@ -205,13 +201,11 @@ export function Footer() {
         .social-icon {
           width: 22px;
           height: 22px;
-          fill: #c8c8c8;
-          opacity: 0.9;
+          fill: #d0d0d0;
           transition: all 0.2s;
         }
         
         .social-icon:hover {
-          opacity: 1;
           fill: #ffffff;
         }
         
@@ -249,7 +243,7 @@ export function Footer() {
         }
         
         .footer-year {
-          color: #999999;
+          color: #bbbbbb;
           font-size: 0.75rem;
         }
         

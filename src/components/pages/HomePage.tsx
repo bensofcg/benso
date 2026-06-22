@@ -113,7 +113,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* Brands Marquee Section */}
+      {/* ✨ HIDDEN — Brands Marquee Section (restore by removing the comment wrapper)
       <ScrollReveal>
         <div className="container">
           <div className="section-title">
@@ -122,18 +122,19 @@ export function HomePage() {
             </h2>
           </div>
         </div>
-<LogoLoop
-            logos={[
-              { node: <img src="/benso/assets/logos/MARAYOSVA (1).svg" alt="MARAYOSVA" /> },
-              { node: <img src="/benso/assets/logos/Info Impress.svg" alt="Info Impress" /> },
-              { node: <img src="/benso/assets/logos/Divas'Store.svg" alt="Divas Store" /> },
-              { node: <img src="/benso/assets/logos/Estilo Natural3.svg" alt="Estilo Natural" /> },
-              { node: <img src="/benso/assets/logos/AfroDiSiAcá .svg" alt="AfroDiSiAcá" /> },
-            ]}
-            direction="left"
-            speed={50}
-          />
+        <LogoLoop
+          logos={[
+            { node: <img src="/benso/assets/logos/MARAYOSVA (1).svg" alt="MARAYOSVA" /> },
+            { node: <img src="/benso/assets/logos/Info Impress.svg" alt="Info Impress" /> },
+            { node: <img src="/benso/assets/logos/Divas'Store.svg" alt="Divas Store" /> },
+            { node: <img src="/benso/assets/logos/Estilo Natural3.svg" alt="Estilo Natural" /> },
+            { node: <img src="/benso/assets/logos/AfroDiSiAcá .svg" alt="AfroDiSiAcá" /> },
+          ]}
+          direction="left"
+          speed={50}
+        />
       </ScrollReveal>
+      */}
 
       {/* Services Preview Section */}
       <ScrollReveal>
@@ -296,7 +297,7 @@ export function HomePage() {
         </div>
       </ScrollReveal>
 
-      {/* CTA Section */}
+      {/* ✨ HIDDEN — CTA Section (restore by removing the comment wrapper)
       <ScrollReveal>
         <div className="container section-cta">
           <h2>¿Listo para transformar tu negocio?</h2>
@@ -313,6 +314,7 @@ export function HomePage() {
           </button>
         </div>
       </ScrollReveal>
+      */}
 
       <RequestModal
         item={requestItem}

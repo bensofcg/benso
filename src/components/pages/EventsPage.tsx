@@ -138,7 +138,7 @@ export function EventsPage() {
             }}
           >
             <Calendar size={18} />
-            <ShinyText text="Agendar cita" speed={3.5} />
+            Agendar cita
           </button>
         </div>
       </ScrollReveal>
