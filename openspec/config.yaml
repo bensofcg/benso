@@ -1,0 +1,69 @@
+# openspec/config.yaml
+schema: spec-driven
+
+context: |
+  Tech stack: Next.js 16.2.3 (App Router, static export) + React 19.2.4 + TypeScript 5 (strict)
+  UI: Tailwind CSS + shadcn/ui (default style) + lucide-react icons
+  Animations: framer-motion 12.38, gsap 3.15, OGL (WebGL), motion 12.38
+  Database: Supabase (Postgres, client-side via @supabase/supabase-js)
+  State: React Context (CartContext) + localStorage persistence
+  Deployment: GitHub Pages (static export via GitHub Actions workflow)
+  Architecture: Client-side SPA patterns in Next.js App Router; static site, no SSR/API routes
+
+testing:
+  strict_tdd: true
+  notes: |
+    Playwright 1.59.1 is declared in devDependencies but NOT configured — no
+    playwright.config, no test files, and no test script in package.json.
+    strict_tdd is set true per rule (runner dependency exists) but test
+    infrastructure must be set up before TDD can be enforced. No unit test
+    runner (vitest/jest) detected.
+
+  test_runner:
+    framework: Playwright
+    command: ""
+    status: installed_not_configured
+
+  test_layers:
+    unit: { available: false, tool: "" }
+    integration: { available: false, tool: "" }
+    e2e: { available: false, tool: "playwright" }
+
+  coverage:
+    available: false
+    command: ""
+    notes: /coverage in .gitignore suggests intent, but no coverage tool configured
+
+  quality:
+    linter:
+      available: true
+      command: npm run lint (next lint — ESLint 9 with eslint-config-next/core-web-vitals + typescript)
+    type_checker:
+      available: true
+      command: npx tsc --noEmit (TypeScript strict mode via tsconfig.json)
+    formatter:
+      available: false
+      command: ""
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+  specs:
+    - Use Given/When/Then for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+  design:
+    - Include sequence diagrams for complex flows
+    - Document architecture decisions with rationale
+  tasks:
+    - Group by phase, use hierarchical numbering
+    - Keep tasks completable in one session
+  apply:
+    - Follow existing code patterns
+    tdd: true
+    test_command: "npx playwright test"
+  verify:
+    test_command: "npx playwright test"
+    build_command: "npm run build"
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas

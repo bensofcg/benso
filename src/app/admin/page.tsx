@@ -3,14 +3,14 @@
 import { useState, useEffect, useRef } from 'react';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
+import { motion } from 'motion/react';
+import AppSidebar, { AdminTab } from './AppSidebar';
 import { 
-  Package, Calendar, CalendarCheck, Tag, Wrench, CalendarDays, 
-  ChevronRight, ChevronDown, Search, Plus, Check, CheckCheck, X,
-  Edit2, Save, Trash2, Copy, ExternalLink, Loader, RefreshCw,
-  Clock, Mail, Phone, MapPin, User, TrendingUp,
-  Eye, EyeOff, ShoppingCart, DollarSign, CheckCircle
+  Search, Plus, CheckCheck, X,
+  Edit2, Save, Trash2, Copy, Loader,
+  Clock, Mail, Phone,
+  Eye, EyeOff, ShoppingCart, DollarSign, CheckCircle, CalendarCheck
 } from 'lucide-react';
 
 interface Producto {
@@ -116,6 +116,8 @@ export default function AdminPage() {
   const resizeRef = useRef<{ col: string; startX: number; startW: number } | null>(null);
   const mouseMoveRef = useRef<((ev: MouseEvent) => void) | null>(null);
   const mouseUpRef = useRef<((ev: MouseEvent) => void) | null>(null);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   function handleColResizeStart(col: string, e: React.MouseEvent) {
     e.preventDefault();
@@ -185,6 +187,17 @@ export default function AdminPage() {
   useEffect(() => {
     if (isAuthenticated) loadData();
   }, [isAuthenticated]);
+
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 767px)');
+    const handler = (e: MediaQueryListEvent | MediaQueryList) => {
+      setIsMobile(e.matches);
+      if (e.matches) setIsCollapsed(true);
+    };
+    handler(mql);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
 
   async function loadData() {
     setLoading(true);
@@ -369,6 +382,14 @@ export default function AdminPage() {
     ...popularServicios.map(([t]) => t),
   ]);
 
+  const counts: Record<string, number> = {
+    pedidos: pedidos.length,
+    citas: citas.length,
+    productos: productos.length,
+    servicios: servicios.length,
+    eventos: eventos.length,
+  };
+
   return (
     <div className="admin-container">
       {!isAuthenticated ? (
@@ -406,48 +427,23 @@ export default function AdminPage() {
           </div>
         </div>
       ) : (
-        <>
-          <header className="admin-header">
-            <div className="header-left">
-              <Link href="/" className="admin-logo-link">
-                <img src="/benso/assets/logos/Isotipo Benso Claro.svg" alt="BENSO" className="admin-logo-img" />
-                <span className="admin-logo-label">Admin</span>
-              </Link>
-            </div>
-            <div className="header-right">
-              <button onClick={loadData} className="btn-icon" title="Recargar datos">
-                <RefreshCw size={16} className={loading ? 'spin' : ''} />
-              </button>
-              <button onClick={handleLogout} className="btn-outline">Salir</button>
-            </div>
-          </header>
-
-          <nav className="admin-nav">
-            <div className="nav-group">
-              <button onClick={() => setActiveTab('dashboard')} className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`}>
-                <TrendingUp size={18} /> Dashboard
-              </button>
-            </div>
-            <div className="nav-group">
-              <button onClick={() => setActiveTab('pedidos')} className={`nav-item ${activeTab === 'pedidos' ? 'active' : ''}`}>
-                <Package size={18} /> Pedidos <span className="badge">{pedidos.length}</span>
-              </button>
-              <button onClick={() => setActiveTab('citas')} className={`nav-item ${activeTab === 'citas' ? 'active' : ''}`}>
-                <Calendar size={18} /> Citas <span className="badge">{citas.length}</span>
-              </button>
-            </div>
-            <div className="nav-group">
-              <button onClick={() => setActiveTab('productos')} className={`nav-item ${activeTab === 'productos' ? 'active' : ''}`}>
-                <Tag size={18} /> Productos <span className="badge">{productos.length}</span>
-              </button>
-              <button onClick={() => setActiveTab('servicios')} className={`nav-item ${activeTab === 'servicios' ? 'active' : ''}`}>
-                <Wrench size={18} /> Servicios <span className="badge">{servicios.length}</span>
-              </button>
-              <button onClick={() => setActiveTab('eventos')} className={`nav-item ${activeTab === 'eventos' ? 'active' : ''}`}>
-                <CalendarDays size={18} /> Eventos <span className="badge">{eventos.length}</span>
-              </button>
-            </div>
-          </nav>
+        <div className="admin-layout">
+          <AppSidebar
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+            counts={counts}
+            isCollapsed={isCollapsed}
+            onToggleCollapse={() => setIsCollapsed(!isCollapsed)}
+            onRefresh={loadData}
+            loading={loading}
+            onLogout={handleLogout}
+            isMobile={isMobile}
+          />
+          <motion.div
+            className="admin-content-wrapper"
+            animate={{ marginLeft: isMobile ? 64 : (isCollapsed ? 64 : 260) }}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          >
 
           {activeTab !== 'dashboard' && (
           <div className="admin-toolbar">
@@ -985,7 +981,8 @@ export default function AdminPage() {
               </>
             )}
           </main>
-        </>
+          </motion.div>
+        </div>
       )}
 
       {showCreateModal && (
