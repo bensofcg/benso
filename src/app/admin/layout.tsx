@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Toaster } from 'react-hot-toast';
 import './admin.css';
 
 export const metadata: Metadata = {
@@ -11,5 +12,10 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <Toaster position="bottom-left" toastOptions={{ duration: 3000 }} />
+      {children}
+    </>
+  );
 }

@@ -6,11 +6,11 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { 
-  Package, Calendar, Tag, Wrench, CalendarDays, 
-  ChevronRight, ChevronDown, Search, Plus, Check, X,
-  Edit2, Save, Trash2, Copy, ExternalLink, Loader,
-  Clock, Mail, Phone, MapPin, User, Box, TrendingUp,
-  Eye, EyeOff
+  Package, Calendar, CalendarCheck, Tag, Wrench, CalendarDays, 
+  ChevronRight, ChevronDown, Search, Plus, Check, CheckCheck, X,
+  Edit2, Save, Trash2, Copy, ExternalLink, Loader, RefreshCw,
+  Clock, Mail, Phone, MapPin, User, TrendingUp,
+  Eye, EyeOff, ShoppingCart, DollarSign, CheckCircle
 } from 'lucide-react';
 
 interface Producto {
@@ -22,7 +22,6 @@ interface Producto {
   category: string;
   icon: string;
   popular: boolean;
-  is_active: boolean;
 }
 
 interface Servicio {
@@ -34,7 +33,6 @@ interface Servicio {
   category: string;
   icon: string;
   popular: boolean;
-  is_active: boolean;
 }
 
 interface Evento {
@@ -43,7 +41,6 @@ interface Evento {
   description: string;
   date: string;
   status: string;
-  is_active: boolean;
 }
 
 interface Pedido {
@@ -99,7 +96,7 @@ export default function AdminPage() {
   const router = useRouter();
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [activeTab, setActiveTab] = useState<'pedidos' | 'citas' | 'productos' | 'servicios' | 'eventos'>('productos');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'pedidos' | 'citas' | 'productos' | 'servicios' | 'eventos'>('dashboard');
   const [productos, setProductos] = useState<Producto[]>([]);
   const [servicios, setServicios] = useState<Servicio[]>([]);
   const [eventos, setEventos] = useState<Evento[]>([]);
@@ -112,7 +109,6 @@ export default function AdminPage() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [createTable, setCreateTable] = useState<'productos' | 'servicios' | 'eventos'>('productos');
   const [createData, setCreateData] = useState({title: '', description: '', price: '', category: '', icon: '', popular: false, whatsapp_link: '', date: '', status: 'Proximamente'});
-  const [showInactive, setShowInactive] = useState(false);
   const [categoryFilter, setCategoryFilter] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [expandedCells, setExpandedCells] = useState<Record<string, boolean>>({});
@@ -219,14 +215,20 @@ export default function AdminPage() {
   }
 
   async function updateStatus(id: number, newStatus: string) {
-    await supabase.from('pedidos').update({ status: newStatus }).eq('id', id);
-    loadData();
+    setPedidos(prev => prev.map(p => p.id === id ? { ...p, status: newStatus } : p));
+    toast.success(`Estado actualizado a ${newStatus}`);
+    const { error } = await supabase.from('pedidos').update({ status: newStatus }).eq('id', id);
+    if (error) {
+      toast.error('Error al actualizar: ' + error.message);
+      loadData();
+    }
   }
 
   async function saveEdit(table: string) {
     if (!editData) return;
     const priceNum = extractNumberFromPrice(editData.price);
-    const updateData = { ...editData, price_num: priceNum };
+    const { popular: _, ...rest } = editData;
+    const updateData = { ...rest, price_num: priceNum };
 
     // Optimistic: update local state immediately
     const setter = table === 'productos' ? setProductos : table === 'servicios' ? setServicios : setEventos;
@@ -253,6 +255,22 @@ export default function AdminPage() {
     setEditData(null);
   }
 
+  async function handleDelete(table: string, id: number) {
+    const label = table === 'productos' ? 'Producto' : table === 'servicios' ? 'Servicio' : 'Evento';
+    const setter = table === 'productos' ? setProductos : table === 'servicios' ? setServicios : setEventos;
+
+    // Optimistic: remove from local state immediately
+    setter((prev: any[]) => prev.filter(item => item.id !== id));
+    toast.success(`${label} eliminado`);
+
+    // Background sync
+    const { error } = await supabase.from(table).delete().eq('id', id);
+    if (error) {
+      toast.error('Error al eliminar: ' + error.message);
+      loadData(); // Revert by reloading
+    }
+  }
+
   async function handleCreate() {
     if (!createData.title.trim() || !createData.price.trim()) {
       toast.error('Título y Precio son obligatorios');
@@ -268,7 +286,6 @@ export default function AdminPage() {
     if (createTable !== 'eventos') {
       data.category = createData.category || 'otros';
       data.icon = createData.icon || 'box';
-      data.popular = createData.popular;
       data.price_type = createData.price.toLowerCase().includes('desde') ? 'desde' : 'fijo';
     }
     if (createTable === 'eventos') {
@@ -287,22 +304,6 @@ export default function AdminPage() {
     }
   }
 
-  async function toggleActive(table: string, item: any) {
-    const action = item.is_active ? 'Desactivar' : 'Activar';
-    if (!window.confirm(`¿${action} "${item.title}"?`)) return;
-
-    // Optimistic
-    const setter = table === 'productos' ? setProductos : table === 'servicios' ? setServicios : setEventos;
-    setter((prev: any[]) => prev.map(i => i.id === item.id ? { ...i, is_active: !i.is_active } : i));
-    toast.success(item.is_active ? 'Desactivado' : 'Activado');
-
-    const { error } = await supabase.from(table).update({ is_active: !item.is_active }).eq('id', item.id);
-    if (error) {
-      toast.error('Error: ' + error.message);
-      loadData();
-    }
-  }
-
   function copyToClipboard(label: string, text: string) {
     navigator.clipboard.writeText(text);
     toast.success(`${label} copiado`);
@@ -312,19 +313,61 @@ export default function AdminPage() {
     pedidos: pedidos.filter(p => p.customer_name?.toLowerCase().includes(searchTerm.toLowerCase())),
     citas: citas.filter(c => c.nombre?.toLowerCase().includes(searchTerm.toLowerCase())),
     productos: productos.filter(p => {
-      const matchesActive = showInactive || p.is_active;
       const matchesSearch = p.title?.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesCategory = !categoryFilter || p.category === categoryFilter;
-      return matchesActive && matchesSearch && matchesCategory;
+      return matchesSearch && matchesCategory;
     }),
     servicios: servicios.filter(s => {
-      const matchesActive = showInactive || s.is_active;
       const matchesSearch = s.title?.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesCategory = !categoryFilter || s.category === categoryFilter;
-      return matchesActive && matchesSearch && matchesCategory;
+      return matchesSearch && matchesCategory;
     }),
-    eventos: eventos.filter(e => (showInactive || e.is_active) && e.title?.toLowerCase().includes(searchTerm.toLowerCase())),
+    eventos: eventos.filter(e => e.title?.toLowerCase().includes(searchTerm.toLowerCase())),
   };
+
+  // Dashboard computations
+  const totalPedidos = pedidos.length;
+  const pedidosPendientes = pedidos.filter(p => p.status === 'pendiente').length;
+  const pedidosConfirmados = pedidos.filter(p => p.status === 'confirmado').length;
+  const pedidosCompletados = pedidos.filter(p => p.status === 'completado').length;
+  const totalIngresos = pedidos.reduce((sum, p) => sum + Number(p.total_price || 0), 0);
+  const totalProductos = productos.length;
+  const totalServicios = servicios.length;
+  const totalEventos = eventos.length;
+  const totalCitas = citas.length;
+  const pedidosMes = pedidos.filter(p => {
+    const d = new Date(p.created_at);
+    const now = new Date();
+    return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+  }).length;
+
+  // Compute popular items from pedidos
+  const itemCounts: Record<string, number> = {};
+  pedidos.forEach(p => {
+    if (p.items && Array.isArray(p.items)) {
+      p.items.forEach((item: any) => {
+        const title = item.title || item.name || '';
+        const qty = Number(item.quantity || 1);
+        if (title) itemCounts[title] = (itemCounts[title] || 0) + qty;
+      });
+    }
+  });
+  const sortedItems = Object.entries(itemCounts).sort((a, b) => b[1] - a[1]);
+
+  const productoTitles = new Set(productos.map(p => p.title));
+  const serviciotitles = new Set(servicios.map(s => s.title));
+
+  const popularProducts = sortedItems
+    .filter(([title]) => productoTitles.has(title))
+    .slice(0, 5);
+  const popularServicios = sortedItems
+    .filter(([title]) => serviciotitles.has(title))
+    .slice(0, 5);
+
+  const popularTitles = new Set([
+    ...popularProducts.map(([t]) => t),
+    ...popularServicios.map(([t]) => t),
+  ]);
 
   return (
     <div className="admin-container">
@@ -372,72 +415,152 @@ export default function AdminPage() {
               </Link>
             </div>
             <div className="header-right">
+              <button onClick={loadData} className="btn-icon" title="Recargar datos">
+                <RefreshCw size={16} className={loading ? 'spin' : ''} />
+              </button>
               <button onClick={handleLogout} className="btn-outline">Salir</button>
             </div>
           </header>
 
           <nav className="admin-nav">
-            <button onClick={() => setActiveTab('pedidos')} className={`nav-item ${activeTab === 'pedidos' ? 'active' : ''}`}>
-              <Package size={18} /> Pedidos <span className="badge">{pedidos.length}</span>
-            </button>
-            <button onClick={() => setActiveTab('citas')} className={`nav-item ${activeTab === 'citas' ? 'active' : ''}`}>
-              <Calendar size={18} /> Citas <span className="badge">{citas.length}</span>
-            </button>
-            <button onClick={() => setActiveTab('productos')} className={`nav-item ${activeTab === 'productos' ? 'active' : ''}`}>
-              <Tag size={18} /> Productos <span className="badge">{productos.length}</span>
-            </button>
-            <button onClick={() => setActiveTab('servicios')} className={`nav-item ${activeTab === 'servicios' ? 'active' : ''}`}>
-              <Wrench size={18} /> Servicios <span className="badge">{servicios.length}</span>
-            </button>
-            <button onClick={() => setActiveTab('eventos')} className={`nav-item ${activeTab === 'eventos' ? 'active' : ''}`}>
-              <CalendarDays size={18} /> Eventos <span className="badge">{eventos.length}</span>
-            </button>
+            <div className="nav-group">
+              <button onClick={() => setActiveTab('dashboard')} className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`}>
+                <TrendingUp size={18} /> Dashboard
+              </button>
+            </div>
+            <div className="nav-group">
+              <button onClick={() => setActiveTab('pedidos')} className={`nav-item ${activeTab === 'pedidos' ? 'active' : ''}`}>
+                <Package size={18} /> Pedidos <span className="badge">{pedidos.length}</span>
+              </button>
+              <button onClick={() => setActiveTab('citas')} className={`nav-item ${activeTab === 'citas' ? 'active' : ''}`}>
+                <Calendar size={18} /> Citas <span className="badge">{citas.length}</span>
+              </button>
+            </div>
+            <div className="nav-group">
+              <button onClick={() => setActiveTab('productos')} className={`nav-item ${activeTab === 'productos' ? 'active' : ''}`}>
+                <Tag size={18} /> Productos <span className="badge">{productos.length}</span>
+              </button>
+              <button onClick={() => setActiveTab('servicios')} className={`nav-item ${activeTab === 'servicios' ? 'active' : ''}`}>
+                <Wrench size={18} /> Servicios <span className="badge">{servicios.length}</span>
+              </button>
+              <button onClick={() => setActiveTab('eventos')} className={`nav-item ${activeTab === 'eventos' ? 'active' : ''}`}>
+                <CalendarDays size={18} /> Eventos <span className="badge">{eventos.length}</span>
+              </button>
+            </div>
           </nav>
 
+          {activeTab !== 'dashboard' && (
           <div className="admin-toolbar">
-            <div className="search-input-wrapper">
-              <Search size={18} className="search-icon" />
-              <input 
-                type="text" 
-                placeholder="Buscar..." 
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="search-input"
-              />
+            <div className="toolbar-left">
+              <div className="search-input-wrapper">
+                  <Search size={18} className="search-icon" />
+                  <input 
+                    type="text" 
+                    placeholder="Buscar..." 
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="search-input"
+                  />
+                </div>
+              {(activeTab === 'productos' || activeTab === 'servicios') && (
+                <select 
+                  className="filter-select"
+                  value={categoryFilter}
+                  onChange={(e) => setCategoryFilter(e.target.value)}
+                >
+                  <option value="">Todas las categorías</option>
+                  {(activeTab === 'productos' ? PRODUCT_CATEGORIES : SERVICE_CATEGORIES).map(cat => (
+                    <option key={cat} value={cat}>{cat.charAt(0).toUpperCase() + cat.slice(1)}</option>
+                  ))}
+                </select>
+              )}
+              <span className="results-count">
+                {filteredData[activeTab]?.length || 0} resultados
+              </span>
             </div>
-            {(activeTab === 'productos' || activeTab === 'servicios') && (
-              <select 
-                className="filter-select"
-                value={categoryFilter}
-                onChange={(e) => setCategoryFilter(e.target.value)}
-              >
-                <option value="">Todas las categorías</option>
-                {(activeTab === 'productos' ? PRODUCT_CATEGORIES : SERVICE_CATEGORIES).map(cat => (
-                  <option key={cat} value={cat}>{cat.charAt(0).toUpperCase() + cat.slice(1)}</option>
-                ))}
-              </select>
-            )}
-            {activeTab !== 'pedidos' && activeTab !== 'citas' && (
-              <button onClick={() => { setShowCreateModal(true); setCreateTable(activeTab as 'productos' | 'servicios' | 'eventos'); }} className="btn-add">
-                <Plus size={18} /> Añadir
-              </button>
-            )}
-            {activeTab !== 'pedidos' && activeTab !== 'citas' && (
-              <label className="filter-toggle">
-                <input type="checkbox" checked={showInactive} onChange={(e) => setShowInactive(e.target.checked)} />
-                Mostrar inactivos
-              </label>
-            )}
-            <span className="results-count">
-              {filteredData[activeTab].length} registros
-            </span>
+            <div className="toolbar-right">
+              {activeTab !== 'pedidos' && activeTab !== 'citas' && (
+                <button onClick={() => { setShowCreateModal(true); setCreateTable(activeTab as 'productos' | 'servicios' | 'eventos'); }} className="btn-add">
+                  <Plus size={18} /> Añadir
+                </button>
+              )}
+            </div>
           </div>
+          )}
 
           <main className="admin-main">
             {loading ? (
               <div className="loading"><Loader className="spin" size={32} /></div>
             ) : (
               <>
+                {activeTab === 'dashboard' && (
+                  <div className="dashboard-container">
+                    <div className="dashboard-grid">
+                      <div className="dashboard-card">
+                        <div className="card-icon"><ShoppingCart size={24} /></div>
+                        <div className="card-body">
+                          <span className="card-label">Total Pedidos</span>
+                          <span className="card-value">{totalPedidos}</span>
+                          <span className="card-sub">{pedidosMes} este mes</span>
+                        </div>
+                      </div>
+                      <div className="dashboard-card">
+                        <div className="card-icon"><DollarSign size={24} /></div>
+                        <div className="card-body">
+                          <span className="card-label">Ingresos Totales</span>
+                          <span className="card-value">${Number(totalIngresos).toLocaleString('es-CU')}</span>
+                          <span className="card-sub">{pedidosPendientes} pendientes</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="dashboard-section">
+                      <h3>Pedidos por Estado</h3>
+                      <div className="status-summary">
+                        <span className="status-item pendiente"><Clock size={16} /> {pedidosPendientes} pendientes</span>
+                        <span className="status-item confirmado"><CheckCircle size={16} /> {pedidosConfirmados} confirmados</span>
+                        <span className="status-item completado"><CheckCheck size={16} /> {pedidosCompletados} completados</span>
+                      </div>
+                    </div>
+
+                    {(popularProducts.length > 0 || popularServicios.length > 0) && (
+                      <div className="popular-bento">
+                        {popularProducts.length > 0 && (
+                          <div className="popular-column">
+                            <h3>Productos más pedidos</h3>
+                            <ul className="popular-list">
+                              {popularProducts.map(([title, count], i) => (
+                                <li key={title}>
+                                  <span>
+                                    <span className="rank">#{i + 1}</span>
+                                    {title}
+                                  </span>
+                                  <span className="count">{count} pedido{count > 1 ? 's' : ''}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                        {popularServicios.length > 0 && (
+                          <div className="popular-column">
+                            <h3>Servicios más pedidos</h3>
+                            <ul className="popular-list">
+                              {popularServicios.map(([title, count], i) => (
+                                <li key={title}>
+                                  <span>
+                                    <span className="rank">#{i + 1}</span>
+                                    {title}
+                                  </span>
+                                  <span className="count">{count} pedido{count > 1 ? 's' : ''}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
                 {activeTab === 'pedidos' && (
                   <div className="table-container">
                     <table className="data-table">
@@ -505,7 +628,10 @@ export default function AdminPage() {
                             <td className="date-cell">{new Date(p.created_at).toLocaleDateString('es-ES')}</td>
                             <td>
                               <div className="actions-cell">
-                                <button onClick={() => copyToClipboard('Pedido', `Pedido #${p.id} - ${p.customer_name}`)} className="btn-icon-sm" title="Copiar info del pedido">
+                                <button onClick={() => {
+                                  const items = (p.items || []).map((i: any) => `  • ${i.title} x${i.quantity} — ${i.price} CUP`).join('\n');
+                                  copyToClipboard('Pedido', `Pedido #${p.id} — ${p.customer_name}\nEmail: ${p.customer_email}\nItems:\n${items}\nTotal: ${p.total_price?.toLocaleString()} CUP\nEstado: ${p.status}\nFecha: ${new Date(p.created_at).toLocaleDateString('es-ES')}`);
+                                }} className="btn-icon-sm" title="Copiar info del pedido">
                                   <Copy size={14} />
                                 </button>
                               </div>
@@ -553,7 +679,9 @@ export default function AdminPage() {
                             <td className="date-cell">{new Date(c.fecha_creacion).toLocaleString('es-ES')}</td>
                             <td>
                               <div className="actions-cell">
-                                <button onClick={() => copyToClipboard('Cita', `Cita #${c.id} - ${c.nombre}`)} className="btn-icon-sm" title="Copiar info de la cita">
+                                <button onClick={() => {
+                                  copyToClipboard('Cita', `Cita #${c.id} — ${c.nombre}\nEmail: ${c.email || '—'}\nTeléfono: ${c.telefono || '—'}\nMensaje: ${c.mensaje || '—'}\nFecha: ${new Date(c.fecha_creacion).toLocaleString('es-ES')}`);
+                                }} className="btn-icon-sm" title="Copiar info de la cita">
                                   <Copy size={14} />
                                 </button>
                               </div>
@@ -588,7 +716,7 @@ export default function AdminPage() {
                       </thead>
                       <tbody>
                         {filteredData.productos.map(p => (
-                          <tr key={p.id} className={!p.is_active ? 'inactive-row' : ''}>
+                          <tr key={p.id}>
                             <td className="id-cell">{formatId(p.id)}</td>
                             <td>
                               {editingId === p.id ? (
@@ -624,14 +752,9 @@ export default function AdminPage() {
                             </td>
                             <td>
                               {editingId === p.id ? (
-                                <input 
-                                  type="checkbox" 
-                                  checked={editData.popular} 
-                                  onChange={(e) => setEditData({...editData, popular: e.target.checked})}
-                                  className="edit-checkbox"
-                                />
+                                <span className="popular-badge">⭐ Popular (automático)</span>
                               ) : (
-                                <span className={p.popular ? 'popular-check' : ''}>{p.popular ? '★' : '○'}</span>
+                                <span className={popularTitles.has(p.title) ? 'popular-check' : ''}>{popularTitles.has(p.title) ? '★' : '○'}</span>
                               )}
                             </td>
                             <td>
@@ -650,8 +773,8 @@ export default function AdminPage() {
                                     <button onClick={() => startEdit(p, 'productos')} className="btn-icon-sm" title="Editar">
                                       <Edit2 size={14} />
                                     </button>
-                                    <button onClick={() => toggleActive('productos', p)} className={`btn-icon-sm ${p.is_active ? 'warning' : 'success'}`} title={p.is_active ? 'Desactivar' : 'Activar'}>
-                                      {p.is_active ? <Trash2 size={14} /> : <Check size={14} />}
+                                    <button onClick={() => handleDelete('productos', p.id)} className="btn-icon-sm danger" title="Eliminar">
+                                      <Trash2 size={14} />
                                     </button>
                                   </>
                                 )}
@@ -687,7 +810,7 @@ export default function AdminPage() {
                       </thead>
                       <tbody>
                         {filteredData.servicios.map(s => (
-                          <tr key={s.id} className={!s.is_active ? 'inactive-row' : ''}>
+                          <tr key={s.id}>
                             <td className="id-cell">{formatId(s.id)}</td>
                             <td>
                               {editingId === s.id ? (
@@ -723,14 +846,9 @@ export default function AdminPage() {
                             </td>
                             <td>
                               {editingId === s.id ? (
-                                <input 
-                                  type="checkbox" 
-                                  checked={editData.popular} 
-                                  onChange={(e) => setEditData({...editData, popular: e.target.checked})}
-                                  className="edit-checkbox"
-                                />
+                                <span className="popular-badge">⭐ Popular (automático)</span>
                               ) : (
-                                <span className={s.popular ? 'popular-check' : ''}>{s.popular ? '★' : '○'}</span>
+                                <span className={popularTitles.has(s.title) ? 'popular-check' : ''}>{popularTitles.has(s.title) ? '★' : '○'}</span>
                               )}
                             </td>
                             <td>
@@ -749,8 +867,8 @@ export default function AdminPage() {
                                     <button onClick={() => startEdit(s, 'servicios')} className="btn-icon-sm" title="Editar">
                                       <Edit2 size={14} />
                                     </button>
-                                    <button onClick={() => toggleActive('servicios', s)} className={`btn-icon-sm ${s.is_active ? 'warning' : 'success'}`} title={s.is_active ? 'Desactivar' : 'Activar'}>
-                                      {s.is_active ? <Trash2 size={14} /> : <Check size={14} />}
+                                    <button onClick={() => handleDelete('servicios', s.id)} className="btn-icon-sm danger" title="Eliminar">
+                                      <Trash2 size={14} />
                                     </button>
                                   </>
                                 )}
@@ -786,7 +904,7 @@ export default function AdminPage() {
                       </thead>
                       <tbody>
                         {filteredData.eventos.map(e => (
-                          <tr key={e.id} className={!e.is_active ? 'inactive-row' : ''}>
+                          <tr key={e.id}>
                             <td className="id-cell">{formatId(e.id)}</td>
                             <td>
                               {editingId === e.id ? (
@@ -829,7 +947,10 @@ export default function AdminPage() {
                                   <option value="Proximamente">Próximamente</option>
                                 </select>
                               ) : (
-                                <span className={`status-badge ${e.status}`}>{e.status}</span>
+                                <span className={`status-badge ${e.status}`}>
+                                  {e.status === 'En Curso' ? <CalendarCheck size={12} /> : <Clock size={12} />}
+                                  {e.status}
+                                </span>
                               )}
                             </td>
                             <td>
@@ -848,8 +969,8 @@ export default function AdminPage() {
                                     <button onClick={() => startEdit(e, 'eventos')} className="btn-icon-sm" title="Editar">
                                       <Edit2 size={14} />
                                     </button>
-                                    <button onClick={() => toggleActive('eventos', e)} className={`btn-icon-sm ${e.is_active ? 'warning' : 'success'}`} title={e.is_active ? 'Desactivar' : 'Activar'}>
-                                      {e.is_active ? <Trash2 size={14} /> : <Check size={14} />}
+                                    <button onClick={() => handleDelete('eventos', e.id)} className="btn-icon-sm danger" title="Eliminar">
+                                      <Trash2 size={14} />
                                     </button>
                                   </>
                                 )}
@@ -897,10 +1018,7 @@ export default function AdminPage() {
                     ))}
                   </select>
 
-                  <label className="checkbox-label">
-                    <input type="checkbox" checked={createData.popular} onChange={(e) => setCreateData({...createData, popular: e.target.checked})} />
-                    Popular
-                  </label>
+
                 </>
               )}
               
