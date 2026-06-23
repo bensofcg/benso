@@ -195,7 +195,7 @@ export function HomePage() {
             {featuredProducts.map((product, index) => (
               <AnimatedCard key={product.id} index={index}>
                 <BentoCard className="interactive-card service-card">
-                  {product.popular && <span className="popular-badge">Más popular</span>}
+                  {product.popular && <div className="popular-sticker"><span>Popular</span></div>}
                   <div className="product-image-container">
                     <Image src={getProductImage(product.category, product.image)} alt={product.title} width={600} height={180} loading="lazy" unoptimized />
                   </div>

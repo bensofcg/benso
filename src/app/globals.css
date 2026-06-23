@@ -853,21 +853,38 @@ nav ul li a.active::after {
     overflow: visible;
 }
 
-.popular-badge {
+.popular-sticker {
     position: absolute;
-    top: 0.75rem;
-    left: 0.75rem;
-    background: var(--primary);
-    color: #ffffff;
-    font-size: 0.7rem;
-    font-weight: 600;
-    padding: 0.35rem 0.75rem;
-    border-radius: 4px;
-    letter-spacing: 0.3px;
+    top: -8px;
+    right: -8px;
+    width: 76px;
+    height: 76px;
+    z-index: 5;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ff6b35 0%, #e63946 100%);
+    clip-path: polygon(
+        50% 0%, 61% 15%, 75% 5%, 78% 22%, 94% 12%,
+        88% 30%, 100% 35%, 88% 45%, 100% 55%, 85% 62%,
+        94% 78%, 75% 70%, 74% 84%, 60% 74%, 50% 90%,
+        39% 74%, 25% 84%, 25% 70%, 10% 78%, 15% 62%,
+        0% 55%, 12% 45%, 0% 35%, 12% 30%, 6% 12%,
+        22% 22%, 25% 5%, 39% 15%
+    );
+    transform: rotate(6deg);
+    box-shadow: 0 3px 10px rgba(230, 57, 70, 0.4);
+}
+
+.popular-sticker span {
+    transform: rotate(-28deg);
+    font-size: 0.6rem;
+    font-weight: 800;
     text-transform: uppercase;
-    z-index: 3;
-    white-space: nowrap;
-    box-shadow: 0 2px 8px rgba(0, 44, 106, 0.3);
+    color: #fff;
+    letter-spacing: 0.8px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
 /* ===================================

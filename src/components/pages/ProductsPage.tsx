@@ -114,7 +114,7 @@ export function ProductsPage() {
                   className={`interactive-card service-card${product.popular ? ' popular-card' : ''}`}
                   dataCategory={product.category}
                 >
-                  {product.popular && <span className="popular-badge">Más popular</span>}
+                  {product.popular && <div className="popular-sticker"><span>Popular</span></div>}
                   <div className="product-image-container">
                     <Image 
                       src={getProductImage(product.category, product.image)} 
