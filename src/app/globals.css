@@ -859,10 +859,10 @@ nav ul li a.active::after {
 
 .popular-sticker {
     position: absolute;
-    top: -22px;
-    left: -6px;
-    width: 72px;
-    height: 72px;
+    top: -24px;
+    left: -8px;
+    width: 78px;
+    height: 78px;
     z-index: 20;
     pointer-events: none;
     display: flex;
@@ -875,14 +875,14 @@ nav ul li a.active::after {
     inset: 0;
     width: 100%;
     height: 100%;
-    fill: #1565c0;
+    fill: var(--accent);
 }
 
 .popular-sticker span {
     position: relative;
     z-index: 1;
     transform: rotate(-18deg);
-    font-size: 0.52rem;
+    font-size: 0.65rem;
     font-weight: 900;
     text-transform: uppercase;
     color: #fff;
