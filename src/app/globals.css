@@ -958,7 +958,7 @@ section.alt-border {
     content: '';
     flex: 1;
     height: 1px;
-    background: linear-gradient(to right, rgba(0, 65, 157, 0.15), rgba(0, 65, 157, 0.05));
+    background: linear-gradient(to right, rgba(0, 65, 157, 0.35), rgba(0, 65, 157, 0.08));
     order: 2;
     align-self: center;
     pointer-events: none;
