@@ -850,21 +850,24 @@ nav ul li a.active::after {
 /* Popular Product Badge */
 .bento-card.popular-card {
     position: relative;
-    overflow: visible;
+    overflow: visible !important;
+}
+
+.bento-card:has(.popular-sticker) {
+    overflow: visible !important;
 }
 
 .popular-sticker {
     position: absolute;
-    top: -16px;
-    left: -10px;
-    width: 82px;
-    height: 82px;
-    z-index: 10;
+    top: -22px;
+    left: -6px;
+    width: 72px;
+    height: 72px;
+    z-index: 20;
     pointer-events: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    filter: drop-shadow(0 4px 8px rgba(13, 71, 161, 0.35));
 }
 
 .popular-sticker svg {
@@ -879,14 +882,13 @@ nav ul li a.active::after {
     position: relative;
     z-index: 1;
     transform: rotate(-18deg);
-    font-size: 0.58rem;
-    font-weight: 800;
+    font-size: 0.52rem;
+    font-weight: 900;
     text-transform: uppercase;
     color: #fff;
-    letter-spacing: 0.8px;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-    margin-top: -4px;
-    margin-left: 4px;
+    letter-spacing: 0.6px;
+    margin-top: -2px;
+    margin-left: 2px;
 }
 
 /* ===================================
