@@ -270,6 +270,9 @@ export default function AdminPage() {
 
   async function handleDelete(table: string, id: number) {
     const label = table === 'productos' ? 'Producto' : table === 'servicios' ? 'Servicio' : 'Evento';
+
+    if (!confirm(`¿Eliminar ${label} #${id}? Esta acción no se puede deshacer.`)) return;
+
     const setter = table === 'productos' ? setProductos : table === 'servicios' ? setServicios : setEventos;
 
     // Optimistic: remove from local state immediately
@@ -377,11 +380,6 @@ export default function AdminPage() {
     .filter(([title]) => serviciotitles.has(title))
     .slice(0, 5);
 
-  const popularTitles = new Set([
-    ...popularProducts.map(([t]) => t),
-    ...popularServicios.map(([t]) => t),
-  ]);
-
   const counts: Record<string, number> = {
     pedidos: pedidos.length,
     citas: citas.length,
@@ -441,7 +439,7 @@ export default function AdminPage() {
           />
           <motion.div
             className="admin-content-wrapper"
-            animate={{ marginLeft: isMobile ? 64 : (isCollapsed ? 64 : 260) }}
+            animate={{ marginLeft: isMobile ? 64 : (isCollapsed ? 64 : 200) }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
           >
 
@@ -697,7 +695,6 @@ export default function AdminPage() {
                         <col style={{ width: getColWidth('prod-titulo', colWidths) }} />
                         <col style={{ width: getColWidth('prod-desc', colWidths) }} />
                         <col style={{ width: getColWidth('prod-precio', colWidths) }} />
-                        <col style={{ width: getColWidth('prod-popular', colWidths) }} />
                         <col style={{ width: getColWidth('prod-acciones', colWidths) }} />
                       </colgroup>
                       <thead>
@@ -706,7 +703,6 @@ export default function AdminPage() {
                           <th style={{position:'relative'}}>Producto<ColResizeHandle col="prod-titulo" /></th>
                           <th style={{position:'relative'}}>Descripción<ColResizeHandle col="prod-desc" /></th>
                           <th style={{position:'relative'}}>Precio<ColResizeHandle col="prod-precio" /></th>
-                          <th style={{position:'relative'}}>Popular<ColResizeHandle col="prod-popular" /></th>
                           <th style={{position:'relative'}}>Acciones<ColResizeHandle col="prod-acciones" /></th>
                         </tr>
                       </thead>
@@ -747,13 +743,6 @@ export default function AdminPage() {
                               )}
                             </td>
                             <td>
-                              {editingId === p.id ? (
-                                <span className="popular-badge">⭐ Popular (automático)</span>
-                              ) : (
-                                <span className={popularTitles.has(p.title) ? 'popular-check' : ''}>{popularTitles.has(p.title) ? '★' : '○'}</span>
-                              )}
-                            </td>
-                            <td>
                               <div className="actions-cell">
                                 {editingId === p.id ? (
                                   <>
@@ -791,7 +780,6 @@ export default function AdminPage() {
                         <col style={{ width: getColWidth('serv-titulo', colWidths) }} />
                         <col style={{ width: getColWidth('serv-desc', colWidths) }} />
                         <col style={{ width: getColWidth('serv-precio', colWidths) }} />
-                        <col style={{ width: getColWidth('serv-popular', colWidths) }} />
                         <col style={{ width: getColWidth('serv-acciones', colWidths) }} />
                       </colgroup>
                       <thead>
@@ -800,7 +788,6 @@ export default function AdminPage() {
                           <th style={{position:'relative'}}>Servicio<ColResizeHandle col="serv-titulo" /></th>
                           <th style={{position:'relative'}}>Descripción<ColResizeHandle col="serv-desc" /></th>
                           <th style={{position:'relative'}}>Precio<ColResizeHandle col="serv-precio" /></th>
-                          <th style={{position:'relative'}}>Popular<ColResizeHandle col="serv-popular" /></th>
                           <th style={{position:'relative'}}>Acciones<ColResizeHandle col="serv-acciones" /></th>
                         </tr>
                       </thead>
@@ -838,13 +825,6 @@ export default function AdminPage() {
                                 />
                               ) : (
                                 <span className="price-display">{s.price}</span>
-                              )}
-                            </td>
-                            <td>
-                              {editingId === s.id ? (
-                                <span className="popular-badge">⭐ Popular (automático)</span>
-                              ) : (
-                                <span className={popularTitles.has(s.title) ? 'popular-check' : ''}>{popularTitles.has(s.title) ? '★' : '○'}</span>
                               )}
                             </td>
                             <td>

@@ -2,7 +2,7 @@
 
 import { motion } from 'motion/react';
 import {
-  PanelRightOpen,
+  PanelLeftClose,
   PanelLeftOpen,
   TrendingUp,
   Package,
@@ -81,7 +81,7 @@ export default function AppSidebar({
       )}
       <motion.aside
         className="app-sidebar"
-        animate={{ width: isCollapsed ? 64 : 260 }}
+        animate={{ width: isCollapsed ? 64 : 200 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
       >
         <div className="sidebar-inner">
@@ -101,12 +101,12 @@ export default function AppSidebar({
               title={isCollapsed ? 'Expandir sidebar' : 'Colapsar sidebar'}
               aria-label={isCollapsed ? 'Expandir sidebar' : 'Colapsar sidebar'}
             >
-              {isCollapsed ? <PanelRightOpen size={18} /> : <PanelLeftOpen size={18} />}
+              {isCollapsed ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}
             </button>
           </div>
 
           {/* Navigation */}
-          <nav className="sidebar-nav">
+          <nav className="sidebar-nav admin-nav">
             {/* Items sueltos (Dashboard) */}
             <div className="sidebar-section">
               {topItems.map((item) => {

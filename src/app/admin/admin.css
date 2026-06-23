@@ -450,8 +450,8 @@
 }
 
 .status-select.pendiente {
-  background: #fff3e0;
-  color: #e65100;
+  background: #fff8e1;
+  color: #8d6e00;
 }
 
 .status-select.confirmado {
@@ -483,9 +483,9 @@
 }
 
 .status-badge.Proximamente {
-  background: linear-gradient(135deg, #fff3e0, #ffe0b2);
-  color: #e65100;
-  border-color: rgba(230, 81, 0, 0.2);
+  background: linear-gradient(135deg, #e8eaf6, #c5cae9);
+  color: #283593;
+  border-color: rgba(40, 53, 147, 0.2);
 }
 
 /* ---------- Action Buttons ---------- */
@@ -585,7 +585,7 @@
 }
 
 .popular-check {
-  color: #ffb300;
+  color: var(--primary);
   font-size: 1.1rem;
 }
 
@@ -1047,7 +1047,12 @@
 }
 
 .sidebar-footer-btn {
+  background: rgba(255, 255, 255, 0.05);
   font-size: 0.85rem !important;
+}
+
+.sidebar-footer-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .sidebar-backdrop {
@@ -1055,13 +1060,6 @@
   inset: 0;
   background: rgba(0,0,0,0.5);
   z-index: 99;
-}
-
-/* Sidebar mobile responsive */
-@media (max-width: 767px) {
-  .app-sidebar {
-    z-index: 101;
-  }
 }
 
 /* ---------- Admin Layout ---------- */
@@ -1073,14 +1071,55 @@
 .admin-content-wrapper {
   flex: 1;
   min-width: 0;
-  margin-left: 260px;
+  margin-left: 200px;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
+/* ---------- Responsive ---------- */
 @media (max-width: 767px) {
+  .app-sidebar {
+    z-index: 101;
+  }
+
   .admin-content-wrapper {
     margin-left: 64px;
+  }
+
+  /* Reduce content padding on mobile */
+  .admin-toolbar {
+    padding: 0.75rem 1rem;
+  }
+
+  .admin-main {
+    padding: 1rem;
+  }
+
+  /* Dashboard: stack cards vertically */
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Popular bento: single column on mobile */
+  .popular-bento {
+    grid-template-columns: 1fr;
+  }
+
+  /* Sidebar: larger touch targets on mobile */
+  .sidebar-item {
+    padding: 0.75rem;
+    min-height: 44px;
+  }
+
+  .sidebar-toggle {
+    padding: 0.6rem;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Sidebar footer: bigger tap targets */
+  .sidebar-footer-btn {
+    min-height: 44px;
   }
 }
