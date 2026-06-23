@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ShoppingCart, Send, Calendar, Ticket } from 'lucide-react';
-import { BentoCard, Icon, FAQAccordion, ScrollReveal, AnimatedCard, AnimatedSection, StatusIcon, CalendarIcon, PriceDisplay, RequestModal, ShinyText, LogoLoop, ProductsGridSkeleton, ServicesGridSkeleton, EventsGridSkeleton } from '@/components';
+import { BentoCard, Icon, FAQAccordion, ScrollReveal, AnimatedCard, AnimatedSection, StatusIcon, CalendarIcon, PriceDisplay, RequestModal, LogoLoop, ProductsGridSkeleton, ServicesGridSkeleton, EventsGridSkeleton } from '@/components';
 import Grainient from '@/components/Grainient';
 import TestimonialsLoop from '@/components/TestimonialsLoop';
 import { useCart } from '@/hooks/useCart';
@@ -299,7 +299,6 @@ export function HomePage() {
         </div>
       </ScrollReveal>
 
-      {/* ✨ HIDDEN — CTA Section (restore by removing the comment wrapper)
       <ScrollReveal>
         <div className="container section-cta">
           <h2>¿Listo para transformar tu negocio?</h2>
@@ -312,11 +311,10 @@ export function HomePage() {
             }}
           >
             <Calendar size={18} />
-            <ShinyText text="Agendar cita" speed={3.5} />
+            Agendar cita
           </button>
         </div>
       </ScrollReveal>
-      */}
 
       <RequestModal
         item={requestItem}
