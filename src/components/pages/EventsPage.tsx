@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Calendar, Ticket } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import { BentoCard, ScrollReveal, AnimatedCard, StatusIcon, CalendarIcon, EventsGridSkeleton, RequestModal, ShinyText } from '@/components';
 import { useEventos } from '@/hooks/useData';
 
@@ -50,9 +50,9 @@ export function EventsPage() {
                     </span>
                   </div>
                   <p>{event.description}</p>
-                  <div className="card-actions">
+                  <div className="card-actions event-card-actions">
                     <button
-                      className="btn-consult"
+                      className="event-cta-link"
                       onClick={() => openRequest({
                         title: event.title,
                         price: event.date,
@@ -61,8 +61,8 @@ export function EventsPage() {
                         type: 'evento'
                       })}
                     >
-                      <Ticket size={16} />
                       <span>Inscribirme</span>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </button>
                   </div>
                 </BentoCard>
@@ -96,9 +96,9 @@ export function EventsPage() {
                     </span>
                   </div>
                   <p>{event.description}</p>
-                  <div className="card-actions">
+                  <div className="card-actions event-card-actions">
                     <button
-                      className="btn-consult"
+                      className="event-cta-link"
                       onClick={() => openRequest({
                         title: event.title,
                         price: event.date,
@@ -107,8 +107,8 @@ export function EventsPage() {
                         type: 'evento'
                       })}
                     >
-                      <Ticket size={16} />
                       <span>Inscribirme</span>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </button>
                   </div>
                 </BentoCard>

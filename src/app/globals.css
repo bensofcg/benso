@@ -512,6 +512,7 @@ nav ul li a.active::after {
     border-radius: 50px;
     font-weight: 700;
     font-size: 1.05rem;
+    line-height: 1.2;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -556,6 +557,7 @@ nav ul li a.active::after {
     border-radius: 50px;
     font-weight: 700;
     font-size: 1.05rem;
+    line-height: 1.2;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -565,6 +567,7 @@ nav ul li a.active::after {
     border: 2px solid var(--white);
     box-shadow: none;
     position: relative;
+    text-decoration: none;
 }
 
 .hero-cta-outline:hover {
