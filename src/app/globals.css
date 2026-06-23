@@ -855,36 +855,38 @@ nav ul li a.active::after {
 
 .popular-sticker {
     position: absolute;
-    top: -8px;
-    left: -8px;
-    width: 76px;
-    height: 76px;
-    z-index: 5;
+    top: -16px;
+    left: -10px;
+    width: 82px;
+    height: 82px;
+    z-index: 10;
     pointer-events: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);
-    clip-path: polygon(
-        50% 0%, 61% 15%, 75% 5%, 78% 22%, 94% 12%,
-        88% 30%, 100% 35%, 88% 45%, 100% 55%, 85% 62%,
-        94% 78%, 75% 70%, 74% 84%, 60% 74%, 50% 90%,
-        39% 74%, 25% 84%, 25% 70%, 10% 78%, 15% 62%,
-        0% 55%, 12% 45%, 0% 35%, 12% 30%, 6% 12%,
-        22% 22%, 25% 5%, 39% 15%
-    );
-    transform: rotate(-6deg);
-    box-shadow: 0 3px 10px rgba(13, 71, 161, 0.4);
+    filter: drop-shadow(0 4px 8px rgba(13, 71, 161, 0.35));
+}
+
+.popular-sticker svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    fill: #1565c0;
 }
 
 .popular-sticker span {
-    transform: rotate(28deg);
-    font-size: 0.6rem;
+    position: relative;
+    z-index: 1;
+    transform: rotate(-18deg);
+    font-size: 0.58rem;
     font-weight: 800;
     text-transform: uppercase;
     color: #fff;
     letter-spacing: 0.8px;
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    margin-top: -4px;
+    margin-left: 4px;
 }
 
 /* ===================================
