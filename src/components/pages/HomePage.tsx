@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ShoppingCart, Send, Calendar, Ticket } from 'lucide-react';
+import { ShoppingCart, Send, Calendar } from 'lucide-react';
 import { BentoCard, Icon, FAQAccordion, ScrollReveal, AnimatedCard, AnimatedSection, StatusIcon, CalendarIcon, PriceDisplay, RequestModal, LogoLoop, ProductsGridSkeleton, ServicesGridSkeleton, EventsGridSkeleton } from '@/components';
 import Grainient from '@/components/Grainient';
 import TestimonialsLoop from '@/components/TestimonialsLoop';
@@ -252,9 +252,9 @@ export function HomePage() {
                     </span>
                   </div>
                   <p>{event.description}</p>
-                  <div className="card-actions">
+                  <div className="card-actions event-card-actions">
                     <button
-                      className="btn-consult"
+                      className="event-cta-link"
                       onClick={() => openRequest({
                         title: event.title,
                         price: event.date,
@@ -263,8 +263,8 @@ export function HomePage() {
                         type: 'evento'
                       })}
                     >
-                      <Ticket size={16} />
                       <span>Inscribirme</span>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </button>
                   </div>
                 </BentoCard>
