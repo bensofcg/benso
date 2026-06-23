@@ -948,10 +948,24 @@ section.alt-border {
 
 .section-title {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     margin-bottom: 2rem;
     gap: 1rem;
+}
+
+.section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(0, 65, 157, 0.15), rgba(0, 65, 157, 0.05));
+    order: 2;
+    align-self: center;
+    pointer-events: none;
+}
+
+.section-title .text-cta-link {
+    order: 3;
 }
 
 .section-title-row {
@@ -1110,6 +1124,22 @@ section.alt-border {
 .section-title .text-cta-link {
     white-space: nowrap;
     flex-shrink: 0;
+}
+
+/* Events bento grid — 2 columns */
+.bento-grid-events {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 2rem 0;
+}
+
+@media (max-width: 768px) {
+    .bento-grid-events {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1rem 0;
+    }
 }
 
 /* ===================================

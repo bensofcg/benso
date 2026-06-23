@@ -232,7 +232,7 @@ export function HomePage() {
           {eventosLoading ? (
             <EventsGridSkeleton count={2} />
           ) : (
-          <div className="bento-grid">
+          <div className="bento-grid-events">
             {upcomingEvents.map((event, index) => (
               <AnimatedCard key={event.id} index={index}>
                 <BentoCard className="interactive-card">
