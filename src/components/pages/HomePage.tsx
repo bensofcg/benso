@@ -141,8 +141,8 @@ export function HomePage() {
       {/* Services Preview Section */}
       <ScrollReveal>
         <div className="container">
-          <div className="section-title">
-            <h2>Nuestros servicios</h2>
+          <div className="section-title section-title-home">
+            <h2><span>Nuestros</span> <span>servicios</span></h2>
             <Link href="/servicios" className="text-cta-link">
               Ver todos →
             </Link>
@@ -181,8 +181,8 @@ export function HomePage() {
 {/* Featured Products Section */}
       <ScrollReveal>
         <div className="container">
-          <div className="section-title">
-            <h2>Productos destacados</h2>
+          <div className="section-title section-title-home">
+            <h2><span>Productos</span> <span>destacados</span></h2>
             <Link href="/productos" className="text-cta-link">
               Ver más →
             </Link>
@@ -222,8 +222,8 @@ export function HomePage() {
 {/* Current Events Section */}
       <ScrollReveal>
         <div className="container">
-          <div className="section-title">
-            <h2>Próximos eventos</h2>
+          <div className="section-title section-title-home">
+            <h2><span>Próximos</span> <span>eventos</span></h2>
             <Link href="/eventos" className="text-cta-link">
               Ver más →
             </Link>
@@ -271,7 +271,7 @@ export function HomePage() {
 {/* Testimonials Section */}
       <ScrollReveal>
         <div className="container">
-          <div className="section-title">
+          <div className="section-title section-title-home">
             <h2>Lo que dicen nuestros clientes</h2>
           </div>
 
