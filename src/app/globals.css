@@ -856,7 +856,7 @@ nav ul li a.active::after {
 .popular-sticker {
     position: absolute;
     top: -8px;
-    right: -8px;
+    left: -8px;
     width: 76px;
     height: 76px;
     z-index: 5;
@@ -864,7 +864,7 @@ nav ul li a.active::after {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #ff6b35 0%, #e63946 100%);
+    background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);
     clip-path: polygon(
         50% 0%, 61% 15%, 75% 5%, 78% 22%, 94% 12%,
         88% 30%, 100% 35%, 88% 45%, 100% 55%, 85% 62%,
@@ -873,12 +873,12 @@ nav ul li a.active::after {
         0% 55%, 12% 45%, 0% 35%, 12% 30%, 6% 12%,
         22% 22%, 25% 5%, 39% 15%
     );
-    transform: rotate(6deg);
-    box-shadow: 0 3px 10px rgba(230, 57, 70, 0.4);
+    transform: rotate(-6deg);
+    box-shadow: 0 3px 10px rgba(13, 71, 161, 0.4);
 }
 
 .popular-sticker span {
-    transform: rotate(-28deg);
+    transform: rotate(28deg);
     font-size: 0.6rem;
     font-weight: 800;
     text-transform: uppercase;
