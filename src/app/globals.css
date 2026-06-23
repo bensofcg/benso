@@ -954,27 +954,35 @@ section.alt-border {
     gap: 1rem;
 }
 
-/* Homepage only: subtle line after the title */
-.section-title-home::after {
+.section-title-home {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0 1rem;
+    margin-bottom: 2rem;
+    align-items: end;
+}
+
+.section-title-home::before {
     content: '';
-    flex: 1;
+    grid-column: 1 / -1;
     height: 1px;
-    background: linear-gradient(to right, rgba(0, 65, 157, 0.35), rgba(0, 65, 157, 0.08));
-    order: 2;
-    align-self: center;
-    pointer-events: none;
+    background: linear-gradient(to right, rgba(0, 65, 157, 0.3), rgba(0, 65, 157, 0.06));
+    margin-bottom: 0.6rem;
 }
 
 .section-title-home .text-cta-link {
-    order: 3;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 /* 2-word titles stacked vertically on homepage */
 .section-title-home h2 {
+    font-size: 1.75rem;
     display: flex;
     flex-direction: column;
     line-height: 1.05;
     gap: 0;
+    margin: 0;
 }
 
 .section-title-row {
