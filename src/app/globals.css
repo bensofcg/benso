@@ -8,10 +8,12 @@
    - #ffffff: Solo para texto sobre fondos oscuros
 =================================== */
 
-/* Font Faces */
+/* Font Faces — woff2 prioritario, fallback opentype */
+/* Cocogoose Pro — mismo archivo OTF para todos los pesos */
 @font-face {
     font-family: 'Cocogoose Pro';
-    src: url('/benso/Cocogoose_trial.otf') format('opentype');
+    src: url('/benso/Cocogoose_trial.woff2') format('woff2'),
+         url('/benso/Cocogoose_trial.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -19,32 +21,18 @@
 
 @font-face {
     font-family: 'Cocogoose Pro';
-    src: url('/benso/Cocogoose_trial.otf') format('opentype');
+    src: url('/benso/Cocogoose_trial.woff2') format('woff2'),
+         url('/benso/Cocogoose_trial.otf') format('opentype');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
 }
 
+/* Fallback for Cocogoose numbers: TT Commons for digits and currency symbols */
 @font-face {
     font-family: 'Cocogoose Pro';
-    src: url('/benso/Cocogoose_trial.otf') format('opentype');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Cocogoose Pro';
-    src: url('/benso/Cocogoose_trial.otf') format('opentype');
-    font-weight: 350;
-    font-style: normal;
-    font-display: swap;
-}
-
-/* Fallback for Cocogoose numbers: use TT Commons for digits and currency symbols */
-@font-face {
-    font-family: 'Cocogoose Pro';
-    src: url('/benso/fonnts.com-TT-Commons-Bold.otf') format('opentype');
+    src: url('/benso/fonnts.com-TT-Commons-Bold.woff2') format('woff2'),
+         url('/benso/fonnts.com-TT-Commons-Bold.otf') format('opentype');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -53,7 +41,8 @@
 
 @font-face {
     font-family: 'Cocogoose Pro';
-    src: url('/benso/fonnts.com-TT-Commons-Medium.otf') format('opentype');
+    src: url('/benso/fonnts.com-TT-Commons-Medium.woff2') format('woff2'),
+         url('/benso/fonnts.com-TT-Commons-Medium.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -62,7 +51,8 @@
 
 @font-face {
     font-family: 'TT Commons Pro';
-    src: url('/benso/fonnts.com-TT-Commons-Regular.otf') format('opentype');
+    src: url('/benso/fonnts.com-TT-Commons-Regular.woff2') format('woff2'),
+         url('/benso/fonnts.com-TT-Commons-Regular.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -70,7 +60,8 @@
 
 @font-face {
     font-family: 'TT Commons Pro';
-    src: url('/benso/fonnts.com-TT-Commons-Medium.otf') format('opentype');
+    src: url('/benso/fonnts.com-TT-Commons-Medium.woff2') format('woff2'),
+         url('/benso/fonnts.com-TT-Commons-Medium.otf') format('opentype');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -78,7 +69,8 @@
 
 @font-face {
     font-family: 'TT Commons Pro';
-    src: url('/benso/fonnts.com-TT-Commons-Bold.otf') format('opentype');
+    src: url('/benso/fonnts.com-TT-Commons-Bold.woff2') format('woff2'),
+         url('/benso/fonnts.com-TT-Commons-Bold.otf') format('opentype');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -3061,7 +3053,16 @@ footer {
 }
 
 @media (max-width: 768px) {
-    :root {
+/* Blink animation for TextType cursor — reemplaza GSAP */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.text-type-cursor {
+  animation: cursor-blink 0.5s ease-in-out infinite;
+}
+
+:root {
         --banner-height: 0px;
     }
 

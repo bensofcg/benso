@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { ShoppingCart, Send, Calendar, Search } from 'lucide-react';
-import { BentoCard, PriceDisplay, PageLoader, RequestModal, ShinyText, ProductsGridSkeleton } from '@/components';
+import { BentoCard, PriceDisplay, RequestModal, ShinyText, ProductsGridSkeleton } from '@/components';
 import { useCart } from '@/hooks/useCart';
 import { useProductos } from '@/hooks/useData';
 
@@ -115,10 +116,13 @@ export function ProductsPage() {
                 >
                   {product.popular && <span className="popular-badge">Más popular</span>}
                   <div className="product-image-container">
-                    <img 
+                    <Image 
                       src={getProductImage(product.category, product.image)} 
                       alt={product.title} 
-                      loading="lazy"
+                      width={600} 
+                      height={180} 
+                      loading="lazy" 
+                      unoptimized
                     />
                   </div>
                   <h3>{product.title}</h3>

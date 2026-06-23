@@ -51,10 +51,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
         
-        {/* Preload fonts */}
-        <link rel="preload" href="/benso/Cocogoose_trial.otf" as="font" type="font/otf" crossOrigin="anonymous" />
-        <link rel="preload" href="/benso/fonnts.com-TT-Commons-Bold.otf" as="font" type="font/otf" crossOrigin="anonymous" />
-        <link rel="preload" href="/benso/fonnts.com-TT-Commons-Regular.otf" as="font" type="font/otf" crossOrigin="anonymous" />
+        {/* Preload fonts — woff2 prioritario */}
+        <link rel="preload" href="/benso/Cocogoose_trial.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/benso/fonnts.com-TT-Commons-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/benso/fonnts.com-TT-Commons-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
 
         {/* Organization Schema */}
         <script

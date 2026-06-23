@@ -1,11 +1,8 @@
-'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
 
-const currentYear = new Date().getFullYear();
-
 export function Footer() {
+  const currentYear = new Date().getFullYear();
   return (
     <footer className="footer">
       <div className="container">

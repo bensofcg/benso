@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import useSWR from 'swr';
 import { supabase } from '@/lib/supabase';
 
 export interface Producto {
@@ -39,85 +39,77 @@ export interface Evento {
   is_active: boolean;
 }
 
+const PRODUCTOS_KEY = 'productos';
+const SERVICIOS_KEY = 'servicios';
+const EVENTOS_KEY = 'eventos';
+
+async function fetchProductos() {
+  const { data, error } = await supabase
+    .from('productos')
+    .select('*')
+    .eq('is_active', true)
+    .order('popular', { ascending: false });
+
+  if (error) throw error;
+  return (data || []) as Producto[];
+}
+
+async function fetchServicios() {
+  const { data, error } = await supabase
+    .from('servicios')
+    .select('*')
+    .eq('is_active', true);
+
+  if (error) throw error;
+  return (data || []) as Servicio[];
+}
+
+async function fetchEventos() {
+  const { data, error } = await supabase
+    .from('eventos')
+    .select('*')
+    .eq('is_active', true)
+    .order('created_at', { ascending: false });
+
+  if (error) throw error;
+  return (data || []) as Evento[];
+}
+
 export function useProductos() {
-  const [productos, setProductos] = useState<Producto[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { data, error, isLoading } = useSWR(PRODUCTOS_KEY, fetchProductos, {
+    revalidateOnFocus: false,
+    dedupingInterval: 60_000,
+  });
 
-  useEffect(() => {
-    async function fetchProductos() {
-      try {
-        const { data, error } = await supabase
-          .from('productos')
-          .select('*')
-          .eq('is_active', true)
-          .order('popular', { ascending: false });
-
-        if (error) throw error;
-        setProductos(data || []);
-      } catch (e: any) {
-        setError(e.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchProductos();
-  }, []);
-
-  return { productos, loading, error };
+  return {
+    productos: data ?? [],
+    loading: isLoading,
+    error: error?.message ?? null,
+  };
 }
 
 export function useServicios() {
-  const [servicios, setServicios] = useState<Servicio[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { data, error, isLoading } = useSWR(SERVICIOS_KEY, fetchServicios, {
+    revalidateOnFocus: false,
+    dedupingInterval: 60_000,
+  });
 
-  useEffect(() => {
-    async function fetchServicios() {
-      try {
-        const { data, error } = await supabase
-          .from('servicios')
-          .select('*')
-          .eq('is_active', true);
-
-        if (error) throw error;
-        setServicios(data || []);
-      } catch (e: any) {
-        setError(e.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchServicios();
-  }, []);
-
-  return { servicios, loading, error };
+  return {
+    servicios: data ?? [],
+    loading: isLoading,
+    error: error?.message ?? null,
+  };
 }
 
 export function useEventos() {
-  const [eventos, setEventos] = useState<Evento[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { data, error, isLoading } = useSWR(EVENTOS_KEY, fetchEventos, {
+    revalidateOnFocus: false,
+    dedupingInterval: 60_000,
+  });
 
-  useEffect(() => {
-    async function fetchEventos() {
-      try {
-        const { data, error } = await supabase
-          .from('eventos')
-          .select('*')
-          .eq('is_active', true)
-          .order('created_at', { ascending: false });
-
-        if (error) throw error;
-        setEventos(data || []);
-      } catch (e: any) {
-        setError(e.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchEventos();
-  }, []);
-
-  return { eventos, loading, error };
+  return {
+    eventos: data ?? [],
+    loading: isLoading,
+    error: error?.message ?? null,
+  };
 }

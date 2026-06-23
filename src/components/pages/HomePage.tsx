@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ShoppingCart, Send, Calendar, Ticket } from 'lucide-react';
-import { BentoCard, Icon, FAQAccordion, ScrollReveal, AnimatedCard, AnimatedSection, StatusIcon, CalendarIcon, PriceDisplay, RequestModal, ShinyText, LogoLoop, Grainient, ProductsGridSkeleton, ServicesGridSkeleton, EventsGridSkeleton } from '@/components';
+import { BentoCard, Icon, FAQAccordion, ScrollReveal, AnimatedCard, AnimatedSection, StatusIcon, CalendarIcon, PriceDisplay, RequestModal, ShinyText, LogoLoop, ProductsGridSkeleton, ServicesGridSkeleton, EventsGridSkeleton } from '@/components';
+import Grainient from '@/components/Grainient';
 import TestimonialsLoop from '@/components/TestimonialsLoop';
 import { useCart } from '@/hooks/useCart';
 import { useProductos, useServicios, useEventos } from '@/hooks/useData';
@@ -195,7 +197,7 @@ export function HomePage() {
                 <BentoCard className="interactive-card service-card">
                   {product.popular && <span className="popular-badge">Más popular</span>}
                   <div className="product-image-container">
-                    <img src={getProductImage(product.category, product.image)} alt={product.title} loading="lazy" />
+                    <Image src={getProductImage(product.category, product.image)} alt={product.title} width={600} height={180} loading="lazy" unoptimized />
                   </div>
                   <h3>{product.title}</h3>
                   <p>{product.description}</p>

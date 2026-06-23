@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState, useMemo, type CSSProperties, type ElementType } from 'react';
-import { gsap } from 'gsap';
 
 interface TextTypeProps {
   text: string | string[];
@@ -46,19 +45,6 @@ export function TextType({
     }, delay);
     return () => clearTimeout(startTimeout);
   }, [delay]);
-
-  useEffect(() => {
-    if (cursorRef.current) {
-      gsap.set(cursorRef.current, { opacity: 1 });
-      gsap.to(cursorRef.current, {
-        opacity: 0,
-        duration: cursorBlinkDuration,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power2.inOut'
-      });
-    }
-  }, [cursorBlinkDuration]);
 
   useEffect(() => {
     if (!isTyping) return;
@@ -119,7 +105,7 @@ export function TextType({
     <Component ref={containerRef} className={className} style={style}>
       {displayedText}
       {isTyping && (
-        <span ref={cursorRef} className="text-type-cursor" style={{ marginLeft: '0.25rem' }}>
+        <span ref={cursorRef} className="text-type-cursor" style={{ marginLeft: '0.25rem', animationDuration: `${cursorBlinkDuration}s` }}>
           {cursorChar}
         </span>
       )}
