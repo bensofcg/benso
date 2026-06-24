@@ -999,9 +999,9 @@ section.alt-border {
 .section-title-home h2::before {
     content: '';
     position: absolute;
-    top: -0.7rem;
+    top: calc(-0.6rem - 1px);
     left: 0;
-    width: 64px;
+    width: 150px;
     height: 3px;
     background: var(--primary);
 }
