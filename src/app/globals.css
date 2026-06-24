@@ -185,6 +185,7 @@ textarea:focus-visible {
     --transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
     --mobile-card-width: 80vw;
     --scroll-hint-gradient: linear-gradient(to left, var(--white) 0%, transparent 100%);
+    --navbar-height: 64px;
 }
 
 html {
@@ -752,6 +753,7 @@ nav ul li a.active::after {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
     padding: 2rem 0;
+    max-width: 100%;
 }
 
 .bento-card {
@@ -944,6 +946,7 @@ section.alt-border {
     gap: 1.5rem;
     padding: 2rem 0;
     justify-content: center;
+    max-width: 100%;
 }
 
 .section-title {
@@ -959,7 +962,7 @@ section.alt-border {
     grid-template-columns: 1fr auto;
     gap: 0 1rem;
     margin-bottom: 2rem;
-    align-items: end;
+    align-items: start;
 }
 
 .section-title-home::before {
@@ -1149,6 +1152,7 @@ section.alt-border {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
     padding: 2rem 0;
+    max-width: 100%;
 }
 
 @media (max-width: 768px) {
