@@ -3213,6 +3213,10 @@ footer {
         margin-bottom: 1.25rem;
     }
 
+    .section-title-home h2::before {
+        width: 80px;
+    }
+
     .section-title-center h2 {
         font-size: 2.6rem;
         font-weight: 700;
