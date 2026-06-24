@@ -4022,3 +4022,249 @@ footer {
 .grain-overlay {
     image-rendering: auto;
 }
+
+/* ===================================
+   Footer
+=================================== */
+.footer {
+    background: var(--dark);
+    color: var(--white);
+    padding: 3rem 0 0;
+}
+
+.footer-content {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 3rem;
+    align-items: start;
+}
+
+.footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    text-align: left;
+}
+
+.footer-brand {
+    align-items: flex-start;
+    max-width: 260px;
+    flex-shrink: 0;
+}
+
+.footer-links-block {
+    min-width: 80px;
+}
+
+.footer-section p {
+    color: #cccccc;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.footer-section h4 {
+    color: #ffffff;
+    margin: 0 0 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.4rem;
+}
+
+.footer-section ul li a {
+    color: #d0d0d0;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+}
+
+.footer-section ul li a:hover {
+    color: #ffffff;
+}
+
+.footer-contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.footer-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: #d0d0d0;
+    font-size: 0.8rem;
+}
+
+.footer-contact-item svg {
+    width: 11px;
+    height: 11px;
+    flex-shrink: 0;
+    fill: #d0d0d0;
+}
+
+.footer-contact-item a {
+    color: #d0d0d0;
+    transition: color 0.2s;
+}
+
+.footer-contact-item a:hover {
+    color: #ffffff;
+}
+
+.footer-social-block {
+    margin-top: 1rem;
+}
+
+.footer-social-block .social-links {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0;
+}
+
+.social-icon {
+    width: 18px;
+    height: 18px;
+    fill: #d0d0d0;
+    transition: all 0.2s;
+}
+
+.social-icon:hover {
+    fill: #ffffff;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 1.5rem 0;
+}
+
+.footer-copyright {
+    color: #999999;
+    font-size: 0.8rem;
+    margin: 0;
+    text-align: left;
+}
+
+.footer-logo-top {
+    height: 20px;
+    width: auto;
+    margin-bottom: 0.5rem;
+    filter: brightness(0) invert(1);
+}
+
+/* Responsive: Tablet */
+@media (max-width: 992px) {
+    .footer-content {
+        flex-wrap: wrap;
+        gap: 2rem;
+    }
+
+    .footer-brand {
+        max-width: 100%;
+        width: 100%;
+        text-align: center;
+        align-items: center;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        margin-bottom: 0.5rem;
+    }
+
+    .footer-brand p {
+        max-width: 300px;
+    }
+}
+
+/* Responsive: Mobile */
+@media (max-width: 768px) {
+    .footer {
+        padding: 2rem 1rem 1.5rem;
+        text-align: left;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .footer-brand {
+        text-align: left;
+        align-items: flex-start;
+        max-width: 100%;
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding-bottom: 1.5rem;
+        margin-bottom: 0;
+    }
+
+    .footer-brand img {
+        height: 18px;
+        margin-bottom: 0.5rem;
+    }
+
+    .footer-brand p {
+        text-align: left;
+        font-size: 0.8rem;
+        line-height: 1.5;
+    }
+
+    .footer-section h4 {
+        font-size: 0.8rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .footer-links-block ul li a {
+        font-size: 0.85rem;
+    }
+
+    .footer-contact-item {
+        font-size: 0.85rem;
+    }
+
+    .footer-contact-item svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .footer-social-block {
+        margin-top: 0.5rem;
+    }
+
+    .social-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .footer-bottom {
+        text-align: center;
+    }
+
+    .footer-copyright {
+        text-align: center;
+    }
+}
+
+/* Responsive: Very narrow screens */
+@media (max-width: 360px) {
+    .footer {
+        padding: 2rem 0 1rem;
+    }
+
+    .footer-brand p {
+        font-size: 0.85rem;
+    }
+
+    .footer-section h4 {
+        font-size: 0.75rem;
+    }
+}
