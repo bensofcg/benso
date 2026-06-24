@@ -270,8 +270,9 @@ header:not(.admin-header) {
     left: 0;
     right: 0;
     z-index: 1002;
-    background: var(--primary);
-    transition: background-color 0.6s ease, box-shadow 0.4s ease;
+    background: var(--white);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    transition: background-color 0.6s ease, box-shadow 0.4s ease, border-color 0.4s ease;
     width: 100%;
 }
 
@@ -280,13 +281,13 @@ header:not(.admin-header) {
 }
 
 header:not(.admin-header).header-hero {
-    background: transparent;
-    box-shadow: none;
+    background: var(--white);
 }
 
 header:not(.admin-header).header-scrolled {
     background: var(--primary);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    border-bottom-color: transparent;
 }
 
 .header-container {
@@ -301,7 +302,7 @@ header:not(.admin-header).header-scrolled {
 .logo {
     font-size: 1.8rem;
     font-weight: 700;
-    color: var(--white);
+    color: var(--primary);
     letter-spacing: 2px;
     display: flex;
     align-items: center;
@@ -310,6 +311,9 @@ header:not(.admin-header).header-scrolled {
 .logo-img {
     height: 28px;
     width: auto;
+}
+
+header:not(.admin-header).header-scrolled .logo-img {
     filter: brightness(0) invert(1);
 }
 
@@ -323,7 +327,7 @@ nav ul {
 }
 
 nav ul li a {
-    color: var(--white);
+    color: var(--primary);
     font-weight: 500;
     padding: 0.5rem 1rem;
     position: relative;
@@ -337,7 +341,7 @@ nav ul li a::after {
     left: 50%;
     width: 0;
     height: 2px;
-    background: rgba(255, 255, 255, 0.85);
+    background: var(--primary);
     transition: width 0.3s ease, left 0.3s ease;
     transform: translateX(-50%);
 }
@@ -346,6 +350,14 @@ nav ul li a:hover::after,
 nav ul li a.active::after {
     width: 60%;
     left: 50%;
+}
+
+header:not(.admin-header).header-scrolled nav ul li a {
+    color: var(--white);
+}
+
+header:not(.admin-header).header-scrolled nav ul li a::after {
+    background: rgba(255, 255, 255, 0.85);
 }
 
 .cta-header {
@@ -381,9 +393,13 @@ nav ul li a.active::after {
 .menu-toggle span {
     width: 25px;
     height: 3px;
-    background: var(--bg-light);
+    background: var(--primary);
     border-radius: 2px;
     transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+header:not(.admin-header).header-scrolled .menu-toggle span {
+    background: var(--bg-light);
 }
 
 .menu-toggle.open span:nth-child(1) {
@@ -3041,12 +3057,12 @@ footer {
         left: 0;
         right: 0;
         z-index: 1003;
-        background: var(--primary);
+        background: var(--white);
         transition: all 0.3s ease;
     }
 
     header:not(.admin-header).header-hero {
-        background: transparent;
+        background: var(--white);
         box-shadow: none;
     }
 
