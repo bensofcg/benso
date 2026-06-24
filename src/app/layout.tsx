@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { cocogoose, ttCommons } from './fonts';
 import './globals.css';
 
 const SITE_URL = 'https://benso.com';
@@ -45,16 +46,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es">
+    <html lang="es" className={`${cocogoose.variable} ${ttCommons.variable}`}>
       <head>
         {/* Preconnects */}
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
-        
-        {/* Preload fonts — woff2 prioritario */}
-        <link rel="preload" href="/benso/Cocogoose_trial.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/benso/fonnts.com-TT-Commons-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/benso/fonnts.com-TT-Commons-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
 
         {/* Organization Schema */}
         <script

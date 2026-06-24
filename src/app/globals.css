@@ -8,74 +8,7 @@
    - #ffffff: Solo para texto sobre fondos oscuros
 =================================== */
 
-/* Font Faces — woff2 prioritario, fallback opentype */
-/* Cocogoose Pro — mismo archivo OTF para todos los pesos */
-@font-face {
-    font-family: 'Cocogoose Pro';
-    src: url('/benso/Cocogoose_trial.woff2') format('woff2'),
-         url('/benso/Cocogoose_trial.otf') format('opentype');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Cocogoose Pro';
-    src: url('/benso/Cocogoose_trial.woff2') format('woff2'),
-         url('/benso/Cocogoose_trial.otf') format('opentype');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-}
-
-/* Fallback for Cocogoose numbers: TT Commons for digits and currency symbols */
-@font-face {
-    font-family: 'Cocogoose Pro';
-    src: url('/benso/fonnts.com-TT-Commons-Bold.woff2') format('woff2'),
-         url('/benso/fonnts.com-TT-Commons-Bold.otf') format('opentype');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-    unicode-range: U+0030-0039, U+0024, U+20AC, U+00A2-00A5;
-}
-
-@font-face {
-    font-family: 'Cocogoose Pro';
-    src: url('/benso/fonnts.com-TT-Commons-Medium.woff2') format('woff2'),
-         url('/benso/fonnts.com-TT-Commons-Medium.otf') format('opentype');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-    unicode-range: U+0030-0039, U+0024, U+20AC, U+00A2-00A5;
-}
-
-@font-face {
-    font-family: 'TT Commons Pro';
-    src: url('/benso/fonnts.com-TT-Commons-Regular.woff2') format('woff2'),
-         url('/benso/fonnts.com-TT-Commons-Regular.otf') format('opentype');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'TT Commons Pro';
-    src: url('/benso/fonnts.com-TT-Commons-Medium.woff2') format('woff2'),
-         url('/benso/fonnts.com-TT-Commons-Medium.otf') format('opentype');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'TT Commons Pro';
-    src: url('/benso/fonnts.com-TT-Commons-Bold.woff2') format('woff2'),
-         url('/benso/fonnts.com-TT-Commons-Bold.otf') format('opentype');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-}
-
+/* Fonts loaded via next/font/local — see fonts.ts */
 /* Reset & Base Styles */
 *,
 *::before,
@@ -178,8 +111,8 @@ textarea:focus-visible {
     --card-shadow: 0 4px 20px rgba(0, 44, 106, 0.12); /* Sombra */
     --whatsapp: #25D366;
     --whatsapp-hover: #1ebe5d;
-    --font-main: 'TT Commons Pro', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-heading: 'Cocogoose Pro', 'TT Commons Pro', system-ui, sans-serif;
+    --font-main: var(--font-tt-commons), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-heading: var(--font-cocogoose), var(--font-tt-commons), system-ui, sans-serif;
     --shadow: 0 4px 20px rgba(0, 44, 106, 0.15);
     --radius: 16px;
     --transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
