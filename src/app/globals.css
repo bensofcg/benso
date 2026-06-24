@@ -186,6 +186,7 @@ textarea:focus-visible {
     --mobile-card-width: 80vw;
     --scroll-hint-gradient: linear-gradient(to left, var(--white) 0%, transparent 100%);
     --navbar-height: 64px;
+    --banner-height: 40px;
 }
 
 html {
@@ -3005,7 +3006,7 @@ footer {
 }
 
 :root {
-        --banner-height: 0px;
+        --banner-height: 32px;
     }
 
     .nav-wrapper {
