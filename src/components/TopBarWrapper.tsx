@@ -17,11 +17,12 @@ export function TopBarWrapper() {
   useEffect(() => {
     const updateNavbarHeight = () => {
       if (wrapperRef.current) {
-        const totalHeight = wrapperRef.current.offsetHeight;
         const banner = wrapperRef.current.querySelector('.promo-banner') as HTMLElement;
+        const header = wrapperRef.current.querySelector('header:not(.admin-header)') as HTMLElement;
         const bHeight = banner?.offsetHeight || 0;
+        const hHeight = header?.offsetHeight || 0;
         setBannerHeight(bHeight);
-        document.documentElement.style.setProperty('--navbar-height', `${totalHeight}px`);
+        document.documentElement.style.setProperty('--navbar-height', `${bHeight + hHeight}px`);
         document.documentElement.style.setProperty('--banner-height', `${bHeight}px`);
       }
     };
