@@ -2992,7 +2992,10 @@ footer {
 }
 
 @media (max-width: 768px) {
-/* Blink animation for TextType cursor — reemplaza GSAP */
+    body {
+        overflow-x: hidden;
+    }
+    /* Blink animation for TextType cursor — reemplaza GSAP */
 @keyframes cursor-blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
@@ -3247,6 +3250,19 @@ footer {
     .bento-card {
         padding: 1.5rem;
         gap: 0.75rem;
+    }
+
+    .bento-grid > *,
+    .bento-grid-center > * {
+        max-width: 100%;
+        min-width: 0;
+        overflow-wrap: break-word;
+    }
+
+    .bento-card h3,
+    .bento-card p {
+        overflow-wrap: break-word;
+        word-break: break-word;
     }
 
     .product-image-container {
