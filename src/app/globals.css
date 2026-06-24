@@ -3242,13 +3242,11 @@ footer {
         gap: 1rem;
         padding: 1rem 0;
         max-width: 100%;
-        overflow: hidden;
     }
 
     .bento-grid-center {
         grid-template-columns: 1fr;
         max-width: 100%;
-        overflow: hidden;
     }
 
     .bento-card {
@@ -3957,9 +3955,10 @@ footer {
 
 .footer-social-block .social-links {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    flex-direction: row;
+    gap: 0.75rem;
     margin-top: 0;
+    align-items: center;
 }
 
 .social-icon {
