@@ -168,9 +168,18 @@ const Grainient: React.FC<GrainientProps> = ({
     canvas.style.width = '100%';
     canvas.style.height = '100%';
     canvas.style.display = 'block';
+    canvas.style.opacity = '0';
+    canvas.style.transition = 'opacity 0.8s ease';
 
     const container = containerRef.current;
     container.appendChild(canvas);
+
+    // Fade in the canvas smoothly after first render
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        canvas.style.opacity = '1';
+      });
+    });
 
     const geometry = new Triangle(gl);
     const program = new Program(gl, {
