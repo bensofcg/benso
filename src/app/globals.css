@@ -993,15 +993,17 @@ section.alt-border {
     line-height: 1.05;
     gap: 0;
     margin: 0;
+    position: relative;
 }
 
 .section-title-home h2::before {
     content: '';
-    display: block;
-    width: 32px;
+    position: absolute;
+    top: -0.7rem;
+    left: 0;
+    width: 64px;
     height: 3px;
     background: var(--primary);
-    margin-bottom: 0.4rem;
 }
 
 .section-title-row {
