@@ -3270,9 +3270,9 @@ footer {
     }
 
     .product-image-container {
-        margin: 0;
+        margin: -1.5rem -1.5rem 0;
         height: 150px;
-        border-radius: var(--radius);
+        border-radius: var(--radius) var(--radius) 0 0;
     }
 
     .bento-card h3 {
@@ -3483,9 +3483,9 @@ footer {
     }
 
     .product-image-container {
-        margin: 0;
+        margin: -1.25rem -1.25rem 0;
         height: 130px;
-        border-radius: var(--radius);
+        border-radius: var(--radius) var(--radius) 0 0;
     }
 
     .bento-card h3 {
