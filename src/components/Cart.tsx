@@ -36,19 +36,19 @@ export function Cart() {
     // Check if totalItems increased (new item added)
     if (totalItems > prevTotalRef.current && totalItems > 0) {
       // Find the newly added item (one that wasn't in previous state)
-      const prevTitles = prevItemsRef.current > 0 
-        ? items.slice(0, prevItemsRef.current).map(i => i.title)
+      const prevIds = prevItemsRef.current > 0 
+        ? items.slice(0, prevItemsRef.current).map(i => i.id)
         : [];
-      const newItem = items.find(i => !prevTitles.includes(i.title));
+      const newItem = items.find(i => !prevIds.includes(i.id));
       
-      if (newItem && lastAddedRef.current !== newItem.title) {
-        lastAddedRef.current = newItem.title;
+      if (newItem && lastAddedRef.current !== newItem.id) {
+        lastAddedRef.current = newItem.id;
         toast.custom((t) => (
           <div
             className={`cart-toast ${t.visible ? 'show' : 'hide'}`}
           >
             <Check size={16} />
-            <span>"{newItem.title}" añadido</span>
+            <span>"{newItem.productTitle} — {newItem.variant}" añadido</span>
           </div>
         ), { duration: 2500 });
       }
@@ -104,15 +104,15 @@ export function Cart() {
             </div>
           ) : (
             items.map(item => (
-              <div key={item.title} className="cart-item">
+              <div key={item.id} className="cart-item">
                 <div className="cart-item-info">
-                  <h4>{item.title}</h4>
+                  <h4>{item.productTitle} — {item.variant}</h4>
                   <span className="cart-item-price">{item.price} CUP</span>
                 </div>
                 <div className="cart-item-actions">
                   <div className="cart-item-qty">
                     <button 
-                      onClick={() => updateQuantity(item.title, item.quantity - 1)} 
+                      onClick={() => updateQuantity(item.id, item.quantity - 1)} 
                       disabled={item.quantity <= 1}
                       aria-label="Reducir cantidad"
                     >
@@ -120,7 +120,7 @@ export function Cart() {
                     </button>
                     <span>{item.quantity}</span>
                     <button 
-                      onClick={() => updateQuantity(item.title, item.quantity + 1)}
+                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
                       aria-label="Aumentar cantidad"
                     >
                       <Plus size={14} />
@@ -128,8 +128,8 @@ export function Cart() {
                   </div>
                   <button 
                     className="cart-item-remove" 
-                    onClick={() => removeItem(item.title)} 
-                    aria-label={`Eliminar ${item.title}`}
+                    onClick={() => removeItem(item.id)} 
+                    aria-label={`Eliminar ${item.productTitle}`}
                   >
                     <Trash2 size={16} />
                   </button>

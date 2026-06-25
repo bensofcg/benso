@@ -4,7 +4,9 @@ import { createContext, useState, useEffect, type ReactNode } from 'react';
 import { supabase } from '@/lib/supabase';
 
 export interface CartItem {
-  title: string;
+  id: string; // composite: "productTitle::variant"
+  productTitle: string;
+  variant: string;
   price: string;
   priceNum: number;
   quantity: number;
@@ -20,9 +22,9 @@ export interface PedidoInsert {
 
 export interface CartContextType {
   items: CartItem[];
-  addItem: (title: string, price: string) => void;
-  removeItem: (title: string) => void;
-  updateQuantity: (title: string, quantity: number) => void;
+  addItem: (productTitle: string, variant: string, priceNum: number, quantity?: number) => void;
+  removeItem: (id: string) => void;
+  updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
   totalItems: number;
   totalPrice: number;
@@ -47,10 +49,26 @@ function loadCartFromStorage(): CartItem[] {
     if (stored) {
       const parsed: unknown = JSON.parse(stored);
       if (Array.isArray(parsed)) {
-        return (parsed as CartItem[]).map(item => ({
-          ...item,
-          priceNum: item.priceNum || parsePrice(item.price)
-        }));
+        return (parsed as CartItem[]).map(item => {
+          // Old format (without id/variant): migrate
+          if (!item.id || !item.variant) {
+            const oldItem = item as any;
+            const variant = oldItem.variant || 'Único';
+            const productTitle = oldItem.productTitle || oldItem.title || '';
+            return {
+              id: `${productTitle}::${variant}`,
+              productTitle,
+              variant,
+              price: oldItem.price || '',
+              priceNum: oldItem.priceNum || parsePrice(oldItem.price || ''),
+              quantity: oldItem.quantity || 1,
+            };
+          }
+          return {
+            ...item,
+            priceNum: item.priceNum || parsePrice(item.price),
+          };
+        });
       }
     }
   } catch {
@@ -81,30 +99,31 @@ export function CartProvider({ children }: { children: ReactNode }) {
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
   }, [items]);
 
-  const addItem = (title: string, price: string) => {
-    const priceNum = parsePrice(price);
+  const addItem = (productTitle: string, variant: string, priceNum: number, quantity: number = 1) => {
+    const id = `${productTitle}::${variant}`;
+    const price = `$${priceNum.toLocaleString('es')}`;
     setItems(prev => {
-      const existing = prev.find(item => item.title === title);
+      const existing = prev.find(item => item.id === id);
       if (existing) {
         return prev.map(item =>
-          item.title === title ? { ...item, quantity: item.quantity + 1 } : item
+          item.id === id ? { ...item, quantity: item.quantity + quantity } : item
         );
       }
-      return [...prev, { title, price, priceNum, quantity: 1 }];
+      return [...prev, { id, productTitle, variant, price, priceNum, quantity }];
     });
   };
 
-  const removeItem = (title: string) => {
-    setItems(prev => prev.filter(item => item.title !== title));
+  const removeItem = (id: string) => {
+    setItems(prev => prev.filter(item => item.id !== id));
   };
 
-  const updateQuantity = (title: string, quantity: number) => {
+  const updateQuantity = (id: string, quantity: number) => {
     if (quantity <= 0) {
-      removeItem(title);
+      removeItem(id);
       return;
     }
     setItems(prev =>
-      prev.map(item => (item.title === title ? { ...item, quantity } : item))
+      prev.map(item => (item.id === id ? { ...item, quantity } : item))
     );
   };
 
@@ -148,7 +167,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+  const totalItems = items.length;
   const totalPrice = items.reduce((sum, item) => sum + (item.priceNum * item.quantity), 0);
 
   return (

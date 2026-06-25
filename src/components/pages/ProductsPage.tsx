@@ -1,31 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { ShoppingCart, Send, Calendar, Search } from 'lucide-react';
-import { BentoCard, PriceDisplay, RequestModal, ShinyText, ProductsGridSkeleton } from '@/components';
+import { ShoppingCart, Calendar, Search } from 'lucide-react';
+import { BentoCard, PriceDisplay, RequestModal, ProductsGridSkeleton, VariantSelectionDialog } from '@/components';
 import { useCart } from '@/hooks/useCart';
-import { useProductos } from '@/hooks/useData';
-
-// Placeholder images - replace with real images later
-const PLACEHOLDER_IMAGES: Record<string, string> = {
-  pegatinas: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600&h=180&fit=crop',
-  posters: 'https://images.unsplash.com/photo-1572044162444-ad60f128bdea?w=600&h=180&fit=crop',
-  cuadros: 'https://images.unsplash.com/photo-1513519245088-0e12902e35a6?w=600&h=180&fit=crop',
-  tarjetas: 'https://images.unsplash.com/photo-1607013407639-82f999279328?w=600&h=180&fit=crop',
-  lonas: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=180&fit=crop',
-  otros: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=600&h=180&fit=crop',
-};
-
-const DEFAULT_PLACEHOLDER = 'https://images.unsplash.com/photo-1557683316-973673baf926?w=600&h=180&fit=crop';
-
-function getProductImage(category: string, productImage: string): string {
-  if (productImage && productImage.trim() !== '') {
-    return productImage;
-  }
-  return PLACEHOLDER_IMAGES[category] || DEFAULT_PLACEHOLDER;
-}
-
+import { useProductos, type Producto } from '@/hooks/useData';
+import { imgSrc } from '@/lib/imageLoader';
 interface RequestItem {
   title: string;
   price: string;
@@ -34,25 +15,28 @@ interface RequestItem {
   type: 'servicio' | 'producto' | 'evento';
 }
 
-type CategoryFilter = 'all' | 'pegatinas' | 'posters' | 'cuadros' | 'tarjetas' | 'lonas' | 'otros';
+type CategoryFilter = 'all' | 'adhesivos' | 'carteleria' | 'papeleria' | 'indumentaria' | 'merchandising';
 
 const filters = [
   { label: 'Todos', value: 'all' as CategoryFilter },
-  { label: 'Pegatinas', value: 'pegatinas' as CategoryFilter },
-  { label: 'Posters', value: 'posters' as CategoryFilter },
-  { label: 'Cuadros', value: 'cuadros' as CategoryFilter },
-  { label: 'Tarjetas', value: 'tarjetas' as CategoryFilter },
-  { label: 'Lonas', value: 'lonas' as CategoryFilter },
-  { label: 'Otros', value: 'otros' as CategoryFilter },
+  { label: 'Adhesivos', value: 'adhesivos' as CategoryFilter },
+  { label: 'Cartelería', value: 'carteleria' as CategoryFilter },
+  { label: 'Papelería', value: 'papeleria' as CategoryFilter },
+  { label: 'Indumentaria', value: 'indumentaria' as CategoryFilter },
+  { label: 'Merchandising', value: 'merchandising' as CategoryFilter },
 ];
 
 export function ProductsPage() {
+  const [mounted, setMounted] = useState(false);
   const [activeFilter, setActiveFilter] = useState<CategoryFilter>('all');
   const [requestItem, setRequestItem] = useState<RequestItem | null>(null);
   const [isRequestOpen, setIsRequestOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedProduct, setSelectedProduct] = useState<Producto | null>(null);
   const { addItem } = useCart();
   const { productos, loading } = useProductos();
+
+  useEffect(() => { setMounted(true); }, []);
 
   const openRequest = (item: RequestItem) => {
     setRequestItem(item);
@@ -63,6 +47,9 @@ export function ProductsPage() {
     product => (activeFilter === 'all' || product.category === activeFilter) &&
     product.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // Prevent hydration mismatch: server and client first render must match
+  const isLoading = !mounted || loading;
 
   return (
     <section className="reveal-section reveal-disabled">
@@ -80,14 +67,14 @@ export function ProductsPage() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="search-input"
-                disabled={loading}
+                disabled={isLoading}
               />
             </div>
             <select
               className="filter-select"
               value={activeFilter}
               onChange={(e) => setActiveFilter(e.target.value as CategoryFilter)}
-              disabled={loading}
+              disabled={isLoading}
             >
               {filters.map(filter => (
                 <option key={filter.value} value={filter.value}>
@@ -98,7 +85,7 @@ export function ProductsPage() {
           </div>
         </div>
 
-        {loading ? (
+        {isLoading ? (
           <ProductsGridSkeleton count={8} />
         ) : filteredProducts.length === 0 ? (
           <div className="bento-grid">
@@ -115,27 +102,39 @@ export function ProductsPage() {
                   dataCategory={product.category}
                 >
                   {product.popular && <span className="popular-tag">#popular</span>}
-                  <div className="product-image-container">
-                    <Image 
-                      src={getProductImage(product.category, product.image)} 
-                      alt={product.title} 
-                      width={600} 
-                      height={180} 
-                      loading="lazy" 
-                      unoptimized
-                    />
-                  </div>
+                  {product.image ? (
+                    <div className="product-image-container">
+                      <Image 
+                        src={imgSrc(product.image)} 
+                        alt={product.title} 
+                        width={600} 
+                        height={200} 
+                        loading="lazy" 
+                        unoptimized
+                      />
+                    </div>
+                  ) : (
+                    <div className="product-image-placeholder">
+                      <span>Imagen no disponible</span>
+                    </div>
+                  )}
                   <h3>{product.title}</h3>
                   <p>{product.description}</p>
                   <span className="card-price"><PriceDisplay price={product.price} priceNum={product.price_num} /></span>
                   <div className="card-actions">
                     <button
-                      className="btn-add-cart btn-add-cart-full"
-                      onClick={() => addItem(product.title, String(product.price_num))}
-                    >
-                      <ShoppingCart size={16} />
-                      <span>Añadir al carrito</span>
-                    </button>
+                        className="btn-add-cart btn-add-cart-full"
+                        onClick={() => {
+                          if (product.variants && product.variants.length > 0) {
+                            setSelectedProduct(product);
+                          } else {
+                            addItem(product.title, 'Único', product.price_num);
+                          }
+                        }}
+                      >
+                        <ShoppingCart size={16} />
+                        <span>Añadir al carrito</span>
+                      </button>
                   </div>
                 </BentoCard>
               </div>
@@ -158,6 +157,21 @@ export function ProductsPage() {
           Agendar cita
         </button>
       </div>
+
+      {selectedProduct && (
+        <VariantSelectionDialog
+          product={{
+            id: selectedProduct.id,
+            title: selectedProduct.title,
+            description: selectedProduct.description,
+            image: selectedProduct.image,
+            variants: selectedProduct.variants,
+            category: selectedProduct.category,
+          }}
+          isOpen={!!selectedProduct}
+          onClose={() => setSelectedProduct(null)}
+        />
+      )}
 
       <RequestModal
         item={requestItem}

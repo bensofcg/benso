@@ -16,9 +16,8 @@ export function ProductSkeleton() {
       {/* Price skeleton */}
       <div className="skeleton-line skeleton-price" />
       
-      {/* Buttons skeleton */}
+      {/* Button skeleton — matches single btn-add-cart-full */}
       <div className="skeleton-buttons">
-        <div className="skeleton-button" />
         <div className="skeleton-button" />
       </div>
     </div>
@@ -41,9 +40,8 @@ export function ServiceSkeleton() {
       {/* Price skeleton */}
       <div className="skeleton-line skeleton-price" />
       
-      {/* Buttons skeleton */}
+      {/* Button skeleton — matches single btn-add-cart-full */}
       <div className="skeleton-buttons">
-        <div className="skeleton-button" />
         <div className="skeleton-button" />
       </div>
     </div>
@@ -56,7 +54,7 @@ export function EventSkeleton() {
       {/* Title skeleton */}
       <div className="skeleton-line skeleton-title" />
       
-      {/* Tags skeleton */}
+      {/* Tags skeleton — matches event-tags-row */}
       <div className="skeleton-tags">
         <div className="skeleton-tag" />
         <div className="skeleton-tag" />
@@ -66,9 +64,9 @@ export function EventSkeleton() {
       <div className="skeleton-line skeleton-description" />
       <div className="skeleton-line skeleton-description" />
       
-      {/* Button skeleton */}
-      <div className="skeleton-buttons">
-        <div className="skeleton-button full-width" />
+      {/* CTA skeleton — matches event-cta-link (right-aligned, link-style) */}
+      <div className="skeleton-buttons" style={{ justifyContent: 'flex-end' }}>
+        <div className="skeleton-line" style={{ width: '110px', height: '20px', marginBottom: 0 }} />
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Calendar } from 'lucide-react';
-import { BentoCard, ScrollReveal, AnimatedCard, StatusIcon, CalendarIcon, EventsGridSkeleton, RequestModal, ShinyText } from '@/components';
+import { BentoCard, ScrollReveal, AnimatedCard, StatusIcon, CalendarIcon, EventsGridSkeleton, EventRegistrationForm, RequestModal, ShinyText } from '@/components';
 import { useEventos } from '@/hooks/useData';
 
 interface RequestItem {
@@ -15,13 +15,10 @@ interface RequestItem {
 
 export function EventsPage() {
   const { eventos, loading } = useEventos();
+  const [registrationEvent, setRegistrationEvent] = useState<{ id: number; title: string } | null>(null);
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
   const [requestItem, setRequestItem] = useState<RequestItem | null>(null);
   const [isRequestOpen, setIsRequestOpen] = useState(false);
-
-  const openRequest = (item: RequestItem) => {
-    setRequestItem(item);
-    setIsRequestOpen(true);
-  };
 
   const currentEvents = eventos.filter(e => e.status === 'En Curso');
   const upcomingEvents = eventos.filter(e => e.status === 'Proximamente');
@@ -53,13 +50,10 @@ export function EventsPage() {
                   <div className="card-actions event-card-actions">
                     <button
                       className="event-cta-link"
-                      onClick={() => openRequest({
-                        title: event.title,
-                        price: event.date,
-                        priceNum: 0,
-                        whatsappLink: event.whatsapp_link,
-                        type: 'evento'
-                      })}
+                      onClick={() => {
+                        setRegistrationEvent({ id: event.id, title: event.title });
+                        setIsRegistrationOpen(true);
+                      }}
                     >
                       <span>Inscribirme</span>
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
@@ -99,13 +93,10 @@ export function EventsPage() {
                   <div className="card-actions event-card-actions">
                     <button
                       className="event-cta-link"
-                      onClick={() => openRequest({
-                        title: event.title,
-                        price: event.date,
-                        priceNum: 0,
-                        whatsappLink: event.whatsapp_link,
-                        type: 'evento'
-                      })}
+                      onClick={() => {
+                        setRegistrationEvent({ id: event.id, title: event.title });
+                        setIsRegistrationOpen(true);
+                      }}
                     >
                       <span>Inscribirme</span>
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
@@ -142,6 +133,13 @@ export function EventsPage() {
           </button>
         </div>
       </ScrollReveal>
+
+      <EventRegistrationForm
+        eventoId={registrationEvent?.id ?? 0}
+        eventoTitle={registrationEvent?.title ?? ''}
+        isOpen={isRegistrationOpen}
+        onClose={() => setIsRegistrationOpen(false)}
+      />
 
       <RequestModal
         item={requestItem}

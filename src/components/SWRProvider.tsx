@@ -3,9 +3,10 @@
 import { SWRConfig } from 'swr';
 import { ReactNode } from 'react';
 
-const CACHE_KEY = 'swr-cache';
+// Bump version to invalidate browser cache after product restructure
+const CACHE_KEY = 'swr-cache-v2';
 
-function localStorageProvider(): Map<string, unknown> {
+function localStorageProvider() {
   const map = new Map<string, unknown>();
 
   if (typeof window !== 'undefined') {
@@ -21,7 +22,6 @@ function localStorageProvider(): Map<string, unknown> {
       localStorage.removeItem(CACHE_KEY);
     }
 
-    // Save cache before page unload
     window.addEventListener('beforeunload', () => {
       const obj: Record<string, unknown> = {};
       for (const [key, value] of map.entries()) {
@@ -30,7 +30,7 @@ function localStorageProvider(): Map<string, unknown> {
       try {
         localStorage.setItem(CACHE_KEY, JSON.stringify(obj));
       } catch {
-        // localStorage full or unavailable — ignore
+        // storage unavailable
       }
     });
   }
@@ -42,7 +42,7 @@ export function SWRProvider({ children }: { children: ReactNode }) {
   return (
     <SWRConfig
       value={{
-        provider: localStorageProvider,
+        provider: localStorageProvider as any,
         revalidateOnFocus: false,
         revalidateIfStale: false,
         revalidateOnReconnect: true,

@@ -1,4 +1,5 @@
 export { Background } from './Background';
+export { EventRegistrationForm } from './EventRegistrationForm';
 export { BentoCard } from './BentoCard';
 export { CalendarIcon } from './CalendarIcon';
 export { Carousel } from './Carousel';
@@ -17,4 +18,5 @@ export { ScrollReveal, AnimatedCard, AnimatedSection } from './ScrollReveal';
 export { default as ShinyText } from './ShinyText';
 export { StatusIcon } from './StatusIcon';
 export { TextType } from './TextType';
+export { VariantSelectionDialog } from './VariantSelectionDialog';
 export { TopBarWrapper } from './TopBarWrapper';

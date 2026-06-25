@@ -1,6 +1,13 @@
 import useSWR from 'swr';
 import { supabase } from '@/lib/supabase';
 
+export interface Variant {
+  label: string;
+  unitPrice: number;
+  totalPrice: number;
+  description?: string;
+}
+
 export interface Producto {
   id: number;
   title: string;
@@ -13,6 +20,7 @@ export interface Producto {
   popular: boolean;
   whatsapp_link: string;
   is_active: boolean;
+  variants: Variant[];
 }
 
 export interface Servicio {
@@ -43,6 +51,18 @@ const PRODUCTOS_KEY = 'productos';
 const SERVICIOS_KEY = 'servicios';
 const EVENTOS_KEY = 'eventos';
 
+function mapVariants(product: any): Producto {
+  if (product.variants && Array.isArray(product.variants)) {
+    product.variants = product.variants.map((v: any) => ({
+      label: v.label,
+      unitPrice: v.unit_price ?? v.unitPrice,
+      totalPrice: v.total_price ?? v.totalPrice,
+      description: v.description,
+    }));
+  }
+  return product as Producto;
+}
+
 async function fetchProductos() {
   const { data, error } = await supabase
     .from('productos')
@@ -51,7 +71,7 @@ async function fetchProductos() {
     .order('popular', { ascending: false });
 
   if (error) throw error;
-  return (data || []) as Producto[];
+  return (data || []).map(mapVariants);
 }
 
 async function fetchServicios() {
@@ -76,40 +96,46 @@ async function fetchEventos() {
 }
 
 export function useProductos() {
-  const { data, error, isLoading } = useSWR(PRODUCTOS_KEY, fetchProductos, {
-    revalidateOnFocus: false,
-    dedupingInterval: 60_000,
+  const { data, error, isLoading, isValidating } = useSWR(PRODUCTOS_KEY, fetchProductos, {
+    revalidateOnFocus: true,
+    revalidateOnMount: true,
+    revalidateOnReconnect: true,
+    dedupingInterval: 30_000,
   });
 
   return {
     productos: data ?? [],
-    loading: isLoading,
+    loading: isLoading || isValidating,
     error: error?.message ?? null,
   };
 }
 
 export function useServicios() {
-  const { data, error, isLoading } = useSWR(SERVICIOS_KEY, fetchServicios, {
-    revalidateOnFocus: false,
-    dedupingInterval: 60_000,
+  const { data, error, isLoading, isValidating } = useSWR(SERVICIOS_KEY, fetchServicios, {
+    revalidateOnFocus: true,
+    revalidateOnMount: true,
+    revalidateOnReconnect: true,
+    dedupingInterval: 30_000,
   });
 
   return {
     servicios: data ?? [],
-    loading: isLoading,
+    loading: isLoading || isValidating,
     error: error?.message ?? null,
   };
 }
 
 export function useEventos() {
-  const { data, error, isLoading } = useSWR(EVENTOS_KEY, fetchEventos, {
-    revalidateOnFocus: false,
-    dedupingInterval: 60_000,
+  const { data, error, isLoading, isValidating } = useSWR(EVENTOS_KEY, fetchEventos, {
+    revalidateOnFocus: true,
+    revalidateOnMount: true,
+    revalidateOnReconnect: true,
+    dedupingInterval: 30_000,
   });
 
   return {
     eventos: data ?? [],
-    loading: isLoading,
+    loading: isLoading || isValidating,
     error: error?.message ?? null,
   };
 }

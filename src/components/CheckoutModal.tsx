@@ -159,9 +159,9 @@ export function CheckoutModal() {
                   <h3>Resumen del pedido</h3>
                   <div className="order-items">
                     {items.map(item => (
-                      <div key={item.title} className="order-item">
+                      <div key={item.id} className="order-item">
                         <div className="item-info">
-                          <span className="item-name">{item.title}</span>
+                          <span className="item-name">{item.productTitle} — {item.variant}</span>
                           <span className="item-qty">x{item.quantity}</span>
                         </div>
                         <span className="item-price">{formatPrice(item.priceNum * item.quantity)} CUP</span>

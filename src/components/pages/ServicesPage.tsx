@@ -99,7 +99,7 @@ export function ServicesPage() {
                   <div className="card-actions">
                     <button
                       className="btn-add-cart btn-add-cart-full"
-                      onClick={() => addItem(service.title, String(service.price_num))}
+                      onClick={() => addItem(service.title, 'Único', service.price_num)}
                     >
                       <ShoppingCart size={16} />
                       <span>Añadir al carrito</span>

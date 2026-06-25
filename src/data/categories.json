@@ -7,11 +7,10 @@
   ],
   "products": [
     { "label": "Todos", "value": "all" },
-    { "label": "Pegatinas", "value": "pegatinas" },
-    { "label": "Pósters", "value": "posters" },
-    { "label": "Cuadros PVC", "value": "cuadros" },
-    { "label": "Tarjetas", "value": "tarjetas" },
-    { "label": "Lonas", "value": "lonas" },
-    { "label": "Otros", "value": "otros" }
+    { "label": "Adhesivos", "value": "adhesivos" },
+    { "label": "Cartelería", "value": "carteleria" },
+    { "label": "Papelería", "value": "papeleria" },
+    { "label": "Indumentaria", "value": "indumentaria" },
+    { "label": "Merchandising", "value": "merchandising" }
   ]
 }

@@ -4,31 +4,21 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ShoppingCart, Send, Calendar } from 'lucide-react';
-import { BentoCard, Icon, FAQAccordion, ScrollReveal, AnimatedCard, AnimatedSection, StatusIcon, CalendarIcon, PriceDisplay, RequestModal, LogoLoop, ProductsGridSkeleton, ServicesGridSkeleton, EventsGridSkeleton } from '@/components';
+import { BentoCard, Icon, FAQAccordion, ScrollReveal, AnimatedCard, AnimatedSection, StatusIcon, CalendarIcon, PriceDisplay, RequestModal, LogoLoop, ProductsGridSkeleton, ServicesGridSkeleton, EventsGridSkeleton, VariantSelectionDialog, EventRegistrationForm } from '@/components';
 import Grainient from '@/components/Grainient';
 import TestimonialsLoop from '@/components/TestimonialsLoop';
 import { useCart } from '@/hooks/useCart';
 import { useProductos, useServicios, useEventos } from '@/hooks/useData';
+import type { Producto, Variant } from '@/hooks/useData';
+import { imgSrc } from '@/lib/imageLoader';
 import faqItems from '@/data/faqs.json';
 import testimonials from '@/data/testimonials.json';
-
-// Placeholder images for products
-const PLACEHOLDER_IMAGES: Record<string, string> = {
-  pegatinas: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600&h=180&fit=crop',
-  posters: 'https://images.unsplash.com/photo-1572044162444-ad60f128bdea?w=600&h=180&fit=crop',
-  cuadros: 'https://images.unsplash.com/photo-1513519245088-0e12902e35a6?w=600&h=180&fit=crop',
-  tarjetas: 'https://images.unsplash.com/photo-1607013407639-82f999279328?w=600&h=180&fit=crop',
-  lonas: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=180&fit=crop',
-  otros: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=600&h=180&fit=crop',
-};
-
-const DEFAULT_PLACEHOLDER = 'https://images.unsplash.com/photo-1557683316-973673baf926?w=600&h=180&fit=crop';
 
 function getProductImage(category: string, productImage: string): string {
   if (productImage && productImage.trim() !== '') {
     return productImage;
   }
-  return PLACEHOLDER_IMAGES[category] || DEFAULT_PLACEHOLDER;
+  return '';
 }
 
 interface RequestItem {
@@ -43,6 +33,10 @@ export function HomePage() {
   const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
   const [requestItem, setRequestItem] = useState<RequestItem | null>(null);
   const [isRequestOpen, setIsRequestOpen] = useState(false);
+  const [variantProduct, setVariantProduct] = useState<Producto | null>(null);
+  const [isVariantOpen, setIsVariantOpen] = useState(false);
+  const [registrationEvent, setRegistrationEvent] = useState<{ id: number; title: string } | null>(null);
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
   const { addItem } = useCart();
   const { productos, loading: productosLoading } = useProductos();
   const { servicios, loading: serviciosLoading } = useServicios();
@@ -51,6 +45,16 @@ export function HomePage() {
   const openRequest = (item: RequestItem) => {
     setRequestItem(item);
     setIsRequestOpen(true);
+  };
+
+  const openVariantDialog = (product: Producto) => {
+    setVariantProduct(product);
+    setIsVariantOpen(true);
+  };
+
+  const openRegistration = (eventId: number, eventTitle: string) => {
+    setRegistrationEvent({ id: eventId, title: eventTitle });
+    setIsRegistrationOpen(true);
   };
 
   useEffect(() => {
@@ -168,7 +172,7 @@ export function HomePage() {
                   <div className="card-actions">
                     <button
                       className="btn-add-cart btn-add-cart-full"
-                      onClick={() => addItem(service.title, String(service.price_num))}
+                      onClick={() => addItem(service.title, 'Único', service.price_num)}
                     >
                       <ShoppingCart size={16} />
                       <span>Añadir al carrito</span>
@@ -200,16 +204,28 @@ export function HomePage() {
               <AnimatedCard key={product.id} index={index}>
                 <BentoCard className="interactive-card service-card">
                   {product.popular && <span className="popular-tag">#popular</span>}
-                  <div className="product-image-container">
-                    <Image src={getProductImage(product.category, product.image)} alt={product.title} width={600} height={180} loading="lazy" unoptimized />
-                  </div>
+                  {product.image ? (
+                    <div className="product-image-container">
+                      <Image src={imgSrc(product.image)} alt={product.title} width={600} height={200} loading="lazy" unoptimized />
+                    </div>
+                  ) : (
+                    <div className="product-image-placeholder">
+                      <span>Imagen no disponible</span>
+                    </div>
+                  )}
                   <h3>{product.title}</h3>
                   <p>{product.description}</p>
                   <span className="card-price"><PriceDisplay price={product.price} priceNum={product.price_num} /></span>
                   <div className="card-actions">
                     <button
                       className="btn-add-cart btn-add-cart-full"
-                      onClick={() => addItem(product.title, String(product.price_num))}
+                      onClick={() => {
+                        if (product.variants && product.variants.length > 0) {
+                          openVariantDialog(product);
+                        } else {
+                          addItem(product.title, 'Único', product.price_num);
+                        }
+                      }}
                     >
                       <ShoppingCart size={16} />
                       <span>Añadir al carrito</span>
@@ -252,13 +268,7 @@ export function HomePage() {
                   <div className="card-actions event-card-actions">
                     <button
                       className="event-cta-link"
-                      onClick={() => openRequest({
-                        title: event.title,
-                        price: event.date,
-                        priceNum: 0,
-                        whatsappLink: event.whatsapp_link,
-                        type: 'evento'
-                      })}
+                      onClick={() => openRegistration(event.id, event.title)}
                     >
                       <span>Inscribirme</span>
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
@@ -325,6 +335,23 @@ export function HomePage() {
         isOpen={isRequestOpen}
         onClose={() => setIsRequestOpen(false)}
       />
+
+      {variantProduct && (
+        <VariantSelectionDialog
+          product={variantProduct}
+          isOpen={isVariantOpen}
+          onClose={() => { setIsVariantOpen(false); setVariantProduct(null); }}
+        />
+      )}
+
+      {registrationEvent && (
+        <EventRegistrationForm
+          eventoId={registrationEvent.id}
+          eventoTitle={registrationEvent.title}
+          isOpen={isRegistrationOpen}
+          onClose={() => { setIsRegistrationOpen(false); setRegistrationEvent(null); }}
+        />
+      )}
     </>
   );
 }
