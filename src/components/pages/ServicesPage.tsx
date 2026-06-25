@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ShoppingCart, Send, Calendar, Search } from 'lucide-react';
 import { BentoCard, Icon, ScrollReveal, AnimatedCard, PriceDisplay, ServicesGridSkeleton, RequestModal, ShinyText } from '@/components';
 import { useCart } from '@/hooks/useCart';
@@ -24,6 +24,7 @@ const filters = [
 ];
 
 export function ServicesPage() {
+  const [mounted, setMounted] = useState(false);
   const [activeFilter, setActiveFilter] = useState<CategoryFilter>('all');
   const [animKey, setAnimKey] = useState(0);
   const [requestItem, setRequestItem] = useState<RequestItem | null>(null);
@@ -31,6 +32,9 @@ export function ServicesPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const { addItem } = useCart();
   const { servicios, loading } = useServicios();
+  const showLoading = !mounted || loading;
+
+  useEffect(() => { setMounted(true); }, []);
 
   const openRequest = (item: RequestItem) => {
     setRequestItem(item);

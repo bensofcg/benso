@@ -14,12 +14,15 @@ interface RequestItem {
 }
 
 export function EventsPage() {
+  const [mounted, setMounted] = useState(false);
   const { eventos, loading } = useEventos();
   const [registrationEvent, setRegistrationEvent] = useState<{ id: number; title: string } | null>(null);
   const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
   const [requestItem, setRequestItem] = useState<RequestItem | null>(null);
   const [isRequestOpen, setIsRequestOpen] = useState(false);
 
+  useEffect(() => { setMounted(true); }, []);
+  const showLoading = !mounted || loading;
   const currentEvents = eventos.filter(e => e.status === 'En Curso');
   const upcomingEvents = eventos.filter(e => e.status === 'Proximamente');
 
@@ -31,7 +34,7 @@ export function EventsPage() {
             <h2>Eventos actuales</h2>
           </div>
           
-          {loading ? (
+          {showLoading ? (
             <EventsGridSkeleton count={2} />
           ) : (
           <div className="bento-grid-events">
@@ -74,7 +77,7 @@ export function EventsPage() {
             <h2>Próximamente</h2>
           </div>
           
-          {loading ? (
+          {showLoading ? (
             <EventsGridSkeleton count={2} />
           ) : (
           <div className="bento-grid-events">

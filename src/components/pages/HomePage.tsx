@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ShoppingCart, Send, Calendar } from 'lucide-react';
+import { ShoppingCart, Send, Calendar, ArrowUpRight } from 'lucide-react';
 import { BentoCard, Icon, FAQAccordion, ScrollReveal, AnimatedCard, AnimatedSection, StatusIcon, CalendarIcon, PriceDisplay, RequestModal, LogoLoop, ProductsGridSkeleton, ServicesGridSkeleton, EventsGridSkeleton, VariantSelectionDialog, EventRegistrationForm } from '@/components';
 import Grainient from '@/components/Grainient';
 import TestimonialsLoop from '@/components/TestimonialsLoop';
@@ -30,6 +30,7 @@ interface RequestItem {
 }
 
 export function HomePage() {
+  const [mounted, setMounted] = useState(false);
   const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
   const [requestItem, setRequestItem] = useState<RequestItem | null>(null);
   const [isRequestOpen, setIsRequestOpen] = useState(false);
@@ -41,6 +42,9 @@ export function HomePage() {
   const { productos, loading: productosLoading } = useProductos();
   const { servicios, loading: serviciosLoading } = useServicios();
   const { eventos, loading: eventosLoading } = useEventos();
+  const showServicios = !mounted || serviciosLoading;
+  const showProductos = !mounted || productosLoading;
+  const showEventos = !mounted || eventosLoading;
 
   const openRequest = (item: RequestItem) => {
     setRequestItem(item);
@@ -56,6 +60,8 @@ export function HomePage() {
     setRegistrationEvent({ id: eventId, title: eventTitle });
     setIsRegistrationOpen(true);
   };
+
+  useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -104,10 +110,7 @@ export function HomePage() {
                 }}
               >
                 Agendar cita gratis
-                <svg className="hero-arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M7 7h10v10" />
-                  <path d="M17 7L7 17" />
-                </svg>
+                <ArrowUpRight className="hero-arrow-icon" size={18} />
               </button>
               <Link href="/nosotros" className="hero-cta-outline">
                 Sobre nosotros
@@ -156,7 +159,7 @@ export function HomePage() {
             </Link>
           </div>
           
-          {serviciosLoading ? (
+          {showServicios ? (
             <ServicesGridSkeleton count={3} />
           ) : (
           <div className="bento-grid bento-grid-center">
@@ -196,7 +199,7 @@ export function HomePage() {
             </Link>
           </div>
           
-          {productosLoading ? (
+          {showProductos ? (
             <ProductsGridSkeleton count={3} />
           ) : (
           <div className="bento-grid bento-grid-center">
@@ -249,7 +252,7 @@ export function HomePage() {
             </Link>
           </div>
           
-          {eventosLoading ? (
+          {showEventos ? (
             <EventsGridSkeleton count={2} />
           ) : (
           <div className="bento-grid-events">
