@@ -3,11 +3,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { EventRegistrationForm } from './EventRegistrationForm';
+import { RequestModal } from './RequestModal';
 
 export function PromoBanner() {
   const bannerRef = useRef<HTMLButtonElement>(null);
   const [evento, setEvento] = useState<{ id: number; title: string } | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRegOpen, setIsRegOpen] = useState(false);
+  const [isRequestOpen, setIsRequestOpen] = useState(false);
 
   // Measure banner height for layout
   useEffect(() => {
@@ -20,24 +22,25 @@ export function PromoBanner() {
     };
   }, []);
 
-  // Look up the Marketing Digital event from the database
+  // Look up the first active event (prefer Marketing-related)
   useEffect(() => {
     supabase
       .from('eventos')
       .select('id, title')
-      .ilike('title', '%Marketing%')
       .eq('is_active', true)
+      .order('created_at', { ascending: false })
+      .limit(1)
       .maybeSingle()
       .then(({ data }) => {
-        if (data) {
-          setEvento(data);
-        }
+        if (data) setEvento(data);
       });
   }, []);
 
   const handleClick = () => {
     if (evento) {
-      setIsModalOpen(true);
+      setIsRegOpen(true);
+    } else {
+      setIsRequestOpen(true);
     }
   };
 
@@ -62,10 +65,22 @@ export function PromoBanner() {
         <EventRegistrationForm
           eventoId={evento.id}
           eventoTitle={evento.title}
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
+          isOpen={isRegOpen}
+          onClose={() => setIsRegOpen(false)}
         />
       )}
+
+      <RequestModal
+        item={{
+          title: 'Cita de consulta',
+          price: '',
+          priceNum: 0,
+          whatsappLink: '',
+          type: 'servicio' as const,
+        }}
+        isOpen={isRequestOpen}
+        onClose={() => setIsRequestOpen(false)}
+      />
     </>
   );
 }
