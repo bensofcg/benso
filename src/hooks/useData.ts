@@ -96,7 +96,7 @@ async function fetchEventos() {
 }
 
 export function useProductos() {
-  const { data, error, isLoading, isValidating } = useSWR(PRODUCTOS_KEY, fetchProductos, {
+  const { data, error, isLoading } = useSWR(PRODUCTOS_KEY, fetchProductos, {
     revalidateOnFocus: true,
     revalidateOnMount: true,
     revalidateOnReconnect: true,
@@ -105,13 +105,13 @@ export function useProductos() {
 
   return {
     productos: data ?? [],
-    loading: isLoading || isValidating,
+    loading: isLoading,
     error: error?.message ?? null,
   };
 }
 
 export function useServicios() {
-  const { data, error, isLoading, isValidating } = useSWR(SERVICIOS_KEY, fetchServicios, {
+  const { data, error, isLoading } = useSWR(SERVICIOS_KEY, fetchServicios, {
     revalidateOnFocus: true,
     revalidateOnMount: true,
     revalidateOnReconnect: true,
@@ -120,13 +120,13 @@ export function useServicios() {
 
   return {
     servicios: data ?? [],
-    loading: isLoading || isValidating,
+    loading: isLoading,
     error: error?.message ?? null,
   };
 }
 
 export function useEventos() {
-  const { data, error, isLoading, isValidating } = useSWR(EVENTOS_KEY, fetchEventos, {
+  const { data, error, isLoading } = useSWR(EVENTOS_KEY, fetchEventos, {
     revalidateOnFocus: true,
     revalidateOnMount: true,
     revalidateOnReconnect: true,
@@ -135,7 +135,7 @@ export function useEventos() {
 
   return {
     eventos: data ?? [],
-    loading: isLoading || isValidating,
+    loading: isLoading,
     error: error?.message ?? null,
   };
 }

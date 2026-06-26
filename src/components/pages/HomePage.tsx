@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ShoppingCart, Send, Calendar } from 'lucide-react';
@@ -75,14 +75,24 @@ export function HomePage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const featuredProducts = (() => {
+  const featuredProducts = useMemo(() => {
+    const hasImage = (p: Producto) => p.image && p.image.trim() !== '';
     const popular = productos.filter(p => p.popular);
-    if (popular.length >= 3) return popular.slice(0, 3);
+    const popularWithImages = popular.filter(hasImage);
+    const popularWithoutImages = popular.filter(p => !hasImage(p));
+
+    if (popular.length >= 3) {
+      const sorted = [...popularWithImages, ...popularWithoutImages];
+      return sorted.slice(0, 3);
+    }
 
     const others = productos.filter(p => !p.popular);
-    const shuffled = [...others].sort(() => Math.random() - 0.5);
-    return [...popular, ...shuffled].slice(0, 3);
-  })();
+    const othersWithImages = others.filter(hasImage);
+    const othersWithoutImages = others.filter(p => !hasImage(p));
+
+    const fillers = [...othersWithImages, ...othersWithoutImages];
+    return [...popular, ...fillers].slice(0, 3);
+  }, [productos]);
 
   const upcomingEvents = eventos
     .filter(e => e.status === 'Proximamente')
