@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ShoppingCart, Send, Calendar, ArrowUpRight } from 'lucide-react';
+import { ShoppingCart, Send, Calendar, ArrowRight } from 'lucide-react';
 import { BentoCard, Icon, FAQAccordion, ScrollReveal, AnimatedCard, AnimatedSection, StatusIcon, CalendarIcon, PriceDisplay, RequestModal, LogoLoop, ProductsGridSkeleton, ServicesGridSkeleton, EventsGridSkeleton, VariantSelectionDialog, EventRegistrationForm } from '@/components';
 import Grainient from '@/components/Grainient';
 import TestimonialsLoop from '@/components/TestimonialsLoop';
@@ -110,7 +110,7 @@ export function HomePage() {
                 }}
               >
                 Agendar cita gratis
-                <ArrowUpRight className="hero-arrow-icon" size={18} />
+                <ArrowRight className="hero-arrow-icon" size={18} />
               </button>
               <Link href="/nosotros" className="hero-cta-outline">
                 Sobre nosotros
