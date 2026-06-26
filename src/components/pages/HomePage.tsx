@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ShoppingCart, Send, Calendar, ArrowRight } from 'lucide-react';
+import { ShoppingCart, Send, Calendar } from 'lucide-react';
 import { BentoCard, Icon, FAQAccordion, ScrollReveal, AnimatedCard, AnimatedSection, StatusIcon, CalendarIcon, PriceDisplay, RequestModal, LogoLoop, ProductsGridSkeleton, ServicesGridSkeleton, EventsGridSkeleton, VariantSelectionDialog, EventRegistrationForm } from '@/components';
 import Grainient from '@/components/Grainient';
 import TestimonialsLoop from '@/components/TestimonialsLoop';
@@ -75,9 +75,14 @@ export function HomePage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const featuredProducts = productos
-    .filter(p => p.popular)
-    .slice(0, 3);
+  const featuredProducts = (() => {
+    const popular = productos.filter(p => p.popular);
+    if (popular.length >= 3) return popular.slice(0, 3);
+
+    const others = productos.filter(p => !p.popular);
+    const shuffled = [...others].sort(() => Math.random() - 0.5);
+    return [...popular, ...shuffled].slice(0, 3);
+  })();
 
   const upcomingEvents = eventos
     .filter(e => e.status === 'Proximamente')
@@ -110,7 +115,6 @@ export function HomePage() {
                 }}
               >
                 Agendar cita gratis
-                <ArrowRight className="hero-arrow-icon" size={18} />
               </button>
               <Link href="/nosotros" className="hero-cta-outline">
                 Sobre nosotros

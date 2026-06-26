@@ -463,20 +463,10 @@ nav ul li a.active::after {
     position: relative;
 }
 
-.hero-cta .hero-arrow-icon {
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    stroke: currentColor;
-    fill: none;
-}
-
 .hero-cta:hover {
     background: var(--light-gray);
     color: var(--primary);
     transform: translateY(-1px);
-}
-
-.hero-cta:hover .hero-arrow-icon {
-    transform: translateX(4px);
 }
 
 .hero-cta-outline:hover {
@@ -3929,11 +3919,13 @@ footer {
 .social-icon {
     width: 20px;
     height: 20px;
+    color: #d0d0d0;
     fill: #d0d0d0;
     transition: all 0.2s;
 }
 
 .social-icon:hover {
+    color: #ffffff;
     fill: #ffffff;
 }
 
