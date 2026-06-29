@@ -643,3 +643,34 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ===================================
+   Team Login Page
+   Uses shared .login-screen, .login-card, .password-field, .password-toggle
+   from admin.css — only team-specific overrides here
+=================================== */
+.login-input {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-family: var(--font-main);
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: var(--dark);
+}
+
+.login-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.team-loading.login-loading {
+  min-height: 100vh;
+}
