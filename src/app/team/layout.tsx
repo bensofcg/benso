@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Toaster } from 'react-hot-toast';
 import '../admin/admin.css';
 import './team.css';
+import { TeamAuthProvider } from '@/context/TeamAuthContext';
+import AuthGuard from './AuthGuard';
 
 export const metadata: Metadata = {
   title: 'BENSO Team',
@@ -16,7 +18,11 @@ export default function TeamLayout({
   return (
     <>
       <Toaster position="bottom-left" toastOptions={{ duration: 3000 }} />
-      {children}
+      <TeamAuthProvider>
+        <AuthGuard>
+          {children}
+        </AuthGuard>
+      </TeamAuthProvider>
     </>
   );
 }
