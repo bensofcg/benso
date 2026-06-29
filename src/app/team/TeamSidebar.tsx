@@ -32,6 +32,7 @@ export interface TeamSidebarProps {
   loading: boolean;
   isMobile: boolean;
   onLogout?: () => void;
+  role: 'admin' | 'user';
 }
 
 export default function TeamSidebar({
@@ -45,6 +46,7 @@ export default function TeamSidebar({
   loading,
   isMobile,
   onLogout,
+  role,
 }: TeamSidebarProps) {
   return (
     <>
@@ -79,7 +81,7 @@ export default function TeamSidebar({
 
           {/* Team Members */}
           <nav className="sidebar-nav team-sidebar-nav">
-            {!isCollapsed && (
+            {role === 'admin' && !isCollapsed && (
               <div className="sidebar-section-title-row">
                 <span className="sidebar-section-title">MIEMBROS</span>
                 <button
@@ -122,7 +124,7 @@ export default function TeamSidebar({
                 </button>
               );
             })}
-            {isCollapsed && (
+            {role === 'admin' && isCollapsed && (
               <button
                 className="sidebar-item sidebar-add-btn-collapsed"
                 onClick={onAddMember}
