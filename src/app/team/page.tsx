@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { motion } from 'motion/react';
 import TeamSidebar, { TeamMember } from './TeamSidebar';
+import { useTeamAuth } from '@/context/TeamAuthContext';
 import {
   Plus, Loader, X, Users, ClipboardList, Calendar, Clock, AlertTriangle,
 } from 'lucide-react';
@@ -156,6 +157,7 @@ function StatusColumn({
 
 export default function TeamPage() {
   const router = useRouter();
+  const { role } = useTeamAuth();
   const [members, setMembers] = useState<TeamMember[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [activeMemberId, setActiveMemberId] = useState<number | null>(null);
@@ -186,10 +188,10 @@ export default function TeamPage() {
     return () => mql.removeEventListener('change', handler);
   }, []);
 
-  // Fetch members
+  // Fetch members (role-aware)
   useEffect(() => {
     loadMembers();
-  }, []);
+  }, [role]);
 
   // Fetch tasks when active member changes
   useEffect(() => {
@@ -201,10 +203,17 @@ export default function TeamPage() {
   async function loadMembers() {
     setLoading(true);
     try {
-      const { data: membersData, error } = await supabase
-        .from('team_members')
-        .select('*')
-        .order('id');
+      let query = supabase.from('team_members').select('*');
+
+      if (role === 'user') {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          query = query.eq('profile_id', user.id);
+        }
+      }
+
+      query = query.order('id');
+      const { data: membersData, error } = await query;
 
       if (error) throw error;
 
@@ -261,6 +270,11 @@ export default function TeamPage() {
   }
 
   const activeMember = members.find(m => m.id === activeMemberId) || null;
+
+  const handleLogout = useCallback(async () => {
+    await supabase.auth.signOut();
+    router.push('/team/login');
+  }, [router]);
 
   // Handle drop — update task status
   const handleDrop = useCallback(async (taskId: number, newStatus: TaskStatus) => {
@@ -425,6 +439,8 @@ export default function TeamPage() {
           }}
           loading={loading}
           isMobile={isMobile}
+          onLogout={handleLogout}
+          role={role ?? 'admin'}
         />
 
         <motion.div
@@ -432,17 +448,19 @@ export default function TeamPage() {
           animate={{ marginLeft: isMobile ? 64 : (isCollapsed ? 64 : 220) }}
           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         >
-          {/* Mobile member selector */}
-          <div className="team-member-select-mobile">
-            <select
-              value={activeMemberId ?? ''}
-              onChange={(e) => setActiveMemberId(Number(e.target.value))}
-            >
-              {members.map(m => (
-                <option key={m.id} value={m.id}>{m.name}</option>
-              ))}
-            </select>
-          </div>
+          {/* Mobile member selector (admin only) */}
+          {role === 'admin' && (
+            <div className="team-member-select-mobile">
+              <select
+                value={activeMemberId ?? ''}
+                onChange={(e) => setActiveMemberId(Number(e.target.value))}
+              >
+                {members.map(m => (
+                  <option key={m.id} value={m.id}>{m.name}</option>
+                ))}
+              </select>
+            </div>
+          )}
 
           {/* Header */}
           <div className="team-header">
@@ -463,7 +481,7 @@ export default function TeamPage() {
                 </>
               )}
             </h1>
-            {activeMember && (
+            {activeMember && role === 'admin' && (
               <button
                 className="btn-add-task"
                 onClick={() => setShowCreateModal(true)}
