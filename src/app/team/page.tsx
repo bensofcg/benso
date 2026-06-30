@@ -380,8 +380,9 @@ export default function TeamPage() {
     ],
   };
 
-  async function loadMonthlyReport(monthKey?: string) {
-    const monthCfg = REPORT_MONTHS.find(m => m.key === (monthKey || selectedMonth)) || REPORT_MONTHS[0];
+  async function loadMonthlyReport(monthKey: string) {
+    const monthCfg = REPORT_MONTHS.find(m => m.key === monthKey);
+    if (!monthCfg) return;
     let report: MonthlyReportRow[] = [];
 
     if (monthCfg.isFake) {
@@ -758,18 +759,19 @@ export default function TeamPage() {
                 {/* Month tabs */}
                 <div className="report-tabs">
                   {REPORT_MONTHS.map((m) => {
-                    const isArchived = m.isFake;
+                    const isActive = selectedMonth === m.key;
                     return (
                       <button
                         key={m.key}
-                        className={`report-tab${selectedMonth === m.key ? ' active' : ''}`}
+                        className={`report-tab${isActive ? ' active' : ''}`}
                         onClick={() => {
+                          if (isActive) return;
                           setSelectedMonth(m.key);
                           loadMonthlyReport(m.key);
                         }}
                       >
                         {m.label}
-                        {isArchived && <span className="report-tab-badge">Archivado</span>}
+                        {m.isFake && <span className="report-tab-badge">Archivado</span>}
                       </button>
                     );
                   })}
