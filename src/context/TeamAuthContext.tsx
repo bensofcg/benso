@@ -76,8 +76,14 @@ export function TeamAuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signOutFn = async () => {
-    await authSignOut();
-    // The onAuthStateChange listener will reset state
+    try {
+      await authSignOut();
+    } catch {
+      // Si falla (timeout/red), forzar limpieza local igual
+    }
+    // Limpiar estado siempre, incluso si signOut timeout
+    setSession(null);
+    setProfile(null);
   };
 
   return (

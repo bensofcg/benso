@@ -1824,6 +1824,7 @@ section.alt-border {
 
 /* ===================================
    Vertical Timeline (Events Page)
+   Línea segmentada: solo entre los círculos, sin atravesarlos.
 =================================== */
 .timeline {
     position: relative;
@@ -1832,24 +1833,11 @@ section.alt-border {
     padding: 1rem 0 2.5rem;
 }
 
-/* Vertical line — positioned to separate date from content */
-.timeline::before {
-    content: '';
-    position: absolute;
-    left: 170px;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: var(--accent);
-    border-radius: 2px;
-    opacity: 0.2;
-}
-
 /* Arrow at bottom */
 .timeline::after {
     content: '';
     position: absolute;
-    left: calc(170px - 5px);
+    left: calc(160px - 5px);
     bottom: 0;
     width: 0;
     height: 0;
@@ -1868,6 +1856,42 @@ section.alt-border {
 
 .timeline-item:last-child {
     margin-bottom: 0;
+}
+
+/* Line segment above the dot — hidden on first item */
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 160px;
+    top: 0;
+    height: calc(1.2rem - 6px);
+    width: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+.timeline-item:first-child::before {
+    display: none;
+}
+
+/* Line segment below the dot — extends through the margin to next item */
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    left: 160px;
+    top: calc(1.2rem + 14px + 6px);
+    bottom: -2rem;
+    width: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+.timeline-item:last-child::after {
+    bottom: -2.5rem; /* extend through padding-bottom to reach the arrow */
 }
 
 /* Date label — left side of the line */
@@ -1902,7 +1926,7 @@ section.alt-border {
 /* Dot on the line */
 .timeline-dot {
     position: absolute;
-    left: calc(170px - 6px);
+    left: calc(160px - 6px);
     top: 1.2rem;
     width: 14px;
     height: 14px;
@@ -1921,7 +1945,6 @@ section.alt-border {
     -webkit-backdrop-filter: blur(12px);
     border-radius: 10px;
     padding: 1rem 1.25rem;
-    box-shadow: var(--glass-shadow);
     border: 1px solid var(--card-border);
 }
 
@@ -3288,10 +3311,6 @@ footer {
         max-width: 100%;
     }
 
-    .timeline::before {
-        left: calc(1rem - 1px);
-    }
-
     .timeline::after {
         left: calc(1rem - 4px);
     }
@@ -3299,6 +3318,19 @@ footer {
     .timeline-item {
         flex-direction: column;
         padding-left: 2.5rem;
+    }
+
+    .timeline-item::before,
+    .timeline-item::after {
+        left: calc(1rem - 1px);
+    }
+
+    .timeline-item::before {
+        height: calc(0.8rem - 6px);
+    }
+
+    .timeline-item::after {
+        top: calc(0.8rem + 14px + 6px);
     }
 
     .timeline-date-label {

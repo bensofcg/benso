@@ -40,6 +40,11 @@
 
 .team-sidebar-nav {
   padding-top: 0.5rem;
+  scrollbar-width: none;
+}
+
+.team-sidebar-nav::-webkit-scrollbar {
+  display: none;
 }
 
 /* Section title row with add button */
@@ -80,6 +85,84 @@
   opacity: 1;
 }
 
+/* Reports nav button */
+.sidebar-reports-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  font-size: 0.82rem;
+  border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+  text-align: left;
+}
+
+.sidebar-reports-btn:hover {
+  color: white;
+  background: rgba(255,255,255,0.08);
+}
+
+.sidebar-reports-btn.active,
+.sidebar-reports-btn:active {
+  color: white;
+  background: rgba(255,255,255,0.12);
+}
+
+/* ── Collapsible sections ── */
+.sidebar-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-section-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.sidebar-section-toggle:hover {
+  color: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.05);
+}
+
+.sidebar-section-toggle .sidebar-section-title {
+  padding: 0;
+  flex: 1;
+}
+
+.sidebar-section-toggle .sidebar-add-btn {
+  margin-left: auto;
+}
+
+.sidebar-collapse-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+}
+
+.sidebar-collapse-content.open {
+  max-height: 800px;
+}
+
+/* ── Reports (sidebar — unused, report shown in main area) ── */
+
 /* Color picker */
 .color-picker-row {
   display: flex;
@@ -115,18 +198,18 @@
   transition: background 0.2s, border-color 0.2s;
 }
 
-.team-member-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: white;
+.team-member-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
   flex-shrink: 0;
-  letter-spacing: 0.5px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.team-member-item.active .team-member-dot,
+.team-member-item:hover .team-member-dot {
+  opacity: 1;
 }
 
 .team-member-info {
@@ -293,12 +376,41 @@
   transform: rotate(2deg) scale(1.02);
 }
 
+.kanban-card-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
 .kanban-card-title {
   font-size: 0.88rem;
   font-weight: 600;
   color: #333;
   margin-bottom: 0.25rem;
   line-height: 1.3;
+  flex: 1;
+}
+
+.kanban-card-edit {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: #aaa;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+  margin-top: 1px;
+}
+
+.kanban-card-edit:hover {
+  color: var(--primary);
+  background: rgba(0, 65, 157, 0.08);
 }
 
 .kanban-card-desc {
@@ -311,13 +423,18 @@
   overflow: hidden;
 }
 
-/* Payment badge on cards */
+/* Payment tag on cards (admin only) — matches due-date style */
 .kanban-card-payment {
-  font-size: 0.85rem;
-  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 600;
   color: var(--primary);
-  margin-bottom: 0.35rem;
-  font-family: var(--font-heading);
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  background: rgba(0, 65, 157, 0.08);
+  width: fit-content;
+  margin-top: 0.5rem;
 }
 
 /* Due date badge on cards */
@@ -673,4 +790,94 @@
 
 .team-loading.login-loading {
   min-height: 100vh;
+}
+
+/* ── Report Page ── */
+.report-page {
+  padding: 1rem 0;
+  max-width: 650px;
+}
+
+.report-page-header {
+  margin-bottom: 1.5rem;
+}
+
+/* Report month tabs */
+.report-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.report-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  background: white;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.report-tab:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: #f5f8ff;
+}
+
+.report-tab.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.report-tab-badge {
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  opacity: 0.7;
+  background: rgba(255,255,255,0.2);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+
+.report-tab.active .report-tab-badge {
+  opacity: 0.9;
+}
+
+.report-page-header h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--dark);
+  font-family: var(--font-heading);
+}
+
+.report-page-subtitle {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* Report expandable rows */
+.report-row-expanded {
+  background: #f0f4ff !important;
+}
+
+.report-subtask-row td {
+  padding: 0.5rem 0.75rem !important;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.82rem;
+}
+
+.report-subtask-row:last-child td {
+  border-bottom: none;
+}
+
+.report-subtask-row:hover td {
+  background: #fafbfc;
 }

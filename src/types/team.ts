@@ -40,3 +40,18 @@ export interface Task {
 }
 
 export type TaskStatus = 'pending' | 'in_progress' | 'completed';
+
+export interface MonthlyReportTask {
+  id: number;
+  title: string;
+  payment: number;
+}
+
+export interface MonthlyReportRow {
+  member_id: number;
+  name: string;
+  color: string;
+  completed_count: number;
+  total_payment: number;
+  tasks: MonthlyReportTask[];
+}

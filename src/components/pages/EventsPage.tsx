@@ -13,6 +13,35 @@ interface RequestItem {
   type: 'servicio' | 'producto' | 'evento';
 }
 
+const MONTH_MAP: Record<string, number> = {
+  'enero': 1, 'febrero': 2, 'marzo': 3, 'abril': 4,
+  'mayo': 5, 'junio': 6, 'julio': 7, 'agosto': 8,
+  'septiembre': 9, 'octubre': 10, 'noviembre': 11, 'diciembre': 12,
+};
+
+function getDateValue(dateStr: string): number {
+  const lower = dateStr.toLowerCase();
+  const monthMatch = Object.entries(MONTH_MAP).find(([name]) => lower.includes(name));
+  const monthNum = monthMatch ? monthMatch[1] : 0;
+  const yearMatch = dateStr.match(/\b(20\d{2})\b/);
+  const year = yearMatch ? parseInt(yearMatch[1]) : 0;
+  return year * 12 + monthNum;
+}
+
+function getYear(dateStr: string): string {
+  const match = dateStr.match(/\b(20\d{2})\b/);
+  return match ? match[1] : '';
+}
+
+function getMonthLabel(dateStr: string): string {
+  const parts = dateStr.split(' - ').map(s => s.trim());
+  const labeled = parts.map(p => {
+    const key = Object.keys(MONTH_MAP).find(m => p.toLowerCase().includes(m));
+    return key ? key.charAt(0).toUpperCase() + key.slice(1) : p;
+  });
+  return labeled.join(' — ');
+}
+
 export function EventsPage() {
   const [mounted, setMounted] = useState(false);
   const { eventos, loading } = useEventos();
@@ -25,6 +54,11 @@ export function EventsPage() {
   const showLoading = !mounted || loading;
   const currentEvents = eventos.filter(e => e.status === 'En Curso');
   const upcomingEvents = eventos.filter(e => e.status === 'Proximamente');
+
+  const timelineEvents = [
+    ...currentEvents.slice().sort((a, b) => getDateValue(b.date) - getDateValue(a.date)),
+    ...upcomingEvents.slice().sort((a, b) => getDateValue(a.date) - getDateValue(b.date)),
+  ];
 
   return (
     <>
@@ -110,6 +144,36 @@ export function EventsPage() {
             ))}
           </div>
           )}
+        </div>
+      </ScrollReveal>
+      )}
+
+      {timelineEvents.length > 0 && (
+      <ScrollReveal>
+        <div className="container">
+          <div className="section-title">
+            <h2>Línea del tiempo</h2>
+          </div>
+          <div className="timeline">
+            {timelineEvents.map((event) => (
+              <div key={event.id} className="timeline-item">
+                <div className="timeline-date-label">
+                  <span className="timeline-month">{getMonthLabel(event.date)}</span>
+                  {getYear(event.date) && (
+                    <span className="timeline-year">{getYear(event.date)}</span>
+                  )}
+                </div>
+                <div className="timeline-dot" />
+                <div className="timeline-content">
+                  <h4>{event.title}</h4>
+                  <p>{event.description}</p>
+                  <span className={`timeline-status ${event.status === 'En Curso' ? 'active' : ''}`}>
+                    {event.status}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </ScrollReveal>
       )}

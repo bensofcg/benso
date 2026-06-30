@@ -11,7 +11,7 @@ export default function TeamLoginPage() {
   const { session, loading: authLoading, signIn } = useTeamAuth();
   const router = useRouter();
 
-  const [email, setEmail] = useState('');
+  const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -26,8 +26,8 @@ export default function TeamLoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!email.trim()) {
-      toast.error('Introduce tu correo electrónico');
+    if (!login.trim()) {
+      toast.error('Introduce tu usuario o correo');
       return;
     }
 
@@ -37,11 +37,18 @@ export default function TeamLoginPage() {
     }
 
     setSubmitting(true);
-    const { error } = await signIn(email, password);
+    const { error } = await signIn(login, password);
     setSubmitting(false);
 
     if (error) {
-      toast.error('Credenciales inválidas');
+      const isNetworkError = error.toLowerCase().includes('network') || error.toLowerCase().includes('fetch');
+      const isInvalid = error.toLowerCase().includes('invalid login credentials');
+      const msg = isNetworkError
+        ? 'Error de conexión'
+        : isInvalid
+          ? 'Credenciales inválidas'
+          : error;
+      toast.error(msg);
       return;
     }
 
@@ -91,13 +98,13 @@ export default function TeamLoginPage() {
 
         <form onSubmit={handleSubmit}>
           <input
-            type="email"
-            placeholder="Correo electrónico"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            placeholder="Usuario o correo"
+            value={login}
+            onChange={(e) => setLogin(e.target.value)}
             className="login-input"
-            aria-label="Correo electrónico"
-            autoComplete="email"
+            aria-label="Usuario o correo"
+            autoComplete="username"
             disabled={submitting}
           />
 

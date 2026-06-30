@@ -5,25 +5,17 @@ import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { motion } from 'motion/react';
-import TeamSidebar, { TeamMember } from './TeamSidebar';
+import TeamSidebar from './TeamSidebar';
 import { useTeamAuth } from '@/context/TeamAuthContext';
+import type { TeamMember, Task, TaskStatus, MonthlyReportRow, MonthlyReportTask } from '@/types/team';
+
+const REPORT_MONTHS = [
+  { key: '2026-05', label: 'Mayo 2026', startDate: '2026-05-01T00:00:00Z', endDate: '2026-06-01T00:00:00Z', isFake: true },
+  { key: '2026-06', label: 'Junio 2026', startDate: '2026-06-01T00:00:00Z', endDate: '2026-07-01T00:00:00Z', isFake: false },
+];
 import {
-  Plus, Loader, X, Users, ClipboardList, Calendar, Clock, AlertTriangle,
+  Plus, Loader, X, Users, ClipboardList, Calendar, Clock, AlertTriangle, Pencil, BarChart3,
 } from 'lucide-react';
-
-interface Task {
-  id: number;
-  member_id: number;
-  title: string;
-  description: string;
-  due_date: string | null;
-  payment: number;
-  status: 'pending' | 'in_progress' | 'completed';
-  position: number;
-  created_at: string;
-}
-
-type TaskStatus = 'pending' | 'in_progress' | 'completed';
 
 const STATUS_LABELS: Record<TaskStatus, string> = {
   pending: 'Pendientes',
@@ -78,6 +70,8 @@ function StatusColumn({
   isDragOver,
   onDragOver,
   onDragLeave,
+  role,
+  onEditTask,
 }: {
   status: TaskStatus;
   tasks: Task[];
@@ -86,6 +80,8 @@ function StatusColumn({
   isDragOver: boolean;
   onDragOver: (e: React.DragEvent) => void;
   onDragLeave: (e: React.DragEvent) => void;
+  role: 'admin' | 'user' | null;
+  onEditTask?: (task: Task) => void;
 }) {
   return (
     <div
@@ -128,11 +124,26 @@ function StatusColumn({
               e.currentTarget.classList.remove('dragging');
             }}
           >
-            <div className="kanban-card-title">{task.title}</div>
+            <div className="kanban-card-title-row">
+              <div className="kanban-card-title">{task.title}</div>
+              {role === 'admin' && onEditTask && (
+                <button
+                  className="kanban-card-edit"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onEditTask(task);
+                  }}
+                  title="Editar tarea"
+                  aria-label="Editar tarea"
+                >
+                  <Pencil size={12} />
+                </button>
+              )}
+            </div>
             {task.description && (
               <div className="kanban-card-desc">{task.description}</div>
             )}
-            {task.payment > 0 && (
+            {role === 'admin' && task.payment > 0 && (
               <div className="kanban-card-payment">${Number(task.payment).toLocaleString('es-CU')}</div>
             )}
             {task.due_date && (() => {
@@ -152,19 +163,89 @@ function StatusColumn({
 }
 
 // ─────────────────────────────────────────────
+// Report Row (expandable)
+// ─────────────────────────────────────────────
+
+function ReportRow({ row }: { row: MonthlyReportRow }) {
+  const [open, setOpen] = useState(false);
+  const subtaskTotal = row.tasks.reduce((s, t) => s + t.payment, 0);
+
+  return (
+    <>
+      <tr
+        onClick={() => setOpen(!open)}
+        style={{ cursor: 'pointer' }}
+        className={open ? 'report-row-expanded' : ''}
+      >
+        <td>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span
+              style={{
+                width: 8, height: 8, borderRadius: '50%',
+                backgroundColor: row.color, flexShrink: 0, display: 'inline-block',
+              }}
+            />
+            {row.name}
+            <span
+              style={{
+                marginLeft: '0.25rem',
+                fontSize: '0.65rem',
+                color: '#aaa',
+                transition: 'transform 0.2s',
+                display: 'inline-block',
+                transform: open ? 'rotate(90deg)' : 'rotate(0deg)',
+              }}
+            >
+              ▶
+            </span>
+          </span>
+        </td>
+        <td style={{ textAlign: 'center', color: '#666' }}>{row.completed_count}</td>
+        <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--primary)' }}>
+          ${Number(row.total_payment).toLocaleString('es-CU')}
+        </td>
+      </tr>
+      {open && (
+        <>
+          {row.tasks.map((task) => (
+            <tr key={task.id} className="report-subtask-row">
+              <td style={{ paddingLeft: '2.5rem', color: '#666', fontSize: '0.82rem' }}>
+                {task.title}
+              </td>
+              <td />
+              <td style={{ textAlign: 'right', color: '#888', fontSize: '0.82rem' }}>
+                {task.payment > 0 ? `$${task.payment.toLocaleString('es-CU')}` : '—'}
+              </td>
+            </tr>
+          ))}
+        </>
+      )}
+    </>
+  );
+}
+
+// ─────────────────────────────────────────────
 // Main Page
 // ─────────────────────────────────────────────
 
 export default function TeamPage() {
   const router = useRouter();
-  const { role } = useTeamAuth();
+  const { session, loading: authLoading, profile, role, signOut } = useTeamAuth();
   const [members, setMembers] = useState<TeamMember[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [activeMemberId, setActiveMemberId] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [monthlyReport, setMonthlyReport] = useState<MonthlyReportRow[]>([]);
+  const [selectedMonth, setSelectedMonth] = useState('2026-06');
+  const [view, setView] = useState<'kanban' | 'reports'>('kanban');
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [editTitle, setEditTitle] = useState('');
+  const [editDesc, setEditDesc] = useState('');
+  const [editDueDate, setEditDueDate] = useState('');
+  const [editPayment, setEditPayment] = useState('');
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [newTaskDesc, setNewTaskDesc] = useState('');
   const [newTaskDueDate, setNewTaskDueDate] = useState('');
@@ -188,9 +269,9 @@ export default function TeamPage() {
     return () => mql.removeEventListener('change', handler);
   }, []);
 
-  // Fetch members (role-aware)
+  // Fetch members (role-aware), then load report
   useEffect(() => {
-    loadMembers();
+    loadMembers().then(() => loadMonthlyReport(selectedMonth));
   }, [role]);
 
   // Fetch tasks when active member changes
@@ -269,12 +350,109 @@ export default function TeamPage() {
     setLoading(false);
   }
 
+  const FAKE_TASKS: Record<string, { title: string; payment: number }[]> = {
+    'Pablo García': [
+      { title: 'Rediseñar landing page', payment: 250 },
+      { title: 'Optimizar imágenes del sitio', payment: 120 },
+      { title: 'Corregir bug en formulario de contacto', payment: 0 },
+      { title: 'Implementar modo oscuro', payment: 180 },
+    ],
+    'Laura Díaz': [
+      { title: 'Crear mockups de la app móvil', payment: 300 },
+      { title: 'Auditar accesibilidad', payment: 0 },
+      { title: 'Sistema de diseño', payment: 400 },
+    ],
+    'Carlos Mendoza': [
+      { title: 'Planificar sprint 5', payment: 0 },
+      { title: 'Reunión con stakeholders', payment: 0 },
+      { title: 'Revisar presupuesto Q3', payment: 150 },
+    ],
+    'Ana Martínez': [
+      { title: 'Campaña redes sociales', payment: 200 },
+      { title: 'SEO del blog', payment: 80 },
+      { title: 'Newsletter semanal', payment: 60 },
+      { title: 'Analítica de tráfico', payment: 0 },
+    ],
+    'José Rodríguez': [
+      { title: 'Tests de integración', payment: 160 },
+      { title: 'Automatizar E2E', payment: 220 },
+      { title: 'Reporte de bugs', payment: 0 },
+    ],
+  };
+
+  async function loadMonthlyReport(monthKey?: string) {
+    const monthCfg = REPORT_MONTHS.find(m => m.key === (monthKey || selectedMonth)) || REPORT_MONTHS[0];
+    let report: MonthlyReportRow[] = [];
+
+    if (monthCfg.isFake) {
+      // Datos ficticios archivados
+      const { data: membersData } = await supabase.from('team_members').select('id, name, color');
+      const members = membersData || [];
+      for (const member of members) {
+        const tasks = FAKE_TASKS[member.name];
+        if (tasks) {
+          const totalPayment = tasks.reduce((s, t) => s + t.payment, 0);
+          report.push({
+            member_id: member.id,
+            name: member.name,
+            color: member.color || '#00419d',
+            completed_count: tasks.length,
+            total_payment: totalPayment,
+            tasks: tasks.map((t, i) => ({ id: -(member.id * 100 + i), title: t.title, payment: t.payment })),
+          });
+        }
+      }
+    } else {
+      // Datos reales desde la BD
+      const [tasksResult, membersResult] = await Promise.all([
+        supabase
+          .from('team_tasks')
+          .select('id, member_id, title, payment')
+          .eq('status', 'completed')
+          .gte('updated_at', monthCfg.startDate)
+          .lt('updated_at', monthCfg.endDate),
+        supabase.from('team_members').select('id, name, color'),
+      ]);
+
+      if (!tasksResult.error && !membersResult.error) {
+        const grouped = new Map<number, MonthlyReportTask[]>();
+        for (const row of tasksResult.data || []) {
+          const list = grouped.get(row.member_id) || [];
+          list.push({ id: row.id, title: row.title, payment: Number(row.payment) || 0 });
+          grouped.set(row.member_id, list);
+        }
+
+        for (const member of membersResult.data || []) {
+          const tasks = grouped.get(member.id);
+          if (tasks && tasks.length > 0) {
+            const totalPayment = tasks.reduce((s, t) => s + t.payment, 0);
+            report.push({
+              member_id: member.id,
+              name: member.name,
+              color: member.color || '#00419d',
+              completed_count: tasks.length,
+              total_payment: totalPayment,
+              tasks,
+            });
+          }
+        }
+      }
+    }
+
+    setMonthlyReport(report);
+  }
+
   const activeMember = members.find(m => m.id === activeMemberId) || null;
 
   const handleLogout = useCallback(async () => {
-    await supabase.auth.signOut();
+    try {
+      await signOut();
+    } catch {
+      // falló signOut, forzamos redirect igual
+    }
+    // Forzar navegación incluso si signOut falla o el evento tarde
     router.push('/team/login');
-  }, [router]);
+  }, [signOut, router]);
 
   // Handle drop — update task status
   const handleDrop = useCallback(async (taskId: number, newStatus: TaskStatus) => {
@@ -415,6 +593,49 @@ export default function TeamPage() {
     setActiveMemberId(data.id);
   }
 
+  const handleEditTask = useCallback((task: Task) => {
+    setEditTitle(task.title);
+    setEditDesc(task.description || '');
+    setEditDueDate(task.due_date ? formatDateInput(task.due_date) : '');
+    setEditPayment(task.payment > 0 ? String(task.payment) : '');
+    setEditingTask(task);
+  }, []);
+
+  async function handleUpdateTask() {
+    if (!editingTask) return;
+    if (!editTitle.trim()) {
+      toast.error('El título es obligatorio');
+      return;
+    }
+
+    const { error } = await supabase
+      .from('team_tasks')
+      .update({
+        title: editTitle.trim(),
+        description: editDesc.trim(),
+        due_date: editDueDate ? new Date(editDueDate).toISOString() : null,
+        payment: editPayment ? parseFloat(editPayment) : 0,
+      })
+      .eq('id', editingTask.id);
+
+    if (error) {
+      toast.error('Error: ' + error.message);
+      return;
+    }
+
+    toast.success('Tarea actualizada');
+    setEditingTask(null);
+
+    // Update local state
+    setTasks(prev =>
+      prev.map(t =>
+        t.id === editingTask.id
+          ? { ...t, title: editTitle.trim(), description: editDesc.trim(), due_date: editDueDate ? new Date(editDueDate).toISOString() : null, payment: editPayment ? parseFloat(editPayment) : 0 }
+          : t
+      )
+    );
+  }
+
   const groupedTasks = {
     pending: tasks.filter(t => t.status === 'pending'),
     in_progress: tasks.filter(t => t.status === 'in_progress'),
@@ -423,24 +644,57 @@ export default function TeamPage() {
 
   const memberColor = activeMember?.color || '#00419d';
 
+  // ── Auth guard ────────────────────────────
+  const authGuardPassed = useRef(false);
+  useEffect(() => {
+    if (authLoading) return;
+    if (!session || !profile) {
+      if (!authGuardPassed.current) {
+        authGuardPassed.current = true;
+        router.push('/team/login');
+      }
+    }
+  }, [session, profile, authLoading, router]);
+
+  if (authLoading) {
+    return (
+      <div className="team-loading" style={{ minHeight: '100vh' }}>
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}
+        >
+          <Loader size={24} />
+        </motion.div>
+        <span>Cargando sesión…</span>
+      </div>
+    );
+  }
+
+  if (!session || !profile) {
+    return null;
+  }
+
+  // ── Kanban content ────────────────────────
   return (
     <div className="team-container">
       <div className="team-layout">
         <TeamSidebar
           members={members}
           activeMemberId={activeMemberId}
-          onMemberSelect={setActiveMemberId}
+          onMemberSelect={(id) => { setView('kanban'); setActiveMemberId(id); }}
           onAddMember={() => setShowMemberModal(true)}
           isCollapsed={isCollapsed}
           onToggleCollapse={() => setIsCollapsed(!isCollapsed)}
           onRefresh={() => {
-            loadMembers();
+            loadMembers().then(() => loadMonthlyReport(selectedMonth));
             if (activeMemberId) loadTasks(activeMemberId);
           }}
           loading={loading}
           isMobile={isMobile}
           onLogout={handleLogout}
           role={role ?? 'admin'}
+          onViewReports={() => setView('reports')}
+          activeView={view}
         />
 
         <motion.div
@@ -465,7 +719,12 @@ export default function TeamPage() {
           {/* Header */}
           <div className="team-header">
             <h1>
-              {activeMember ? (
+              {view === 'reports' ? (
+                <>
+                  <BarChart3 size={22} />
+                  Reportes
+                </>
+              ) : activeMember ? (
                 <>
                   <span
                     className="team-member-header-dot"
@@ -481,7 +740,7 @@ export default function TeamPage() {
                 </>
               )}
             </h1>
-            {activeMember && role === 'admin' && (
+            {view === 'kanban' && activeMember && role === 'admin' && (
               <button
                 className="btn-add-task"
                 onClick={() => setShowCreateModal(true)}
@@ -491,9 +750,65 @@ export default function TeamPage() {
             )}
           </div>
 
-          {/* Kanban */}
+          {/* Content: Kanban or Reports */}
           <main className="team-main">
-            {loading ? (
+            {view === 'reports' ? (
+              <div className="report-page">
+
+                {/* Month tabs */}
+                <div className="report-tabs">
+                  {REPORT_MONTHS.map((m) => {
+                    const isArchived = m.isFake;
+                    return (
+                      <button
+                        key={m.key}
+                        className={`report-tab${selectedMonth === m.key ? ' active' : ''}`}
+                        onClick={() => {
+                          setSelectedMonth(m.key);
+                          loadMonthlyReport(m.key);
+                        }}
+                      >
+                        {m.label}
+                        {isArchived && <span className="report-tab-badge">Archivado</span>}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {monthlyReport.length === 0 ? (
+                  <div className="team-loading" style={{ padding: '2rem 0' }}>
+                    <BarChart3 size={32} opacity={0.3} />
+                    <span>Sin datos este mes</span>
+                  </div>
+                ) : (
+                  <div className="table-container">
+                    <table className="data-table">
+                      <thead>
+                        <tr>
+                          <th style={{ width: 'auto' }}>Miembro</th>
+                          <th style={{ width: '100px', textAlign: 'center' }}>Tareas</th>
+                          <th style={{ width: '120px', textAlign: 'right' }}>Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {monthlyReport.map((row) => (
+                          <ReportRow key={row.member_id} row={row} />
+                        ))}
+                        <tr style={{ background: '#f8f9fa', fontWeight: 700 }}>
+                          <td>Total general</td>
+                          <td style={{ textAlign: 'center' }}>
+                            {monthlyReport.reduce((s, r) => s + r.completed_count, 0)}
+                          </td>
+                          <td style={{ textAlign: 'right', color: 'var(--primary)' }}>
+                            ${monthlyReport.reduce((s, r) => s + r.total_payment, 0).toLocaleString('es-CU')}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            ) : loading ? (
               <div className="team-loading">
                 <Loader className="spin" size={28} />
                 Cargando...
@@ -515,6 +830,8 @@ export default function TeamPage() {
                     isDragOver={dragOverColumn === status}
                     onDragOver={(e) => handleDragOver(e, status)}
                     onDragLeave={(e) => handleDragLeave(e, status)}
+                    role={role}
+                    onEditTask={role === 'admin' ? handleEditTask : undefined}
                   />
                 ))}
               </div>
@@ -569,6 +886,57 @@ export default function TeamPage() {
             <div className="modal-footer">
               <button onClick={() => setShowCreateModal(false)} className="btn-cancel">Cancelar</button>
               <button onClick={handleCreateTask} className="btn-primary">Crear tarea</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Task Modal */}
+      {editingTask && (
+        <div className="modal-overlay" onClick={() => setEditingTask(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>Editar Tarea</h2>
+              <button onClick={() => setEditingTask(null)} className="btn-close">&times;</button>
+            </div>
+            <div className="modal-body">
+              <label>Título *</label>
+              <input
+                value={editTitle}
+                onChange={(e) => setEditTitle(e.target.value)}
+                placeholder="¿Qué hay que hacer?"
+                autoFocus
+                onKeyDown={(e) => e.key === 'Enter' && handleUpdateTask()}
+              />
+
+              <label>Descripción</label>
+              <textarea
+                value={editDesc}
+                onChange={(e) => setEditDesc(e.target.value)}
+                placeholder="Detalles de la tarea (opcional)"
+                rows={3}
+              />
+
+              <label>Fecha límite</label>
+              <input
+                type="datetime-local"
+                value={editDueDate}
+                onChange={(e) => setEditDueDate(e.target.value)}
+              />
+
+              <label>Monto al completar</label>
+              <input
+                type="number"
+                step="0.01"
+                min="0"
+                value={editPayment}
+                onChange={(e) => setEditPayment(e.target.value)}
+                placeholder="Ej: 500.00"
+              />
+            </div>
+            <div className="modal-footer">
+              <button onClick={() => setEditingTask(null)} className="btn-cancel">Cancelar</button>
+              <button onClick={handleUpdateTask} className="btn-primary">Guardar cambios</button>
             </div>
           </div>
         </div>

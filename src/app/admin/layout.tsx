@@ -14,7 +14,7 @@ export default function AdminLayout({
 }) {
   return (
     <>
-      <Toaster position="bottom-left" toastOptions={{ duration: 3000 }} />
+      <Toaster position="bottom-right" toastOptions={{ duration: 3000 }} />
       {children}
     </>
   );
