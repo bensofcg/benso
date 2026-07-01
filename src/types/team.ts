@@ -17,8 +17,6 @@ export interface AuthState {
 export interface TeamMember {
   id: number;
   name: string;
-  role: string;
-  color: string;
   profile_id: string | null;
   task_counts: {
     pending: number;
@@ -47,10 +45,13 @@ export interface MonthlyReportTask {
   payment: number;
 }
 
+export interface TeamProfileWithMember extends TeamProfile {
+  team_member: TeamMember | null;
+}
+
 export interface MonthlyReportRow {
   member_id: number;
   name: string;
-  color: string;
   completed_count: number;
   total_payment: number;
   tasks: MonthlyReportTask[];

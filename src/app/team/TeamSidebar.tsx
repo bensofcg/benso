@@ -1,24 +1,19 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'motion/react';
 import {
   PanelLeftClose,
   PanelLeftOpen,
   RefreshCw,
   LogOut,
-  Plus,
-  ChevronDown,
-  ChevronRight,
+  ClipboardList,
   BarChart3,
+  Users,
 } from 'lucide-react';
-import type { TeamMember } from '@/types/team';
+
+export type ViewType = 'kanban' | 'reports' | 'equipo';
 
 export interface TeamSidebarProps {
-  members: TeamMember[];
-  activeMemberId: number | null;
-  onMemberSelect: (id: number) => void;
-  onAddMember: () => void;
   isCollapsed: boolean;
   onToggleCollapse: () => void;
   onRefresh: () => void;
@@ -26,15 +21,38 @@ export interface TeamSidebarProps {
   isMobile: boolean;
   onLogout?: () => void;
   role: 'admin' | 'user';
-  onViewReports: () => void;
-  activeView: 'kanban' | 'reports';
+  activeView: ViewType;
+  onViewChange: (view: ViewType) => void;
 }
 
+interface NavItem {
+  id: ViewType;
+  label: string;
+  icon: React.ComponentType<{ size?: number }>;
+}
+
+interface NavSection {
+  title: string;
+  items: NavItem[];
+}
+
+const navSections: NavSection[] = [
+  {
+    title: 'TAREAS',
+    items: [
+      { id: 'kanban', label: 'Tareas', icon: ClipboardList },
+    ],
+  },
+  {
+    title: 'GESTIÓN',
+    items: [
+      { id: 'reports', label: 'Reportes', icon: BarChart3 },
+      { id: 'equipo', label: 'Equipo', icon: Users },
+    ],
+  },
+];
+
 export default function TeamSidebar({
-  members,
-  activeMemberId,
-  onMemberSelect,
-  onAddMember,
   isCollapsed,
   onToggleCollapse,
   onRefresh,
@@ -42,10 +60,13 @@ export default function TeamSidebar({
   isMobile,
   onLogout,
   role,
-  onViewReports,
   activeView,
+  onViewChange,
 }: TeamSidebarProps) {
-  const [membersOpen, setMembersOpen] = useState(true);
+  // Filter sections based on role — users only get TAREAS
+  const visibleSections = role === 'admin'
+    ? navSections
+    : navSections.filter((s) => s.title === 'TAREAS');
 
   return (
     <>
@@ -54,7 +75,7 @@ export default function TeamSidebar({
       )}
       <motion.aside
         className="app-sidebar team-sidebar"
-        animate={{ width: isCollapsed ? 64 : 220 }}
+        animate={{ width: isCollapsed ? 64 : 200 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
       >
         <div className="sidebar-inner">
@@ -78,114 +99,33 @@ export default function TeamSidebar({
             </button>
           </div>
 
-          {/* Navigation */}
-          <nav className="sidebar-nav team-sidebar-nav">
-            {role === 'admin' ? (
-              <>
-                {/* ── MIEMBROS ── */}
+          {/* Navigation — matching admin sidebar structure */}
+          <nav className="sidebar-nav admin-nav">
+            {visibleSections.map((section) => (
+              <div key={section.title} className="sidebar-section">
                 {!isCollapsed && (
-                  <div className="sidebar-section">
-                    <button
-                      className="sidebar-section-toggle"
-                      onClick={() => setMembersOpen(!membersOpen)}
-                    >
-                      {membersOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
-                      <span className="sidebar-section-title">MIEMBROS</span>
-                      <button
-                        className="sidebar-add-btn"
-                        onClick={(e) => { e.stopPropagation(); onAddMember(); }}
-                        title="Añadir miembro"
-                        aria-label="Añadir miembro"
-                      >
-                        <Plus size={14} />
-                      </button>
-                    </button>
-                    <div className={`sidebar-collapse-content${membersOpen ? ' open' : ''}`}>
-                      {members.map((member) => {
-                        const total = member.task_counts.pending + member.task_counts.in_progress + member.task_counts.completed;
-                        return (
-                          <button
-                            key={member.id}
-                            className={`sidebar-item team-member-item${activeMemberId === member.id && activeView === 'kanban' ? ' active' : ''}`}
-                            onClick={() => onMemberSelect(member.id)}
-                            title={member.name}
-                          >
-                            <span
-                              className="team-member-dot"
-                              style={{ backgroundColor: member.color }}
-                            />
-                            <div className="team-member-info">
-                              <span className="team-member-name">{member.name}</span>
-                            </div>
-                            <span className="badge team-member-badge">{total}</span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
+                  <span className="sidebar-section-title">{section.title}</span>
                 )}
-
-                {/* Collapsed member add button */}
-                {isCollapsed && (
-                  <button
-                    className="sidebar-item sidebar-add-btn-collapsed"
-                    onClick={onAddMember}
-                    title="Añadir miembro"
-                    aria-label="Añadir miembro"
-                  >
-                    <span className="sidebar-item-icon">
-                      <Plus size={18} />
-                    </span>
-                  </button>
-                )}
-
-                {/* ── REPORTES ── */}
-                {!isCollapsed && (
-                  <div className="sidebar-section" style={{ marginTop: '0.5rem' }}>
+                {section.items.map((item) => {
+                  const Icon = item.icon;
+                  return (
                     <button
-                      className={`sidebar-item sidebar-reports-btn${activeView === 'reports' ? ' active' : ''}`}
-                      onClick={onViewReports}
+                      key={item.id}
+                      className={`sidebar-item${activeView === item.id ? ' active' : ''}`}
+                      onClick={() => onViewChange(item.id)}
+                      title={isCollapsed ? item.label : undefined}
                     >
                       <span className="sidebar-item-icon">
-                        <BarChart3 size={16} />
+                        <Icon size={18} />
                       </span>
-                      <span className="sidebar-item-label">Reportes</span>
+                      {!isCollapsed && (
+                        <span className="sidebar-item-label">{item.label}</span>
+                      )}
                     </button>
-                  </div>
-                )}
-
-                {isCollapsed && (
-                  <button
-                    className={`sidebar-item sidebar-reports-btn${activeView === 'reports' ? ' active' : ''}`}
-                    onClick={onViewReports}
-                    title="Reportes"
-                    style={{ justifyContent: 'center', marginTop: '0.25rem' }}
-                  >
-                    <span className="sidebar-item-icon">
-                      <BarChart3 size={18} />
-                    </span>
-                  </button>
-                )}
-              </>
-            ) : (
-              /* User: solo "Tareas" */
-              !isCollapsed && (
-                <div className="sidebar-section">
-                  <span className="sidebar-section-title">TAREAS</span>
-                  <div className="sidebar-item sidebar-static-item">
-                    <span className="sidebar-item-icon">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                        <line x1="9" y1="9" x2="15" y2="9"/>
-                        <line x1="9" y1="13" x2="15" y2="13"/>
-                        <line x1="9" y1="17" x2="13" y2="17"/>
-                      </svg>
-                    </span>
-                    <span className="sidebar-item-label">Mis tareas</span>
-                  </div>
-                </div>
-              )
-            )}
+                  );
+                })}
+              </div>
+            ))}
           </nav>
 
           {/* Footer */}

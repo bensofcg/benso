@@ -20,7 +20,7 @@
 .team-content-wrapper {
   flex: 1;
   min-width: 0;
-  margin-left: 220px;
+  margin-left: 200px;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -554,24 +554,54 @@
   background: var(--primary);
 }
 
-/* ---------- Selector de miembro (mobile) ---------- */
-.team-member-select-mobile {
-  display: none;
-  padding: 0 2rem 0.75rem;
+/* ---------- Selector de miembro (chips con color) ---------- */
+.member-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
 }
 
-.team-member-select-mobile select {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 2px solid var(--border-color);
-  border-radius: 8px;
-  font-size: 0.95rem;
+.member-picker-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 100px;
+  border: 2px solid transparent;
+  background: var(--bg-secondary, #f0f2f5);
+  cursor: pointer;
+  font-size: 0.82rem;
   font-family: var(--font-main);
-  background: white;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
+  transition: all 0.15s ease;
+  color: #333;
+}
+
+.member-picker-chip:hover {
+  background: var(--bg-tertiary, #e4e7ec);
+}
+
+.member-picker-chip.active {
+  border-color: var(--primary, #00419d);
+  background: var(--primary-light, #e8f0fe);
+  font-weight: 600;
+}
+
+.member-picker-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.member-picker-name {
+  white-space: nowrap;
+}
+
+.member-picker-check {
+  font-size: 0.7rem;
+  color: var(--primary, #00419d);
+  font-weight: 700;
 }
 
 /* ---------- Modal for new task ---------- */
@@ -698,6 +728,11 @@
   background: var(--primary);
 }
 
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 /* ---------- Column Colors ---------- */
 .kanban-column.pending .kanban-column-dot {
   background: #f59e0b;
@@ -722,10 +757,6 @@
     min-height: auto;
   }
 
-  .team-content-wrapper {
-    margin-left: 64px;
-  }
-
   .team-header {
     padding: 1rem 1rem 0.5rem;
   }
@@ -736,10 +767,6 @@
 
   .team-toolbar {
     padding: 0 1rem 0.75rem;
-  }
-
-  .team-member-select-mobile {
-    display: block;
   }
 
   .team-header h1 {
@@ -758,6 +785,23 @@
 
   .kanban-board {
     grid-template-columns: 1fr;
+  }
+
+  /* Sidebar: larger touch targets on mobile (matches admin.css) */
+  .team-sidebar .sidebar-item {
+    padding: 0.75rem;
+    min-height: 44px;
+  }
+
+  .team-sidebar .sidebar-toggle {
+    padding: 0.6rem;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Sidebar footer: bigger tap targets */
+  .team-sidebar .sidebar-footer-btn {
+    min-height: 44px;
   }
 }
 
@@ -881,3 +925,350 @@
 .report-subtask-row:hover td {
   background: #fafbfc;
 }
+
+/* ===================================
+   Team Equipo View (Member Management)
+=================================== */
+
+/* ===================================
+   Team Admin View (Unified — Members + Accounts)
+=================================== */
+
+.admin-view {
+  padding: 0;
+}
+
+.admin-toolbar {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  padding: 0.75rem 1rem 0;
+}
+
+.admin-table-wrapper {
+  background: white;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th {
+  text-align: left;
+  padding: 0.85rem 1rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #888;
+  background: #fafafa;
+  border-bottom: 1px solid #eee;
+}
+
+.admin-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-dot {
+  width: 10px !important;
+  height: 10px !important;
+}
+
+.admin-name {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.role-badge.role-admin {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.role-badge.role-user {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.role-badge.role-pending {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.admin-no-account {
+  font-size: 0.8rem;
+  color: #999;
+  font-style: italic;
+}
+
+.admin-role {
+  font-size: 0.85rem;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.admin-action-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: #888;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.admin-action-btn:hover {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.admin-action-delete:hover {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+.admin-confirm-modal {
+  max-width: 400px;
+}
+
+.admin-confirm-modal .modal-body p {
+  margin: 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* ── Account cell in member table ── */
+.admin-account-cell {
+  font-size: 0.85rem;
+}
+
+.admin-linked-account {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #333;
+}
+
+.admin-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.6rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  background: #f0f5ff;
+  color: var(--primary);
+  transition: all 0.15s;
+}
+
+.admin-link-btn:hover {
+  background: #dce6f5;
+}
+
+.admin-unlink-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: transparent;
+  color: #aaa;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.admin-unlink-btn:hover {
+  color: #d32f2f;
+  background: #ffebee;
+}
+
+/* ── Profiles section ── */
+.admin-profiles-section {
+  margin-top: 1rem;
+}
+
+.admin-section-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #444;
+  margin: 0 0 0.75rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.admin-email {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  color: #333;
+}
+
+.admin-linked-member {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #333;
+}
+
+.admin-link-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.admin-link-controls select {
+  padding: 0.35rem 0.5rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-family: var(--font-main);
+}
+
+.admin-link-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.6rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: #f0f5ff;
+  color: var(--primary);
+}
+
+.admin-link-action:hover {
+  background: #dce6f5;
+}
+
+.admin-link-action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.admin-cancel {
+  background: #f0f0f0;
+  color: #666;
+}
+
+.admin-cancel:hover {
+  background: #e0e0e0;
+}
+
+/* ── Invite role selector ── */
+.invite-role-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.invite-role-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+  font-family: var(--font-main);
+}
+
+.invite-role-btn:hover {
+  border-color: var(--primary-light, #4a7dff);
+  background: #f8faff;
+}
+
+.invite-role-btn.active {
+  border-color: var(--primary);
+  background: #f0f5ff;
+}
+
+.invite-role-btn span {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.invite-role-btn strong {
+  font-size: 0.9rem;
+  color: #222;
+}
+
+.invite-role-btn small {
+  font-size: 0.78rem;
+  color: #777;
+}
+
+.invite-role-btn svg {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+/* ── Admin date cell ── */
+.admin-date {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+/* ── Role badge for admin ── */
+.role-admin {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+/* ── Add member form ── */
+.invite-link-section {
+  text-align: left;
+  padding: 0.5rem 0;
+}
+
+.invite-divider {
+  border: none;
+  border-top: 1px solid var(--border-color, #e0e0e0);
+  margin: 1.25rem 0;
+}
+
+
+
+

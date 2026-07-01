@@ -17,6 +17,14 @@ export interface TeamAuthContextValue {
 
 export const TeamAuthContext = createContext<TeamAuthContextValue | undefined>(undefined);
 
+/** Guarda el user en userStorage para que __loadSession() no cree un proxy */
+function saveUserToStorage(user: User) {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem('supabase.auth.token-user', JSON.stringify({ user }));
+  } catch { /* storage lleno o deshabilitado */ }
+}
+
 export function TeamAuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<TeamProfile | null>(null);
@@ -25,20 +33,54 @@ export function TeamAuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     let mounted = true;
 
+    // Timeout de seguridad — si auth se cuelga (sesión inválida), forza stop del loading
+    const safetyTimeout = setTimeout(() => {
+      if (mounted) setLoading(false);
+    }, 5000);
+
     async function init() {
-      const currentSession = await getSession();
-      if (!mounted) return;
+      try {
+        const currentSession = await getSession();
+        if (!mounted) return;
 
-      if (currentSession) {
-        setSession(currentSession);
-        const currentProfile = await getCurrentProfile();
-        if (mounted) {
-          setProfile(currentProfile);
+        if (currentSession) {
+          // Cacheamos el token de acceso para evitar que supabase.from().select()
+          // se cuelgue llamando a getSession() → initializePromise colgado
+          ;(supabase as any).accessToken = async () => currentSession.access_token ?? null;
+
+          // Si el usuario es proxy, intentamos resolverlo con getUser() y
+          // guardarlo en userStorage para que __loadSession() no lo recreé
+          if ((currentSession.user as any)?.__isUserNotAvailableProxy === true) {
+            try {
+              const { data: { user } } = await supabase.auth.getUser();
+              if (user) {
+                currentSession.user = user;
+                saveUserToStorage(user);
+              }
+            } catch { /* getUser falló, usamos proxy */ }
+          } else if (currentSession.user) {
+            // Ya tenemos usuario real — aseguramos que esté en userStorage
+            saveUserToStorage(currentSession.user);
+          }
+
+          setSession(currentSession);
+          const currentProfile = await getCurrentProfile();
+          if (mounted) {
+            if (!currentProfile) {
+              // Sesión inválida/stale — usuario fue borrado o recreado
+              await authSignOut().catch(() => {});
+              setSession(null);
+            }
+            setProfile(currentProfile);
+          }
         }
-      }
-
-      if (mounted) {
-        setLoading(false);
+      } catch (e) {
+        console.error('Auth init error:', e);
+      } finally {
+        if (mounted) {
+          setLoading(false);
+          clearTimeout(safetyTimeout);
+        }
       }
     }
 
@@ -48,9 +90,15 @@ export function TeamAuthProvider({ children }: { children: ReactNode }) {
       if (!mounted) return;
 
       if (event === 'SIGNED_OUT') {
+        ;(supabase as any).accessToken = undefined;
         setSession(null);
         setProfile(null);
       } else if (event === 'TOKEN_REFRESHED' || event === 'SIGNED_IN') {
+        if (newSession) {
+          ;(supabase as any).accessToken = async () => newSession.access_token ?? null;
+          // Guardar user real en userStorage para evitar proxy en __loadSession()
+          if (newSession.user) saveUserToStorage(newSession.user);
+        }
         setSession(newSession);
         if (newSession) {
           const currentProfile = await getCurrentProfile();

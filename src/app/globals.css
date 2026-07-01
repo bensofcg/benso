@@ -1289,6 +1289,87 @@ section.alt-border {
     100% { background-position: -200% 0; }
 }
 
+/* Team Skeleton Styles — matches kanban card and admin table layout */
+
+.skeleton-team-card-title {
+    height: 18px;
+    width: 80%;
+    margin-bottom: 0.5rem;
+}
+
+.skeleton-team-column-title {
+    height: 20px;
+    width: 60%;
+    border-radius: 4px;
+}
+
+.skeleton-team-column-count {
+    width: 28px;
+    height: 24px;
+    border-radius: 12px;
+}
+
+.skeleton-team-name {
+    height: 18px;
+    width: 120px;
+}
+
+.skeleton-team-email {
+    height: 16px;
+    width: 160px;
+}
+
+.skeleton-team-badge {
+    height: 22px;
+    width: 70px;
+    border-radius: 12px;
+}
+
+/* Override for kanban columns during skeleton — keep column visible */
+.kanban-column.skeleton-card {
+    background: transparent;
+    pointer-events: none;
+}
+
+.kanban-column.skeleton-card .kanban-column-header {
+    margin-bottom: 0.75rem;
+}
+
+.kanban-column.skeleton-card .kanban-column-header .skeleton-line {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+}
+
+.kanban-column.skeleton-card .kanban-cards {
+    gap: 0.5rem;
+}
+
+.kanban-column.skeleton-card .kanban-card.skeleton-card {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+    border-radius: 8px;
+    min-height: 80px;
+}
+
+/* Admin table skeleton rows */
+.admin-table-wrapper.skeleton-card {
+    pointer-events: none;
+}
+
+.admin-table-wrapper.skeleton-card tbody td {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+}
+
+.admin-table-wrapper.skeleton-card tbody td .skeleton-line,
+.admin-table-wrapper.skeleton-card tbody td .skeleton-icon {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+}
+
 .service-card .category-tag {
     background: transparent;
     color: var(--primary);
